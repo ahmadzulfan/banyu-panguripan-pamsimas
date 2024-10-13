@@ -22,8 +22,9 @@ class GetAjax extends BaseController
 
     public function getDataTagiahanById()
     {
+        $customerId = $this->request->getPost('id');
         $model = new MeterAir();
-        $tagihan = $model->where('pelanggan_id', $this->request->getPost('id'))->first();
+        $tagihan = $model->getLatestMeter($customerId);
         echo json_encode($tagihan);
     }
 

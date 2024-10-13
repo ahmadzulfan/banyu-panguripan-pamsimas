@@ -18,7 +18,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="pelanggan">Pelanggan</label>
-                                    <select id="pelanggan" name="pelanggan" class="choices form-select">
+                                    <select id="pelanggan" name="pelanggan" class="choices form-select" required>
+                                        <option value="">Cari pelanggan</option>
                                         <?php foreach ($pelanggan as $key => $value) : ?>
                                             <option value="<?= $value['id'] ?>"><?= $value['nama'] ?></option>
                                         <?php endforeach; ?>
