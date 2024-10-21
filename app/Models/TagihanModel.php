@@ -11,10 +11,7 @@ class TagihanModel extends Model
 
     protected $useAutoIncrement = true;
 
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-    
-    protected $allowedFields = ['pelanggan_id',	'bulan',	'tahun',	'jumlah_pemakaian',	'total_tagihan','status'];
+    protected $allowedFields = ['pelanggan_id', 'bulan', 'tahun', 'jumlah_pemakaian', 'total_tagihan', 'status'];
 
     public function pelanggan()
     {

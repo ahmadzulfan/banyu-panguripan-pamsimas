@@ -1,14 +1,24 @@
 <?= $this->extend('template/dashboard-admin2'); ?>
 <?= $this->section('app') ?>
+<?php
+    helper('form');
+?>
     <div class="content-wrapper">
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
-                <div class="card">
-                <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                    <div class="alert alert-danger mb-2" role="alert">
-                    <?= session()->getFlashdata('error') ?>
+                <?php if (!empty(validation_list_errors())) : ?>
+                    <div class="alert alert-danger alert-dismissible show fade">
+                        <span class="fw-bold">Gagal, </span> harap masukan informasi yang diperlukan
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php endif; ?>
+                <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                    <div class="alert alert-danger alert-dismissible show fade">
+                        <span class="fw-bold">Gagal, </span><?= session()->getFlashdata('error') ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+                <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Form Input Tagihan</h4>
                             <form method="post">
@@ -17,20 +27,26 @@
                                     <input id="bulan" type="date" class="form-control" name="bulan" placeholder="bulan" value="<?= date('Y-m-d') ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label for="pelanggan">Pelanggan</label>
-                                    <select id="pelanggan" name="pelanggan" class="choices form-select" required>
+                                    <label for="pelanggan_id">Pelanggan</label>
+                                    <small class="text-danger m-0">*<?= validation_show_error('pelanggan_id') ?></small>
+                                    <select id="pelanggan_id" name="pelanggan_id" class="choices form-select m-0">
                                         <option value="">Cari pelanggan</option>
                                         <?php foreach ($pelanggan as $key => $value) : ?>
-                                            <option value="<?= $value['id'] ?>"><?= $value['nama'] ?></option>
+                                            <?php if ($value['id'] != old('pelanggan_id')) : ?>
+                                                <option value="<?= $value['id'] ?>"><?= $value['nama'] ?></option>
+                                            <?php else: ?>
+                                                <option value="<?= $value['id'] ?>" selected><?= $value['nama'] ?></option>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="pemakaian_bulan_lalu">Pemakaian Bulan Lalu</label>
-                                    <input id="pemakaian_bulan_lalu" type="number" class="form-control" name="pemakaian_bulan_lalu" placeholder="pemakaian_bulan_lalu" readonly>
+                                    <input id="pemakaian_bulan_lalu" type="number" class="form-control" name="pemakaian_bulan_lalu" placeholder="pemakaian_bulan_lalu" value="<?= old('pemakaian_bulan_lalu') ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="pemakaian_bulan_ini">Pemakaian Bulan ini</label>
+                                    <small class="text-danger">*<?= validation_show_error('pemakaian_bulan_ini') ?></small>
                                     <input id="pemakaian_bulan_ini" type="number" class="form-control" name="pemakaian_bulan_ini" placeholder="pemakaian_bulan_ini">
                                 </div>
                                 <div class="form-group">
@@ -52,8 +68,7 @@
                                     <input id="total_tagihan" type="hidden" class="form-control" name="total_tagihan" placeholder="total_tagihan">
                                     <input id="total_tagihan_tampil" type="text" class="form-control" name="total_tagihan_tampil" placeholder="total_tagihan" readonly>
                                 </div>
-                                <button type="save" class="btn btn-primary me-2">Submit</button>
-                                <button class="btn btn-light">Cancel</button>
+                                <button type="submit" class="btn btn-primary me-2">Submit</button>
                             </form>
                     </div>
                 </div>
@@ -63,7 +78,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script>
 
-    $(document).on('change', '#pelanggan', function(e) {
+    $(document).on('change', '#pelanggan_id', function(e) {
         const id_tagihan = $(this).val();
 
         $.ajax({

@@ -254,7 +254,7 @@
                     datas.forEach((data, i) => {
                         html += `<tr>
                                     <th scope="row">${i+1}</th>
-                                    <td>${months[parseInt(data.bulan)]}</td>
+                                    <td>${months[parseInt(data.bulan) - 1]}</td>
                                     <td>Rp${numberFormat(parseInt(data.total_tagihan))}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm" onclick="bayarPelunasan()">  

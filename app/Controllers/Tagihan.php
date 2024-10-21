@@ -10,72 +10,84 @@ use App\Models\TagihanModel;
 
 class Tagihan extends BaseController
 {
+    private $session, $tagihanModel, $meterAirModel, $pembayaranModel, $pelangganModel, $feeModel;
+    function __construct()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $this->session = service('session');
+        $this->pelangganModel = new Pelanggan();
+        $this->tagihanModel = new TagihanModel();
+        $this->pembayaranModel = new Pembayaran();
+        $this->feeModel = new BiayaPemeliharaan();
+        $this->meterAirModel = new MeterAir();
+    } 
+
     public function index(): string
     {
-        $model = new TagihanModel();
-        $data['tagihan'] = $model->pelanggan();
+        $data['tagihan'] = $this->tagihanModel->pelanggan();
         return view('administrasi/data-tagihan/index', $data);
     }
 
     public function tambah()
     {
-        $model = new Pelanggan();
-        $modelBiaya = new BiayaPemeliharaan();
-        $data['pelanggan'] = $model->findAll();
-        $data['biaya'] = $modelBiaya->first();
+        $data['pelanggan'] = $this->pelangganModel->findAll();
+        $data['biaya'] = $this->feeModel->first();
         return view('administrasi/data-tagihan/tambah', $data);
     }
 
     public function create()
     {
+        $validation = service('validation');
         $session = session();
-
-        $modelTagihan = new TagihanModel();
-
-        $modelMeter = new MeterAir();
-
         $post = $this->request->getPost();
-
+        $bulanName = date('M', strtotime($post['bulan']));
         $bulan = date('m', strtotime($post['bulan']));
-
         $tahun = date('Y', strtotime($post['bulan']));
+        $pelangganId = $post['pelanggan_id'];
 
-        $dataTagihan = $modelTagihan->where('pelanggan_id', $post['pelanggan'])->where('bulan', $bulan)->where('tahun', $tahun)->first();
-
-        if ($dataTagihan) {
-            $session->setFlashdata('error', 'Sudah ada data tagihan!!!');
-            return redirect()->back();
+        if (!$validation->run($post, 'createTagihan')) {
+            return redirect()->back()->withInput()->with('errors', $validation->listErrors());
         }
 
+        $dataTagihan = $this->tagihanModel->where('pelanggan_id', $pelangganId)->where('bulan', $bulan)->where('tahun', $tahun)->first();
+
+        if ($dataTagihan) {
+            $session->setFlashdata('error', 'data tagihan bulan '.$bulanName.' untuk pelanggan id '.$pelangganId.' sudah ada.');
+            return redirect()->back()->withInput();
+        }
+
+        $jumlahPemakaian = $post['total_pemakaian'];
+
         $data = [
-            'pelanggan_id' => $post['pelanggan'],	
+            'pelanggan_id' => $pelangganId,	
             'bulan' => $bulan,	
             'tahun' => $tahun,	
-            'jumlah_pemakaian' => $post['total_pemakaian'],	
+            'jumlah_pemakaian' => $jumlahPemakaian,	
             'total_tagihan' => $post['total_tagihan'],
             'status' => 'belum_dibayar',
         ];
 
-        $modelTagihan->save($data);
+        $this->tagihanModel->save($data);
+
+        $currentTagihanID = $this->tagihanModel->insertID; 
 
         $data = [
-            'pelanggan_id' => $post['pelanggan'],	
-            'bulan' => $bulan,	
+            'pelanggan_id' => $pelangganId,	
+            'tagihan_id' => $currentTagihanID,
+            'bulan' => $bulan,
             'tahun' => $tahun, 
             'pembacaan_awal' => $post['pemakaian_bulan_lalu'],	
             'pembacaan_akhir' => $post['pemakaian_bulan_ini'],
         ];
 
-        $modelMeter->save($data);
+        $this->meterAirModel->save($data);
         
         return redirect()->to('data-tagihan');
     }
 
     public function delete($id)
     {
-        $model = new TagihanModel();
-
-        $model->where('id', $id)->delete();
+        $this->tagihanModel->where('id', $id)->delete();
 
         echo json_encode(['status' => true]);
 
@@ -83,13 +95,10 @@ class Tagihan extends BaseController
 
     public function bayar($id)
     {
-        date_default_timezone_set('Asia/Jakarta');
-        $model = new TagihanModel();
-        $model2 = new Pembayaran();
 
-        $model->where('id', $id)->set('status', 'dibayar')->update();
+        $this->tagihanModel->where('id', $id)->set('status', 'dibayar')->update();
 
-        $dataTagihan = $model->find($id);
+        $dataTagihan = $this->tagihanModel->find($id);
 
         $data = [
             'tagihan_id' => $dataTagihan['id'],	
@@ -98,22 +107,18 @@ class Tagihan extends BaseController
             'jumlah_dibayar' => $dataTagihan['total_tagihan'],	
         ];
 
-        $model2->save($data);
+        $this->pembayaranModel->save($data);
         
         return redirect()->to('data-tagihan');
     }
 
     public function bayarDebt()
     {
-        date_default_timezone_set('Asia/Jakarta');
         $id = $this->request->getPost('pelanggan_id');
 
-        $model = new TagihanModel();
-        $model2 = new Pembayaran();
+        $this->tagihanModel->where('id', $id)->set('status', 'dibayar')->update();
 
-        $model->where('id', $id)->set('status', 'dibayar')->update();
-
-        $dataTagihan = $model->find($id);
+        $dataTagihan = $this->tagihanModel->find($id);
 
         $data = [
             'tagihan_id' => $dataTagihan['id'],	
@@ -122,7 +127,7 @@ class Tagihan extends BaseController
             'jumlah_dibayar' => $dataTagihan['total_tagihan'],	
         ];
 
-        $model2->save($data);
+        $this->pembayaranModel->save($data);
         
         return redirect()->to('data-tagihan');
     }

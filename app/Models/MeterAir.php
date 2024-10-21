@@ -11,10 +11,10 @@ class MeterAir extends Model
 
     protected $useAutoIncrement = true;
     
-    protected $allowedFields = ['pelanggan_id',	'bulan',	'tahun', 'pembacaan_awal',	'pembacaan_akhir'];
+    protected $allowedFields = ['pelanggan_id', 'tagihan_id', 'pembacaan_awal', 'pembacaan_akhir'];
 
     public function getLatestMeter($customerId)
     {
-        return $this->where('pelanggan_id', $customerId)->orderBy('bulan', 'desc')->first();
+        return $this->where('pelanggan_id', $customerId)->orderBy('pembacaan_akhir', 'desc')->first();
     }
 }

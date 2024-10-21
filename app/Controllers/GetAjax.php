@@ -9,13 +9,14 @@ class GetAjax extends BaseController
 {
     public function getAllDataTagiahanByPelangganId()
     {
-        $model = new TagihanModel();
         $pelanggaId = $this->request->getPost('pelanggan_id');
         $tagihanId = $this->request->getPost('tagihan_id');
+        $model = new TagihanModel();
         $tagihan = $model->select('id, bulan, total_tagihan')
                         ->where('pelanggan_id', $pelanggaId)
                         ->where('status', 'belum_dibayar')
                         ->whereNotIn('id', [$tagihanId])
+                        ->orderBy('bulan', 'asc')
                         ->findAll();
         echo json_encode($tagihan);
     }
