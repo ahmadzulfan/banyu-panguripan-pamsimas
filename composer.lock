@@ -868,6 +868,7 @@
         },
         {
             "name": "phpunit/phpunit",
+<<<<<<< HEAD
             "version": "10.5.37",
             "source": {
                 "type": "git",
@@ -878,6 +879,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c7cffa0efa2b70c22366523e6d804c9419eb2400",
                 "reference": "c7cffa0efa2b70c22366523e6d804c9419eb2400",
+=======
+            "version": "10.5.36",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpunit.git",
+                "reference": "aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870",
+                "reference": "aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870",
+>>>>>>> 21ebfe82f2797329e2eb78fad1e5d2cdd497dd2e
                 "shasum": ""
             },
             "require": {
@@ -898,7 +911,11 @@
                 "phpunit/php-timer": "^6.0.0",
                 "sebastian/cli-parser": "^2.0.1",
                 "sebastian/code-unit": "^2.0.0",
+<<<<<<< HEAD
                 "sebastian/comparator": "^5.0.3",
+=======
+                "sebastian/comparator": "^5.0.2",
+>>>>>>> 21ebfe82f2797329e2eb78fad1e5d2cdd497dd2e
                 "sebastian/diff": "^5.1.1",
                 "sebastian/environment": "^6.1.0",
                 "sebastian/exporter": "^5.1.2",
@@ -949,7 +966,11 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
+<<<<<<< HEAD
                 "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.37"
+=======
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.36"
+>>>>>>> 21ebfe82f2797329e2eb78fad1e5d2cdd497dd2e
             },
             "funding": [
                 {
@@ -965,7 +986,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-10-19T13:03:41+00:00"
+=======
+            "time": "2024-10-08T15:36:51+00:00"
+>>>>>>> 21ebfe82f2797329e2eb78fad1e5d2cdd497dd2e
         },
         {
             "name": "psr/container",
@@ -1190,6 +1215,7 @@
         },
         {
             "name": "sebastian/comparator",
+<<<<<<< HEAD
             "version": "5.0.3",
             "source": {
                 "type": "git",
@@ -1200,6 +1226,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/a18251eb0b7a2dcd2f7aa3d6078b18545ef0558e",
                 "reference": "a18251eb0b7a2dcd2f7aa3d6078b18545ef0558e",
+=======
+            "version": "5.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/comparator.git",
+                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53",
+                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53",
+>>>>>>> 21ebfe82f2797329e2eb78fad1e5d2cdd497dd2e
                 "shasum": ""
             },
             "require": {
@@ -1210,7 +1248,11 @@
                 "sebastian/exporter": "^5.0"
             },
             "require-dev": {
+<<<<<<< HEAD
                 "phpunit/phpunit": "^10.5"
+=======
+                "phpunit/phpunit": "^10.4"
+>>>>>>> 21ebfe82f2797329e2eb78fad1e5d2cdd497dd2e
             },
             "type": "library",
             "extra": {
@@ -1255,7 +1297,11 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
                 "security": "https://github.com/sebastianbergmann/comparator/security/policy",
+<<<<<<< HEAD
                 "source": "https://github.com/sebastianbergmann/comparator/tree/5.0.3"
+=======
+                "source": "https://github.com/sebastianbergmann/comparator/tree/5.0.2"
+>>>>>>> 21ebfe82f2797329e2eb78fad1e5d2cdd497dd2e
             },
             "funding": [
                 {
@@ -1263,7 +1309,11 @@
                     "type": "github"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-10-18T14:56:07+00:00"
+=======
+            "time": "2024-08-12T06:03:08+00:00"
+>>>>>>> 21ebfe82f2797329e2eb78fad1e5d2cdd497dd2e
         },
         {
             "name": "sebastian/complexity",
