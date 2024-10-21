@@ -29,6 +29,7 @@ $routes->post('/data-tagihan/bayar/(:segment)', 'Tagihan::bayar/$1');
 $routes->post('/data-tagihan/bayar-debt', 'Tagihan::bayarDept');
 
 $routes->get('/data-keuangan', 'Keuangan::index');
+$routes->get('/data-laporan', 'Laporan::index');
 // AJAX DATA
 $routes->post('/ajax/data-tagihan', 'GetAjax::getDataTagiahanById');
 $routes->post('/ajax/data-tagihan/getbyidpelanggan', 'GetAjax::getAllDataTagiahanByPelangganId');
