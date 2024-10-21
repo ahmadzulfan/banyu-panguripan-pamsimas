@@ -25,8 +25,9 @@ $routes->get('/data-tagihan', 'Tagihan::index');
 $routes->get('/data-tagihan/tambah', 'Tagihan::tambah');
 $routes->post('/data-tagihan/tambah', 'Tagihan::create');
 $routes->post('/data-tagihan/delete/(:segment)', 'Tagihan::delete/$1');
-$routes->post('/data-tagihan/bayar/(:segment)', 'Tagihan::bayar/$1');
-$routes->post('/data-tagihan/bayar-debt', 'Tagihan::bayarDept');
+
+$routes->post('/data-tagihan/bayar/(:segment)', 'PembayaranController::bayar/$1');
+$routes->post('/data-tagihan/bayar-debt', 'PembayaranController::bayarDept');
 
 $routes->get('/data-keuangan', 'Keuangan::index');
 $routes->get('/data-laporan', 'Laporan::index');

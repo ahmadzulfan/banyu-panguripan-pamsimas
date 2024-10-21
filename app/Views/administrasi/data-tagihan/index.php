@@ -227,6 +227,39 @@
         });
     }
 
+    function bayarPelunasan(id)
+    {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Apakah anda yakin ingin melunasi tagihan ini!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url() ?>data-tagihan/bayar/"+id,
+                    success: function(result){
+                        Swal.fire({
+                            allowOutsideClick: false,
+                            title: "Pembayaran Berhasil!",
+                            text: "Tagihan berhasil di lunasi.",
+                            icon: "success"
+                        }).then((result) => {
+                            if (result.isConfirmed) location.reload();
+                        });
+                    },
+                    error:function(err){
+                        alert(err)
+                    }
+                })
+            }
+        });
+    }
+
     function getAllTagihanByPelangganId(pelanggan_id, tagihan_id)
     {
         let html = `<h4>Daftar Tagihan Sebelumnya</h2>
@@ -257,7 +290,7 @@
                                     <td>${months[parseInt(data.bulan) - 1]}</td>
                                     <td>Rp${numberFormat(parseInt(data.total_tagihan))}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="bayarPelunasan()">  
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="bayarPelunasan(${data.id})">  
                                             <i class="bi bi-credit-card"></i>
                                         </button> 
                                     </td>

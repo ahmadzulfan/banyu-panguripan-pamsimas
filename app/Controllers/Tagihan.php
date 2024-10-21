@@ -5,19 +5,16 @@ namespace App\Controllers;
 use App\Models\BiayaPemeliharaan;
 use App\Models\MeterAir;
 use App\Models\Pelanggan;
-use App\Models\Pembayaran;
 use App\Models\TagihanModel;
 
 class Tagihan extends BaseController
 {
-    private $session, $tagihanModel, $meterAirModel, $pembayaranModel, $pelangganModel, $feeModel;
+    private $tagihanModel, $meterAirModel, $pelangganModel, $feeModel;
     function __construct()
     {
         date_default_timezone_set('Asia/Jakarta');
-        $this->session = service('session');
         $this->pelangganModel = new Pelanggan();
         $this->tagihanModel = new TagihanModel();
-        $this->pembayaranModel = new Pembayaran();
         $this->feeModel = new BiayaPemeliharaan();
         $this->meterAirModel = new MeterAir();
     } 
@@ -93,42 +90,4 @@ class Tagihan extends BaseController
 
     }
 
-    public function bayar($id)
-    {
-
-        $this->tagihanModel->where('id', $id)->set('status', 'dibayar')->update();
-
-        $dataTagihan = $this->tagihanModel->find($id);
-
-        $data = [
-            'tagihan_id' => $dataTagihan['id'],	
-            'pelanggan_id' => $dataTagihan['pelanggan_id'],	
-            'tanggal_pembayaran' => date("Y-m-d"),	
-            'jumlah_dibayar' => $dataTagihan['total_tagihan'],	
-        ];
-
-        $this->pembayaranModel->save($data);
-        
-        return redirect()->to('data-tagihan');
-    }
-
-    public function bayarDebt()
-    {
-        $id = $this->request->getPost('pelanggan_id');
-
-        $this->tagihanModel->where('id', $id)->set('status', 'dibayar')->update();
-
-        $dataTagihan = $this->tagihanModel->find($id);
-
-        $data = [
-            'tagihan_id' => $dataTagihan['id'],	
-            'pelanggan_id' => $dataTagihan['pelanggan_id'],	
-            'tanggal_pembayaran' => date("Y-m-d"),	
-            'jumlah_dibayar' => $dataTagihan['total_tagihan'],	
-        ];
-
-        $this->pembayaranModel->save($data);
-        
-        return redirect()->to('data-tagihan');
-    }
 }

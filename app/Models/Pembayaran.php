@@ -10,15 +10,14 @@ class Pembayaran extends Model
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
     
-    protected $allowedFields = ['pelanggan_id',	'tagihan_id', 'tanggal_pembayaran',	'jumlah_dibayar', 'status'];
+    protected $allowedFields = ['tagihan_id', 'tanggal_pembayaran',	'jumlah_dibayar', 'status'];
 
     public function pelanggan($filter)
     {
-        return $this->select('*')->join('pelanggan', 'pembayaran.pelanggan_id = pelanggan.id')
+        return $this->select('*')
+                    ->join('tagihan', 'pembayaran.tagihan_id = tagihan.id')
+                    ->join('pelanggan', 'tagihan.pelanggan_id = pelanggan.id')
                     ->where('MONTH(tanggal_pembayaran)', $filter['month'])
                     ->where('YEAR(tanggal_pembayaran)', $filter['year'])
                     ->findAll();
