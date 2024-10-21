@@ -1,11 +1,65 @@
 <?= $this->extend('template/dashboard-admin2.php') ?>
 <?= $this->section('app') ?>
-
-    <?php
-        $months = array (1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mai',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
-    ?>
+<?php
+	$lblmonths = date('m');
+	$lbyears = date('Y');
+    $months = array (1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mai',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
+	if (!empty($_REQUEST['month']) && !empty($_REQUEST['year'])) {
+		$lblmonths = $_REQUEST['month'];
+		$lbyears = $_REQUEST['year'];
+	}
+?>
     <div class="content-wrapper">
         <div class="row">
+        <div class="col-12">
+				<div class="card text-center">
+					<div class="card-body">
+						<form action="" method="GET">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group has-icon-left">
+										<label for="month">Bulan:</label>
+										<div class="position-relative">
+											<select name="month" id="month" class="form-control">
+												<?php foreach ($months as $key => $month) : ?>
+													<option value="<?= $key ?>" <?php if ($key == $lblmonths) {
+														echo 'selected';
+													} ?>><?= $month ?></option>
+												<?php endforeach; ?>
+											</select>
+											<div class="form-control-icon">
+												<i class="bi bi-calendar2-fill"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group has-icon-left">
+										<label for="year">Tahun:</label>
+										<div class="position-relative">
+											<select name="year" id="year" class="form-control">
+												<?php for ($i=2024; $i<=date('Y'); $i++) : ?>
+													<option value="<?= $i ?>" <?php if ($i == $lbyears) {
+														echo 'selected';
+													} ?>><?= $i ?></option>
+												<?php endfor; ?>
+											</select>
+											<div class="form-control-icon">
+												<i class="bi bi-calendar2-fill"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<button type="submit" class="btn btn-primary px-5">Filter</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">

@@ -15,7 +15,7 @@ class TagihanModel extends Model
 
     public function pelanggan()
     {
-        return $this->select('*, tagihan.id as id_tagihan, pelanggan.id as pelanggan_id')->join('pelanggan', 'tagihan.pelanggan_id = pelanggan.id')->findAll();
+        return $this->select('*, tagihan.id as id_tagihan, pelanggan.id as pelanggan_id')->join('pelanggan', 'tagihan.pelanggan_id = pelanggan.id');
     }
 
     public function statusTagihan($month, $year)
@@ -23,5 +23,11 @@ class TagihanModel extends Model
         return $this->select('COUNT(CASE WHEN tagihan.status = "dibayar" THEN 1 END) as dibayar, COUNT(CASE WHEN tagihan.status = "belum_dibayar" THEN 1 END) as belum_dibayar', FALSE)
                     ->where('bulan', $month)
                     ->where('tahun', $year)->first();
+    }
+
+    public function filterData($filter)
+    {
+        return $this->pelanggan()->where('bulan', $filter['month'])
+                    ->where('tahun', $filter['year'])->findAll();
     }
 }

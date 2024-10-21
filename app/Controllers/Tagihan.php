@@ -19,9 +19,25 @@ class Tagihan extends BaseController
         $this->meterAirModel = new MeterAir();
     } 
 
-    public function index(): string
+    public function index()
     {
-        $data['tagihan'] = $this->tagihanModel->pelanggan();
+        
+        $filterMonth = $this->request->getVar('month');
+        $filterYear = $this->request->getVar('year');
+
+        if (!$filterMonth && !$filterYear) {
+            $filterMonth = date('m');
+            $filterYear = date('Y');
+        }
+
+        $filter = [
+            "month" => $filterMonth,
+            "year"  => $filterYear
+        ];
+
+        $filteredData = $this->tagihanModel->filterData($filter);
+
+        $data['tagihan'] = $filteredData;
         return view('administrasi/data-tagihan/index', $data);
     }
 
