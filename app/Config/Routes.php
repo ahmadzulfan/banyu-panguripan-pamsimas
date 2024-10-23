@@ -31,6 +31,9 @@ $routes->post('/data-tagihan/bayar-debt', 'PembayaranController::bayarDept');
 
 $routes->get('/data-keuangan', 'Keuangan::index');
 $routes->get('/data-laporan', 'Laporan::index');
+
+// PDF GENERATE
+$routes->get('/data-keuangan/pdf/generate', 'PdfController::generate');
 // AJAX DATA
 $routes->post('/ajax/data-tagihan', 'GetAjax::getDataTagiahanById');
 $routes->post('/ajax/data-tagihan/getbyidpelanggan', 'GetAjax::getAllDataTagiahanByPelangganId');

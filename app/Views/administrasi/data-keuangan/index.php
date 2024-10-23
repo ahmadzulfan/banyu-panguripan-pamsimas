@@ -165,7 +165,7 @@
 								<i class="bi bi-file-earmark-spreadsheet" style="font-size: 18px;"></i> Excel
 							</button>
 						</a>
-						<a href="<?= base_url() ?>data-pelanggan/tambah">
+						<a href="<?= base_url() ?>data-keuangan/pdf/generate" target="_blank">
 							<button type="button" class="btn btn-danger btn-sm mb-3" z>
 								<i class="bi bi-filetype-pdf" style="font-size: 18px;"></i> PDF
 							</button>
