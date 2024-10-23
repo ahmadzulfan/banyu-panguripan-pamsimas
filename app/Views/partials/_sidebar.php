@@ -78,8 +78,8 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-					<form method="POST" id="logout">					
-                        <a href="<?= base_url() ?>login" class="sidebar-link">
+					<form action="<?= base_url() ?>login" method="POST" id="logout">					
+                        <a class="sidebar-link">
 							<i class="bi bi-box-arrow-left"></i>
 							<span>Logout</span>
 						</a>
@@ -88,26 +88,7 @@
             </ul>
         </div>
     </div>
-    <script>
-    $('#logout').click(function (e) {
-				e.preventDefault();
-				Swal.fire({
-					title: 'Logout?',
-					text: "Anda akan logout dari aplikasi!",
-					icon: 'warning',
-					showCancelButton: true,
-					reverseButtons: true,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					cancelButtonText: 'Tidak',
-					confirmButtonText: 'Ya!'
-				}).then((result) => {
-					if (result.isConfirmed) {
-						$(this).submit();
-					}
-				})
-			});
-</script>
+    
 </div>
 
 

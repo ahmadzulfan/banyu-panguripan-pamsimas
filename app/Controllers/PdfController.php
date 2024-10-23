@@ -21,7 +21,7 @@ class PdfController extends BaseController
         $dompdf = new Dompdf();
 
         // load HTML content
-        $dompdf->loadHtml(view('administrasi/data-keuangan/keuangan-pdf'));
+        $dompdf->loadHtml(view('administrasi/data-laporan/laporan-pdf'));
 
         // (optional) setup the paper size and orientation
         $dompdf->setPaper('A4', 'landscape');

@@ -20,6 +20,7 @@ $routes->post('/data-user/delete/(:segment)', 'User::delete/$1');
 
 $routes->get('/login', 'Auth::index');
 $routes->post('/login', 'Auth::login');
+$routes->post('/logout', 'Auth::logout');
 
 $routes->get('/data-tagihan', 'Tagihan::index');
 $routes->get('/data-tagihan/tambah', 'Tagihan::tambah');
@@ -33,7 +34,9 @@ $routes->get('/data-keuangan', 'Keuangan::index');
 $routes->get('/data-laporan', 'Laporan::index');
 
 // PDF GENERATE
-$routes->get('/data-keuangan/pdf/generate', 'PdfController::generate');
+$routes->get('/data-laporan/pdf/generate', 'PdfController::generate');
+
+$routes->get('/data-laporan/excel/export', 'ExcelController::export');
 // AJAX DATA
 $routes->post('/ajax/data-tagihan', 'GetAjax::getDataTagiahanById');
 $routes->post('/ajax/data-tagihan/getbyidpelanggan', 'GetAjax::getAllDataTagiahanByPelangganId');

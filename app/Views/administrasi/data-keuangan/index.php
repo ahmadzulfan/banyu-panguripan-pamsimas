@@ -12,32 +12,7 @@
 <?= var_export($statusTagihan) ?>
   	<div class="content-wrapper">
 		<div class="row">
-			<div class="col-6 col-lg-6 col-md-6">
-				<div class="card">
-					<div class="card-body px-3 py-4-4">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="stats-icon">
-									<i class="iconly-boldChart"></i>
-								</div>
-							</div>
-							<div class="col-md-8">
-								<h6 class="text-muted font-semibold">Total Bulan 
-								<?php if (!empty($_REQUEST['month'])) : ?>
-									<?= $months[$_REQUEST['month']] ?>
-								<?php else: ?>
-									Ini
-								<?php endif; ?>
-								</h6>
-								<h6 class="font-extrabold mb-0">
-									Rp<?= number_format($pendapatanByMonth['pendapatan'], 0, '.', '.') ?>
-								</h6>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-6 col-lg-6 col-md-6">
+			<div class="col-6 col-lg-12 col-md-6">
 				<div class="card">
 					<div class="card-body px-3 py-4-4">
 						<div class="row">
@@ -103,59 +78,7 @@
 				</div>
 			</div>
 
-			<div class="col-12">
-				<div class="card text-center">
-					<div class="card-header">
-						<h4>Filter Data dengan Rentang Tanggal</h4>
-					</div>
-					<div class="card-body">
-						<form action="" method="GET">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group has-icon-left">
-										<label for="month">Bulan:</label>
-										<div class="position-relative">
-											<select name="month" id="month" class="form-control">
-												<?php foreach ($months as $key => $month) : ?>
-													<option value="<?= $key ?>" <?php if ($key == $lblmonths) {
-														echo 'selected';
-													} ?>><?= $month ?></option>
-												<?php endforeach; ?>
-											</select>
-											<div class="form-control-icon">
-												<i class="bi bi-calendar2-fill"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group has-icon-left">
-										<label for="year">Tahun:</label>
-										<div class="position-relative">
-											<select name="year" id="year" class="form-control">
-												<?php for ($i=2024; $i<=date('Y'); $i++) : ?>
-													<option value="<?= $i ?>" <?php if ($i == $lbyears) {
-														echo 'selected';
-													} ?>><?= $i ?></option>
-												<?php endfor; ?>
-											</select>
-											<div class="form-control-icon">
-												<i class="bi bi-calendar2-fill"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<button type="submit" class="btn btn-primary px-5">Filter</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		
+				
 			<div class="col-lg-12 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-body">

@@ -44,6 +44,6 @@ class Auth extends Controller
     {
         $session = session();
         $session->destroy();
-        return redirect()->to('/');
+        return redirect()->to('/login');
     }
 } 
