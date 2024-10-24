@@ -179,7 +179,7 @@
 									<th> Tanggal Pembayaran </th>
 									<th> Nama Pelanggan</th>
 									<th> Jumlah Pembayaran </th>
-									<th> Keterangan </th>
+									<th> Action </th>
 								</tr>
 							</thead>
 							<tbody>
@@ -189,7 +189,11 @@
 									<td> <?= tgl_indo($value['tanggal_pembayaran']) ?> </td>
 									<td> <?= $value['nama'] ?> </td>
 									<td> Rp <?= number_format($value['jumlah_dibayar'], 0, '.', '.') ?> </td>
-									<td> <?= $value['status'] ?> </td>
+									<td> 
+										<a href="<?= base_url() ?>data-laporan/struk/<?=$value['id']?>" target="_blank" class="btn btn-primary">
+											<i class="bi bi-printer"></i> Cetak Struk
+										</a> 
+									</td>
 								</tr>
 							<?php endforeach; ?>
 							</tbody>

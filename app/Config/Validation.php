@@ -44,24 +44,29 @@ class Validation extends BaseConfig
 
     public array $createTagihan = [
         'pelanggan_id'          => 'required|is_natural_no_zero',
-        'bulan'                 => 'required',
         'total_pemakaian'       => 'required|is_natural_no_zero',
+        'pemakaian_bulan_lalu'  => 'required',
         'pemakaian_bulan_ini'   => 'required|is_natural_no_zero',
-        'total_tagihan'         => 'required'
+        'total_tagihan'         => 'required|is_natural_no_zero'
     ];
 
     public array $createTagihan_errors = [
         'total_pemakaian' => [
             'required' => 'Kolom ini tidak boleh kosong',
+            'is_natural_no_zero' => 'Total pemakaian tidak boleh ber-nilai negatif'
         ],
         'pelanggan_id' => [
             'required' => 'Kolom ini tidak boleh kosong',
         ],
-        'pemakaian_bulan_ini' => [
+        'pemakaian_bulan_lalu' => [
             'required' => 'Kolom ini tidak boleh kosong',
+        ],
+        'pemakaian_bulan_ini' => [
+            'required' => 'Kolom ini tidak boleh kosong'
         ],
         'total_tagihan' => [
             'required' => 'Kolom ini tidak boleh kosong',
+            'is_natural_no_zero' => 'Total tagihan tidak boleh ber-nilai negatif'
         ],
     ];
 }

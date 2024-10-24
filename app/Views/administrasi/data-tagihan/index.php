@@ -22,7 +22,12 @@
 										<div class="position-relative">
 											<select name="month" id="month" class="form-control">
 												<?php foreach ($months as $key => $month) : ?>
-													<option value="<?= $key ?>" <?php if ($key == $lblmonths) {
+													<option value="<?php
+                                                    if (strlen((string)$key) < 2) {
+                                                        echo "0".$key;
+                                                    }else{
+                                                        echo $key;
+                                                    }?>" <?php if ($key == $lblmonths) {
 														echo 'selected';
 													} ?>><?= $month ?></option>
 												<?php endforeach; ?>
@@ -179,7 +184,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-body">
-            <form action="<?= base_url() ?>data-tagihan/bayar-debt" id="form-cicil" method="post">
+            <!-- <form action="<?= base_url() ?>data-tagihan/bayar-debt" id="form-cicil" method="post">
                 <input type="number" name="tagihan_id" class="form-control" required>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Rp</span>
@@ -189,7 +194,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Bayar</button>
                 </div>
-            </form>
+            </form> -->
+            <div class="text-center">Segera hadir..^_^</div>
         </div>
         </div>
     </div>

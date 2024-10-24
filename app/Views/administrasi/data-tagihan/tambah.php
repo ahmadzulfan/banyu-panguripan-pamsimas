@@ -42,12 +42,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="pemakaian_bulan_lalu">Pemakaian Bulan Lalu</label>
+                                    <small class="text-danger">*<?= validation_show_error('pemakaian_bulan_lalu') ?></small>
                                     <input id="pemakaian_bulan_lalu" type="number" class="form-control" name="pemakaian_bulan_lalu" placeholder="pemakaian_bulan_lalu" value="<?= old('pemakaian_bulan_lalu') ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="pemakaian_bulan_ini">Pemakaian Bulan ini</label>
                                     <small class="text-danger">*<?= validation_show_error('pemakaian_bulan_ini') ?></small>
-                                    <input id="pemakaian_bulan_ini" type="number" class="form-control" name="pemakaian_bulan_ini" placeholder="pemakaian_bulan_ini">
+                                    <input id="pemakaian_bulan_ini" type="number" class="form-control" name="pemakaian_bulan_ini" placeholder="pemakaian_bulan_ini" value="<?= old('pemakaian_bulan_ini') ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="biaya_admin">Biaya Admin</label>
@@ -61,11 +62,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="total_pemakaian">Total Pemakaian</label>
-                                    <input id="total_pemakaian" type="number" class="form-control" name="total_pemakaian" placeholder="total_pemakaian" readonly>
+                                    <small class="text-danger">*<?= validation_show_error('total_pemakaian') ?></small>
+                                    <input id="total_pemakaian" type="number" class="form-control" name="total_pemakaian" placeholder="total_pemakaian" readonly  value="<?= old('total_pemakaian') ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="total_tagihan">Total Tagihan</label>
                                     <input id="total_tagihan" type="hidden" class="form-control" name="total_tagihan" placeholder="total_tagihan">
+                                    <small class="text-danger">*<?= validation_show_error('total_tagihan') ?></small>
                                     <input id="total_tagihan_tampil" type="text" class="form-control" name="total_tagihan_tampil" placeholder="total_tagihan" readonly>
                                 </div>
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>

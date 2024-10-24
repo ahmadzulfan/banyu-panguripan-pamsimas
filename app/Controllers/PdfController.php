@@ -8,9 +8,9 @@ use Dompdf\Dompdf;
 
 class PdfController extends BaseController
 {
-    public function index()
+    public function struk()
     {
-        return view('pdf_view');
+        return view('struk/struk');
     }
 
     public function generate()

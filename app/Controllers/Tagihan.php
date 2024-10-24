@@ -51,7 +51,6 @@ class Tagihan extends BaseController
     public function create()
     {
         $validation = service('validation');
-        $session = session();
         $post = $this->request->getPost();
         $bulanName = date('M', strtotime($post['bulan']));
         $bulan = date('m', strtotime($post['bulan']));
@@ -65,8 +64,7 @@ class Tagihan extends BaseController
         $dataTagihan = $this->tagihanModel->where('pelanggan_id', $pelangganId)->where('bulan', $bulan)->where('tahun', $tahun)->first();
 
         if ($dataTagihan) {
-            $session->setFlashdata('error', 'data tagihan bulan '.$bulanName.' untuk pelanggan id '.$pelangganId.' sudah ada.');
-            return redirect()->back()->withInput();
+            return redirect()->back()->withInput()->with('error', 'data tagihan bulan '.$bulanName.' untuk pelanggan id '.$pelangganId.' sudah ada.');
         }
 
         $jumlahPemakaian = $post['total_pemakaian'];
@@ -95,7 +93,7 @@ class Tagihan extends BaseController
 
         $this->meterAirModel->save($data);
         
-        return redirect()->to('data-tagihan');
+        return redirect()->to('data-tagihan')->with('success_message', 'berhasil menambahkan tagihan');
     }
 
     public function delete($id)
