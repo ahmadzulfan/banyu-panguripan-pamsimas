@@ -14,7 +14,7 @@ class Pelanggan extends Model
     //protected $returnType     = 'array';
     //protected $useSoftDeletes = true;
     
-    protected $allowedFields = ['id_user',	'nama',	'alamat',	'no_telepon',	'email'];
+    protected $allowedFields = ['id_user',	'nama',	'alamat',	'no_telepon',	'email', 'deleted_at'];
 
     // protected bool $allowEmptyInserts = false;
     // protected bool $updateOnlyChanged = true;

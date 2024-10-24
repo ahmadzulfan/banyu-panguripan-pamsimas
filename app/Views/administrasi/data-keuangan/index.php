@@ -9,7 +9,6 @@
 		$lbyears = $_REQUEST['year'];
 	}
 ?>
-<?= var_export($statusTagihan) ?>
   	<div class="content-wrapper">
 		<div class="row">
 			<div class="col-6 col-lg-12 col-md-6">
@@ -112,7 +111,7 @@
 									<td> <?= tgl_indo($value['tanggal_pembayaran']) ?> </td>
 									<td> <?= $value['nama'] ?> </td>
 									<td> Rp <?= number_format($value['jumlah_dibayar'], 0, '.', '.') ?> </td>
-									<td> <?= $value['status'] ?> </td>
+									<td>  </td>
 								</tr>
 							<?php endforeach; ?>
 							</tbody>

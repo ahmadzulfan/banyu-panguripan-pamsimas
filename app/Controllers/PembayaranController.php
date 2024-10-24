@@ -30,7 +30,7 @@ class PembayaranController extends BaseController
 
         $this->pembayaranModel->save($data);
         
-        return redirect()->to('data-tagihan');
+        return redirect()->to('data-laporan/struk/'.$dataTagihan['id']);
     }
 
     public function bayarDebt()

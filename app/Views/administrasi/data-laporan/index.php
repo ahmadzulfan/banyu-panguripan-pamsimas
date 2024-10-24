@@ -9,7 +9,6 @@
 		$lbyears = $_REQUEST['year'];
 	}
 ?>
-<?= var_export($statusTagihan) ?>
   	<div class="content-wrapper">
 		<div class="row">
 			<div class="col-6 col-lg-6 col-md-6">
@@ -190,7 +189,7 @@
 									<td> <?= $value['nama'] ?> </td>
 									<td> Rp <?= number_format($value['jumlah_dibayar'], 0, '.', '.') ?> </td>
 									<td> 
-										<a href="<?= base_url() ?>data-laporan/struk/<?=$value['id']?>" target="_blank" class="btn btn-primary">
+										<a href="<?= base_url() ?>data-laporan/struk/<?=$value['id_tagihan']?>" target="_blank" class="btn btn-primary">
 											<i class="bi bi-printer"></i> Cetak Struk
 										</a> 
 									</td>

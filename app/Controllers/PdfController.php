@@ -3,14 +3,16 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\TagihanModel;
 use Dompdf\Dompdf;
 
 class PdfController extends BaseController
 {
-    public function struk()
+    public function struk($id)
     {
-        return view('struk/struk');
+        $model = new TagihanModel();
+        $data['transaction'] = $model->getDetailTagihanById($id);
+        return view('struk/struk', $data);
     }
 
     public function generate()

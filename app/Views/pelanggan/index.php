@@ -85,7 +85,12 @@
                         });
                     },
                     error:function(err){
-                        alert(err)
+                        Swal.fire({
+                            allowOutsideClick: false,
+                            title: "Error!",
+                            text: err.responseJSON.message,
+                            icon: "warning"
+                        });
                     }
                 })
             }

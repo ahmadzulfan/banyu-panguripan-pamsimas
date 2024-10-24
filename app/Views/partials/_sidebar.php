@@ -3,7 +3,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="index.html"><img src="<?= base_url() ?>mazer/assets/compiled/svg/logo.svg" alt="Logo" srcset=""></a>
+                    <a href="index.html"><img src="<?= base_url() ?>assets/images/pamsimas.png" style="width: 80px; height:80px" alt="Logo" srcset=""></a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"

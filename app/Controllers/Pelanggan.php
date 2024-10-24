@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 use App\Models\Pelanggan as ModelsPelanggan;
 use App\Models\User;
+use Exception;
 
 class Pelanggan extends BaseController
 {
     private $session;
     function __construct()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $this->session = service('session');
     } 
     public function index(): string
@@ -89,11 +91,20 @@ class Pelanggan extends BaseController
     
     public function delete($id)
     {
+        $date = date('Y/m/d h:i:s a', time());
         $model = new ModelsPelanggan();
 
-        $model->where('id', $id)->delete();
+        try {
+            $model->update($id, ['deleted_at' => $date]);
 
-        echo json_encode(['status' => true]);
-
+            return response()->setContentType('application/json')                             
+                 ->setStatusCode(200)
+                 ->setJSON(['status' => true, 'message' => 'OK']);
+        }
+        catch(Exception $e) {
+            return response()->setContentType('application/json')                             
+                 ->setStatusCode(404)
+                 ->setJSON(['status' => false, 'message' => $e->getMessage()]);
+        }
     }
 }

@@ -36,7 +36,7 @@ $routes->get('/data-laporan', 'Laporan::index');
 // PDF GENERATE
 $routes->get('/data-laporan/pdf/generate', 'PdfController::generate');
 // STRUK GENERATE
-$routes->get('/data-laporan/struk/(:segment)', 'PdfController::struk');
+$routes->get('/data-laporan/struk/(:segment)', 'PdfController::struk/$1');
 
 $routes->get('/data-laporan/excel/export', 'ExcelController::export');
 // AJAX DATA
