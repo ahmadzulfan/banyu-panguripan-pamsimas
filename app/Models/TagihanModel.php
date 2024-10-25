@@ -15,7 +15,9 @@ class TagihanModel extends Model
 
     public function pelanggan()
     {
-        return $this->select('*, tagihan.id as id_tagihan, pelanggan.id as pelanggan_id')->join('pelanggan', 'tagihan.pelanggan_id = pelanggan.id');
+        return $this->select('*, tagihan.id as id_tagihan, pelanggan.id as pelanggan_id')
+                    ->join('pelanggan', 'tagihan.pelanggan_id = pelanggan.id')
+                    ->where('pelanggan.deleted_at =', null);
     }
 
     public function getDetailTagihanById($id)

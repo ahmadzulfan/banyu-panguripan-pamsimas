@@ -12,9 +12,9 @@ class Pelanggan extends Model
     protected $useAutoIncrement = true;
 
     //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
+    protected $useSoftDeletes = true;
     
-    protected $allowedFields = ['id_user',	'nama',	'alamat',	'no_telepon',	'email', 'deleted_at'];
+    protected $allowedFields = ['id_user',	'nama',	'alamat',	'no_telepon',	'email'];
 
     // protected bool $allowEmptyInserts = false;
     // protected bool $updateOnlyChanged = true;
@@ -24,7 +24,7 @@ class Pelanggan extends Model
     // protected $dateFormat    = 'datetime';
     // protected $createdField  = 'created_at';
     // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
+    protected $deletedField  = 'deleted_at';
 
     // Validation
     // protected $validationRules      = [];

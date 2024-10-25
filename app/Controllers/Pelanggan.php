@@ -91,11 +91,10 @@ class Pelanggan extends BaseController
     
     public function delete($id)
     {
-        $date = date('Y/m/d h:i:s a', time());
         $model = new ModelsPelanggan();
 
         try {
-            $model->update($id, ['deleted_at' => $date]);
+            $model->delete($id);
 
             return response()->setContentType('application/json')                             
                  ->setStatusCode(200)

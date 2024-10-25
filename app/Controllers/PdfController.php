@@ -32,6 +32,6 @@ class PdfController extends BaseController
         $dompdf->render();
 
         // output the generated pdf
-        $dompdf->stream($filename, array("Attachment" => false));
+        $dompdf->stream($filename);
     }
 }
