@@ -8,7 +8,7 @@ class Auth extends Controller
     public function index()
     {
         helper(['form']);
-        echo view('pages/login/login');
+        echo view('auth/login');
     } 
  
     public function login()
@@ -31,12 +31,10 @@ class Auth extends Controller
                 $session->set($ses_data);
                 return redirect()->to('/');
             }else{
-                $session->setFlashdata('msg', 'Wrong Password');
-                return redirect()->to('/login');
+                return redirect()->to('/login')->with('error', 'Wrong Password');
             }
         }else{
-            $session->setFlashdata('msg', 'Email not Found');
-            return redirect()->to('/login');
+            return redirect()->to('/login')->with('error', 'Email not Found');
         }
     }
  

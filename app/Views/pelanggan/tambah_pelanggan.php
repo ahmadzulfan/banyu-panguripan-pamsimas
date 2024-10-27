@@ -10,7 +10,7 @@
                             <form method="post" class="forms-sample">
                             <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input type="nama" class="form-control" name="nama" placeholder="nama">
+                                <input type="nama" class="form-control" name="nama" placeholder="nama" required>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
