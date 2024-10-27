@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Pembayaran;
-use App\Models\TagihanModel;
 
 class Keuangan extends BaseController
 {
@@ -11,20 +10,9 @@ class Keuangan extends BaseController
     {
         date_default_timezone_set('Asia/Jakarta');
         $model = new Pembayaran();
-        $modelTagihan = new TagihanModel();
 
-        $month = date('m');
-        $year = date('Y');
-
-        if (!empty($this->request->getGet('month')) && !empty($this->request->getGet('year'))) {
-            $month = $this->request->getGet('month');
-            $year = $this->request->getGet('year');
-        }
-
-        $data['pembayaran'] = $model->pelanggan(['month' => $month, 'year' => $year]);
-        $data['pendapatanByMonth'] = $model->pendapatanByMonth($month);
-        $data['pendapatanByYear'] = $model->pendapatanByYear($year);
-        $data['statusTagihan'] = $modelTagihan->statusTagihan($month, $year);
+        $data['danaMasuk'] = $model->danaMasuk();
+        $data['danaKeluar'] = 0;
 
         return view('administrasi/data-keuangan/index', $data);
     }

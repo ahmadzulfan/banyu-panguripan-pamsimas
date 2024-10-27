@@ -25,30 +25,43 @@
 <body>
     <x-header style="clear:both; position:relative;">
         <div style="position:absolute; left:0pt; width:292pt;">
-            <span style="font-size: large; font-weight:bold;">LEMBAR CATAT DATA PENAGIHAN</span><br>
+            <span style="font-size: large; font-weight:bold;">LEMBAR CATAT METER BULANAN</span><br>
             <span style="font-size: large; font-weight:bold;">PAMSIMAS - BANYU PANGURIPAN</span>
         </div>
         <div align=right style="font-size: large; font-weight:bold;">
-            BULAN OKTOBER
+            TAHUN 2024
         </div>
     </x-header>
     <table border=1 width=100% cellpadding=2 cellspacing=0 style="margin-top: 2.5rem; text-align:center;">  
         <thead>    
             <tr align=center>  
-                <td width="2%">No</td>  
-                <td width="5%">Tanggal Pembayaran</td>  
-                <td width="15%">Nama Pelanggan</td>  
-                <td width="15%">Jumlah Pembayaran</td>
+                <td width="2%">NO</td>  
+                <td width="5%">NOPEL</td>  
+                <td width="15%">NAMA</td>  
+                <td width="15%">ALAMAT</td>
+                <?php foreach ($months as $key => $month) : ?>
+                    <td width="5%"><?= $month ?></td>
+                <?php endforeach; ?>
             </tr>    
         </thead>    
-        <tbody> 
+        <tbody>    
             <tr>        
-            <?php foreach ($datas as $key => $data) : ?>
-                <td><?= $key+1 ?></td>
-                <td><?= $data['bulan'] ?></td>
-                <td><?= $data['nama'] ?></td>
-                <td>Rp<?= number_format($data['total_tagihan'], 0, '', '.') ?></td>
-            <?php endforeach; ?>
+                <td>1</td>  
+                <td>012</td>  
+                <td>Resita</td>  
+                <td>SembungJambu RT 09/02</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
+                <td>85</td> 
             </tr>  
         </tbody>
     </table>  

@@ -32,4 +32,9 @@ class Pembayaran extends Model
     {
         return $this->select('YEAR(tanggal_pembayaran) as year, SUM(jumlah_dibayar) as pendapatan')->where('YEAR(tanggal_pembayaran)', $year)->first();
     }
+
+    public function danaMasuk()
+    {
+        return $this->select('SUM(jumlah_dibayar) as pendapatan')->first()['pendapatan'];
+    }
 }

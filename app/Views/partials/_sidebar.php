@@ -65,17 +65,33 @@
                         <span class="menu-title">Data Tagihan</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url() ?>data-keuangan">
+                <li class="sidebar-item  has-sub">
+                    <a class="sidebar-link">
                       <i class="bi bi-wallet2"></i>
                         <span class="menu-title">Data Keuangan</span>
                     </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item">
+                            <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Keuangan</a>
+                        </li>
+                        <li class="submenu-item  ">
+                            <a href="#" class="submenu-link">Input Dana Keluar</a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url() ?>data-laporan">
+                <li class="sidebar-item  has-sub">
+                    <a class="sidebar-link">
                         <i class="bi bi-clipboard-pulse"></i>
                         <span class="menu-title">Data Laporan</span>
                     </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item  ">
+                            <a href="<?= base_url() ?>data-laporan" class="submenu-link">Tagihan</a>
+                        </li>
+                        <li class="submenu-item  ">
+                            <a href="#" class="submenu-link">Meteran</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="sidebar-item">
 					<form action="<?= base_url() ?>login" method="POST" id="logout">					

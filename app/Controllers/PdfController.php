@@ -8,6 +8,13 @@ use Dompdf\Dompdf;
 
 class PdfController extends BaseController
 {
+    private $tagihanModel;
+    function __construct()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $this->tagihanModel = new TagihanModel();
+    } 
+
     public function struk($id)
     {
         $model = new TagihanModel();
@@ -15,15 +22,39 @@ class PdfController extends BaseController
         return view('struk/struk', $data);
     }
 
+    public function filter($filterMonth, $filterYear)
+    {
+
+        $filter = [
+            "month" => $filterMonth,
+            "year"  => $filterYear
+        ];
+
+        $filteredData = $this->tagihanModel->filterData($filter);
+
+        return $filteredData;
+    }
+
     public function generate()
     {
-        $filename = date('y-m-d-H-i-s'). '-qadr-labs-report';
+
+        $filterMonth = $this->request->getVar('month');
+        $filterYear = $this->request->getVar('year');
+
+        if (!$filterMonth && !$filterYear) {
+            $filterMonth = date('m');
+            $filterYear = date('Y');
+        }
+        
+        $datas['datas'] = $this->filter($filterMonth, $filterYear);
+
+        $filename = 'Laporan Tagihan PAM - '. date('y-m-d-H-i-s');
 
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();
 
         // load HTML content
-        $dompdf->loadHtml(view('administrasi/data-laporan/laporan-pdf'));
+        $dompdf->loadHtml(view('administrasi/data-laporan/laporan-pdf', $datas));
 
         // (optional) setup the paper size and orientation
         $dompdf->setPaper('A4', 'landscape');
@@ -32,6 +63,8 @@ class PdfController extends BaseController
         $dompdf->render();
 
         // output the generated pdf
-        $dompdf->stream($filename);
+        $dompdf->stream($filename, array("Attachment" => 0));
+
+        exit();
     }
 }
