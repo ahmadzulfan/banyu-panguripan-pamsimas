@@ -10,7 +10,14 @@ class Auth extends Controller
         helper(['form']);
         echo view('auth/login');
     } 
- 
+
+    public function profile()
+    {
+        helper(['form']);
+        echo view('auth/profile');
+    } 
+
+    
     public function login()
     {
         $session = session();

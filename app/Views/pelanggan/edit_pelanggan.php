@@ -1,10 +1,13 @@
 <?= $this->extend('template/dashboard-admin2.php')?>
 <?= $this->section('app') ?>
+
     <div class="content-wrapper">
         <div class="row">
+            
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                    <h1>tatat</h1>
                         <h4 class="card-title">Form Edit Pengguna </h4>
                         <p class="card-description"> Basic form layout </p>
                             <form method="post" class="forms-sample" action="<?= base_url() ?>data-pelanggan/update/<?=$pelanggan['id']?>">

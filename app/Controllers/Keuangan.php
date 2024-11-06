@@ -15,5 +15,13 @@ class Keuangan extends BaseController
         $data['danaKeluar'] = 0;
 
         return view('administrasi/data-keuangan/index', $data);
+
     }
+
+    public function tambah()
+    {
+        
+        return view('administrasi/data-keuangan/tambah');
+    }
+
 }

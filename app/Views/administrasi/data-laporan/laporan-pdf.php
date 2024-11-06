@@ -29,7 +29,7 @@
             <span style="font-size: large; font-weight:bold;">PAMSIMAS - BANYU PANGURIPAN</span>
         </div>
         <div align=right style="font-size: large; font-weight:bold;">
-            BULAN OKTOBER
+        <div class="bulan" style="text-transform: uppercase;">bulan <?=month_indo($_REQUEST['month'])?></div>
         </div>
     </x-header>
     <table border=1 width=100% cellpadding=2 cellspacing=0 style="margin-top: 2.5rem; text-align:center;">  
@@ -38,18 +38,29 @@
                 <td width="2%">No</td>  
                 <td width="5%">Tanggal Pembayaran</td>  
                 <td width="15%">Nama Pelanggan</td>  
+                <td width="15%">Bulan Tagihan</td>  
                 <td width="15%">Jumlah Pembayaran</td>
             </tr>    
         </thead>    
         <tbody> 
-            <tr>        
+            <?php $total=0; ?>
+
             <?php foreach ($datas as $key => $data) : ?>
+                <?php $total+=$data['total_tagihan'] ?>
+                <tr>
                 <td><?= $key+1 ?></td>
-                <td><?= $data['bulan'] ?></td>
+                <td><?= tgl_indo($data['tanggal_pembayaran']) ?></td>
                 <td><?= $data['nama'] ?></td>
+                <td><?= month_indo($data['bulan']) ?></td>
                 <td>Rp<?= number_format($data['total_tagihan'], 0, '', '.') ?></td>
+                
+                </tr>
             <?php endforeach; ?>
-            </tr>  
+            <tr>
+                <td colspan="4"> total penghasilan</td>
+                <td>Rp<?=number_format($total, 0, '', '.')?></td>
+            </tr>
+            
         </tbody>
     </table>  
 </body>  

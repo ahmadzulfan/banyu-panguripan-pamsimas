@@ -75,7 +75,7 @@
                             <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Keuangan</a>
                         </li>
                         <li class="submenu-item  ">
-                            <a href="#" class="submenu-link">Input Dana Keluar</a>
+                            <a href="<?= base_url() ?>data-keuangan/tambah" class="submenu-link">Input Dana Keluar</a>
                         </li>
                     </ul>
                 </li>
@@ -93,6 +93,13 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= base_url() ?>profile">
+                    <i class="bi bi-person-circle"></i>
+                        <span class="menu-title">Akun saya</span>
+                    </a>
+                </li>
+               
                 <li class="sidebar-item">
 					<form action="<?= base_url() ?>login" method="POST" id="logout">					
                         <a class="sidebar-link">

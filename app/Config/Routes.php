@@ -21,6 +21,8 @@ $routes->post('/data-user/delete/(:segment)', 'User::delete/$1');
 $routes->get('/login', 'Auth::index');
 $routes->post('/login', 'Auth::login');
 $routes->post('/logout', 'Auth::logout');
+$routes->get('/profile', 'Auth::profile');
+$routes->get('/keamanan', 'Auth::keamanan');
 
 $routes->get('/data-tagihan', 'Tagihan::index');
 $routes->get('/data-tagihan/tambah', 'Tagihan::tambah');
@@ -32,6 +34,7 @@ $routes->post('/data-tagihan/bayar-debt', 'PembayaranController::bayarDept');
 
 $routes->get('/data-keuangan', 'Keuangan::index');
 $routes->get('/data-laporan', 'Laporan::index');
+$routes->get('/data-keuangan/tambah', 'Keuangan::tambah');
 
 // PDF GENERATE
 $routes->get('/data-laporan/pdf/generate', 'PdfController::generate');
