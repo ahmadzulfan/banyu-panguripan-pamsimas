@@ -17,7 +17,7 @@
                         <span class="fw-bold">Gagal, </span><?= session()->getFlashdata('error') ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                <?php endif; ?>
+                <?php endif; ?> 
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Form Input Tagihan</h4>

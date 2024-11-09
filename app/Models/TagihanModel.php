@@ -39,6 +39,13 @@ class TagihanModel extends Model
     public function filterData($filter)
     {
         return $this->pelanggan()
+                    ->where('bulan', $filter['month'])
+                    ->where('tahun', $filter['year'])->findAll();
+    }
+
+    public function filterDataPDF($filter)
+    {
+        return $this->pelanggan()
                     ->join('pembayaran', 'tagihan.id = pembayaran.tagihan_id')
                     ->where('MONTH(tanggal_pembayaran)', $filter['month'])
                     ->where('YEAR(tanggal_pembayaran)', $filter['year'])->findAll();

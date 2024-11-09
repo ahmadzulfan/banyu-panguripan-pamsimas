@@ -8,9 +8,7 @@ class Pembayaran extends Model
 {
     protected $table      = 'pembayaran';
     protected $primaryKey = 'id';
-
     protected $useAutoIncrement = true;
-    
     protected $allowedFields = ['tagihan_id', 'tanggal_pembayaran',	'jumlah_dibayar', 'status'];
 
     public function pelanggan($filter)
@@ -36,5 +34,12 @@ class Pembayaran extends Model
     public function danaMasuk()
     {
         return $this->select('SUM(jumlah_dibayar) as pendapatan')->first()['pendapatan'];
+    }
+
+    public function danaMasukPerPeriode()
+    {
+        return $this->select('SUM(jumlah_dibayar) as dana_masuk, MONTH(tanggal_pembayaran) as periode')
+                    ->groupBy('MONTH(tanggal_pembayaran)')
+                    ->get()->getResultArray();
     }
 }

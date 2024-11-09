@@ -77,12 +77,19 @@
     <script>
         $('#dataTable').DataTable();
 
-        const sessionFlashMsg = '<?= session()->getFlashdata('success_message') ?>';
-        console.log(sessionFlashMsg);
-        if (sessionFlashMsg !== '') {
+        const succesSessionFlashMsg = '<?= session()->getFlashdata('success_message') ?>';
+        const errorSessionFlashMsg = '<?= session()->getFlashdata('error_message') ?>';
+        if (succesSessionFlashMsg !== '') {
             Toast.fire({
                 icon: 'success',
-                title: sessionFlashMsg
+                title: succesSessionFlashMsg
+            })
+        }
+
+        if (errorSessionFlashMsg !== '') {
+            Toast.fire({
+                icon: 'warning',
+                title: errorSessionFlashMsg
             })
         }
         

@@ -4,10 +4,10 @@
         <div class="col-12 col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <form method="post">
+                        <form action="#" method="get">
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="<?= $pelanggan['nama'] ?>>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="John Doe">
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
