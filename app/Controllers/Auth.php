@@ -5,23 +5,32 @@ use CodeIgniter\Controller;
  
 class Auth extends Controller
 {
+    private $userModel;
+    function __construct()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $this->userModel = new User();
+    } 
+
     public function index()
     {
         helper(['form']);
         echo view('auth/login');
     } 
 
-    public function profile()
+    public function profile($id)
     {
         helper(['form']);
-        echo view('auth/profile');
-    } 
+        $model = $this->userModel;
+        $data['user'] = $model->find($id)->first();
+        echo view('auth/profile', $data);
+    }
 
     
     public function login()
     {
         $session = session();
-        $model = new User();
+        $model = $this->userModel;
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
         $data = $model->where('email', $email)->first();
