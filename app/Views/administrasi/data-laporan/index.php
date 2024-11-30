@@ -11,6 +11,18 @@
 ?>
   	<div class="content-wrapper">
 		<div class="row">
+		<div class="col-12 col-lg-12">
+			<div class="row">
+				<div class="col-12 col-md-21">
+					<div class="card">
+						<div class="card-body px-4 py-4-5">
+							<h3>Data Laporan PAMSIMAS</h3>
+							<p class="text-subtitle text-muted">Halaman untuk manajemen data kas minggu ini seperti melihat, mengubah dan
+										menghapus.
+							</p>
+						</div>
+					</div>
+				</div>
 			<div class="col-6 col-lg-6 col-md-6">
 				<div class="card">
 					<div class="card-body px-3 py-4-4">

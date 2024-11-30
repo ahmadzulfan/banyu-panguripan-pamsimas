@@ -1,26 +1,38 @@
 <?= $this->extend('template/dashboard-admin2.php')?>
 <?= $this->section('app') ?>
     <div class="row">
+        <div class="col-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-12 col-md-21">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5">
+                                <h3>Akun Saya</h3>
+                                <p class="text-subtitle text-muted">Halaman untuk manajemen data kas minggu ini seperti melihat, mengubah dan
+                                            menghapus.
+                                </p>
+                        </div>
+                    </div>
+                </div>
         <div class="col-12 col-lg-8">
                 <div class="card">
+                    <div class="card-header">
+                                <h5 class="card-title">Detail Akun Saya</h5>
+                            </div>
                     <div class="card-body">
-                        <form action="#" method="get">
+                        <form method="post" class="forms-sample" action=" "> 
                             <div class="form-group">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="John Doe">
+                                <label for="name" class="form-label">Nama</label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value=" ">
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" value="john.doe@example.net">
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" value=" ">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
                                 <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone" value="083xxxxxxxxx">
                             </div>
-                            <div class="form-group">
-                                <label for="birthday" class="form-label">Birthday</label>
-                                <input type="date" name="birthday" id="birthday" class="form-control" placeholder="Your Birthday">
-                            </div>
+                           
                             <div class="form-group">
                                 <label for="gender" class="form-label">Gender</label>
                                 <select name="gender" id="gender" class="form-control">
@@ -42,7 +54,7 @@
                                 <h5 class="card-title">Change Password</h5>
                             </div>
                             <div class="card-body">
-                                <form action="#" method="get">
+                            <form method="post" class="forms-sample" action=""> 
                                     <div class="form-group my-2">
                                         <label for="current_password" class="form-label">Current Password</label>
                                         <input type="password" name="current_password" id="current_password"

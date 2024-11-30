@@ -1,11 +1,23 @@
 <?= $this->extend('template/dashboard-admin2'); ?>
 <?= $this->section('app') ?>
     <div class="row">
+        <div class="col-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-12 col-md-21">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5">
+                                <h3>Data Dana Keluar</h3>
+                                <p class="text-subtitle text-muted">Halaman untuk manajemen data kas minggu ini seperti melihat, mengubah dan
+                                            menghapus.
+                                </p>
+                        </div>
+                    </div>
+                </div>
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-primary block" data-bs-toggle="modal"
                                 data-bs-target="#tambahDanaKeluar">
                                 <i class="bi bi-plus-circle"></i> Tambah Dana Keluar
                             </button>

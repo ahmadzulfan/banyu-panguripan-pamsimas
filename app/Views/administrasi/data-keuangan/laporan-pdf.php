@@ -25,7 +25,7 @@
 <body>
     <x-header style="clear:both; position:relative;">
         <div style="position:absolute; left:0pt; width:292pt;">
-            <span style="font-size: large; font-weight:bold;">LEMBAR CATAT METER BULANAN</span><br>
+            <span style="font-size: large; font-weight:bold;">LAPORAN DATA KEUANGAN</span><br>
             <span style="font-size: large; font-weight:bold;">PAMSIMAS - BANYU PANGURIPAN</span>
         </div>
         <div align=right style="font-size: large; font-weight:bold;">
@@ -35,10 +35,10 @@
     <table border=1 width=100% cellpadding=2 cellspacing=0 style="margin-top: 2.5rem; text-align:center;">  
         <thead>    
             <tr align=center>  
-                <td width="2%">NO</td>  
-                <td width="5%">NOPEL</td>  
-                <td width="15%">NAMA</td>  
-                <td width="15%">ALAMAT</td>
+                <td width="2%">ID</td> 
+                <td width="5%">PERIODE</td>
+                <td width="15%">KETERANGAN</td>  
+                <td width="15%">DANA KAS</td>  
                 <?php foreach ($months as $key => $month) : ?>
                     <td width="5%"><?= $month ?></td>
                 <?php endforeach; ?>

@@ -11,6 +11,18 @@
 
   	<div class="content-wrapper">
 		<div class="row">
+		<div class="col-12 col-lg-12">
+        <div class="row">
+            <div class="col-12 col-md-21">
+                <div class="card">
+                    <div class="card-body px-4 py-4-5">
+                        <h3>Data Keuangan PAMSIMAS</h3>
+                        <p class="text-subtitle text-muted">Halaman untuk manajemen data kas minggu ini seperti melihat, mengubah dan
+                                    menghapus.
+                        </p>
+                    </div>
+                </div>
+            </div>
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body px-3 py-4-4">
@@ -72,7 +84,7 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="d-flex justify-content-end gap-2">
-							<a href="<?= base_url() ?>data-pelanggan/tambah">
+							<a href="<?= base_url() ?>data-keuangan/tambah">
 								<button type="button" class="btn btn-success btn-sm mb-3" z>
 									<i class="bi bi-file-earmark-spreadsheet" style="font-size: 18px;"></i> Excel
 								</button>

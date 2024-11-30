@@ -5,6 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
 $routes->get('/', 'Home::index');
 $routes->get('/data-pelanggan', 'Pelanggan::index');
 $routes->get('/data-pelanggan/tambah', 'Pelanggan::tambah');
@@ -42,6 +43,7 @@ $routes->post('/data-keuangan/dana-keluar/delete/(:segment)', 'UangKeluar::delet
 
 // PDF GENERATE
 $routes->get('/data-laporan/pdf/generate', 'PdfController::generate');
+$routes->get('/data-keuangan/pdf/generate', 'PdfController::generate');
 // STRUK GENERATE
 $routes->get('/data-laporan/struk/(:segment)', 'PdfController::struk/$1');
 
