@@ -78,7 +78,7 @@ class Pelanggan extends BaseController
             'nama' => $dataPelanggan->nama,
             'email' => $dataPelanggan->email,
             'password' => password_hash('123456', PASSWORD_DEFAULT),
-            'role' => 'pelanggan'
+            'role' => 'admin'
         ];
 
         $userModel->insert($data);

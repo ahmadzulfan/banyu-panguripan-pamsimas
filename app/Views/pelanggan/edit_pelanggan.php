@@ -7,9 +7,8 @@
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                    <h1>tatat</h1>
-                        <h4 class="card-title">Form Edit Pengguna </h4>
-                        <p class="card-description"> Basic form layout </p>
+                        <h4 class="card-title">Form Edit Pelanggan </h4>
+                        <p class="card-description"> form ini digunakan untuk mengedit data Pelanggan </p>
                             <form method="post" class="forms-sample" action="<?= base_url() ?>data-pelanggan/update/<?=$pelanggan['id']?>">
                             <div class="form-group">
                                 <label for="nama">Nama</label>

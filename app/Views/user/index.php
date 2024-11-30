@@ -2,6 +2,18 @@
 <?= $this->section('app') ?>
     <div class="content-wrapper">
     <div class="row">
+        <div class="col-12 col-lg-12">
+            <div class="row">
+                <div class="col-12 col-md-21">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                        <h3>Data Pengguna PAMSIMAS</h3>
+                        <p class="text-subtitle text-muted">Halaman untuk manajemen data kas minggu ini seperti melihat, mengubah dan
+                                    menghapus.
+                        </p>
+                    </div>
+                </div>
+            </div>
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">

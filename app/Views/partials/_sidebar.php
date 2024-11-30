@@ -75,7 +75,7 @@
                             <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Keuangan</a>
                         </li>
                         <li class="submenu-item  ">
-                            <a href="<?= base_url() ?>data-keuangan/tambah" class="submenu-link">Input Dana Keluar</a>
+                            <a href="<?= base_url() ?>data-keuangan/dana-keluar" class="submenu-link">Dana Keluar</a>
                         </li>
                     </ul>
                 </li>

@@ -14,8 +14,7 @@ class Auth extends Controller
 
     public function index()
     {
-        helper(['form']);
-        echo view('auth/login');
+        return view('auth/login');
     } 
 
     public function profile($id)
@@ -26,7 +25,6 @@ class Auth extends Controller
         echo view('auth/profile', $data);
     }
 
-    
     public function login()
     {
         $session = session();
@@ -34,6 +32,7 @@ class Auth extends Controller
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
         $data = $model->where('email', $email)->first();
+        
         if($data){
             $pass = $data['password'];
             $verify_pass = password_verify($password, $pass);
@@ -56,8 +55,25 @@ class Auth extends Controller
  
     public function logout()
     {
-        $session = session();
-        $session->destroy();
-        return redirect()->to('/login');
+        session()->remove('id');
+        return redirect()->to(site_url('/login'));
     }
+
+    
+    public function update($id)
+    {
+        $model = new User();
+        $data = [
+            'nama' => $this->request->getPost('nama'),
+            'alamat' => $this->request->getPost('alamat'),
+            'no_telepon' => $this->request->getPost('no_telepon'),
+            'email' => $this->request->getPost('email')
+        ];
+
+        $model->where('id', $id)->set($data)->update();
+       
+        
+        return redirect()->to('auth/profile');
+    }
+    
 } 

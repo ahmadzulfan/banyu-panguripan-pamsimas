@@ -30,7 +30,7 @@ class PdfController extends BaseController
             "year"  => $filterYear
         ];
 
-        $filteredData = $this->tagihanModel->filterData($filter);
+        $filteredData = $this->tagihanModel->filterDataPDF($filter);
 
         return $filteredData;
     }
