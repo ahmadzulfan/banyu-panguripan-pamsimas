@@ -6,48 +6,52 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-$routes->get('/', 'Home::index');
-$routes->get('/data-pelanggan', 'Pelanggan::index');
-$routes->get('/data-pelanggan/tambah', 'Pelanggan::tambah');
-$routes->get('/data-pelanggan/edit/(:segment)', 'Pelanggan::edit/$1');
-$routes->post('/data-pelanggan/update/(:segment)', 'Pelanggan::update/$1');
-$routes->post('/data-pelanggan/tambah', 'Pelanggan::create');
-$routes->post('/data-pelanggan/delete/(:segment)', 'Pelanggan::delete/$1');
-
-$routes->post('/data-pelanggan/tambah-user/(:segment)', 'Pelanggan::createUser/$1');
-$routes->get('/data-user', 'User::index');
-$routes->get('/data-user/tambah', 'User::tambah');
-$routes->post('/data-user/delete/(:segment)', 'User::delete/$1');
+// ACCOUNT MANAJEMENT
+$routes->get('/profile', 'AccountController::index');
 
 $routes->get('/login', 'Auth::index');
-$routes->post('/login', 'Auth::login');
-$routes->post('/logout', 'Auth::logout');
-$routes->get('/profile', 'Auth::profile');
+$routes->get('/', 'Home::index', ['filter' => 'login']);
+//$routes->get('/', 'Home::index');
 
+$routes->group('data-pelanggan', ['filter' => 'login'], function($routes) {
+    $routes->get('', 'Pelanggan::index');
+    $routes->get('tambah', 'Pelanggan::tambah');
+    $routes->get('edit/(:segment)', 'Pelanggan::edit/$1');
+    $routes->post('update/(:segment)', 'Pelanggan::update/$1');
+    $routes->post('tambah', 'Pelanggan::create');
+    $routes->post('delete/(:segment)', 'Pelanggan::delete/$1');
+    $routes->post('tambah-user/(:segment)', 'Pelanggan::createUser/$1');
+});
 
-$routes->get('/data-tagihan', 'Tagihan::index');
-$routes->get('/data-tagihan/tambah', 'Tagihan::tambah');
-$routes->post('/data-tagihan/tambah', 'Tagihan::create');
-$routes->post('/data-tagihan/delete/(:segment)', 'Tagihan::delete/$1');
+$routes->group('data-user', ['filter' => 'login'], function($routes) {
+    $routes->get('', 'User::index');
+    $routes->get('tambah', 'User::tambah');
+    $routes->post('delete/(:segment)', 'User::delete/$1');
+});
 
-$routes->post('/data-tagihan/bayar/(:segment)', 'PembayaranController::bayar/$1');
-$routes->post('/data-tagihan/bayar-debt', 'PembayaranController::bayarDept');
+$routes->group('data-tagihan', ['filter' => 'login'], function($routes) {
+    $routes->get('', 'Tagihan::index');
+    $routes->get('tambah', 'Tagihan::tambah');
+    $routes->post('tambah', 'Tagihan::create');
+    $routes->post('delete/(:segment)', 'Tagihan::delete/$1');
+    $routes->post('bayar/(:segment)', 'PembayaranController::bayar/$1');
+    $routes->post('bayar-debt', 'PembayaranController::bayarDept');
+});
 
-$routes->get('/data-keuangan', 'Keuangan::index');
-$routes->get('/data-laporan', 'Laporan::index');
+$routes->group('data-keuangan', ['filter' => 'login'], function($routes) {
+    $routes->get('', 'Keuangan::index');
+    $routes->get('dana-keluar', 'UangKeluar::index');
+    $routes->post('dana-keluar', 'UangKeluar::store');
+    $routes->post('dana-keluar/delete/(:segment)', 'UangKeluar::delete/$1');
+    $routes->get('pdf/generate', 'PdfController::generate');
+});
 
-// DANA KELUAR
-$routes->get('/data-keuangan/dana-keluar', 'UangKeluar::index');
-$routes->post('/data-keuangan/dana-keluar', 'UangKeluar::store');
-$routes->post('/data-keuangan/dana-keluar/delete/(:segment)', 'UangKeluar::delete/$1');
+$routes->group('data-laporan', ['filter' => 'login'], function($routes) {
+    $routes->get('', 'Laporan::index');
+    $routes->get('pdf/generate', 'PdfController::generate');
+    $routes->get('struk/(:segment)', 'PdfController::struk/$1');
+    $routes->get('excel/export', 'ExcelController::export');
+});
 
-// PDF GENERATE
-$routes->get('/data-laporan/pdf/generate', 'PdfController::generate');
-$routes->get('/data-keuangan/pdf/generate', 'PdfController::generate');
-// STRUK GENERATE
-$routes->get('/data-laporan/struk/(:segment)', 'PdfController::struk/$1');
-
-$routes->get('/data-laporan/excel/export', 'ExcelController::export');
-// AJAX DATA
 $routes->post('/ajax/data-tagihan', 'GetAjax::getDataTagiahanById');
 $routes->post('/ajax/data-tagihan/getbyidpelanggan', 'GetAjax::getAllDataTagiahanByPelangganId');

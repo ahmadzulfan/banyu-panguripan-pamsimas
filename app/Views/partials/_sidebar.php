@@ -1,3 +1,7 @@
+<?php 
+    $this->authorize = service('authorization');
+    $this->auth      = service('authentication');
+ ?>
 <div id="sidebar">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
@@ -65,20 +69,23 @@
                         <span class="menu-title">Data Tagihan</span>
                     </a>
                 </li>
-                <li class="sidebar-item  has-sub">
-                    <a class="sidebar-link">
-                      <i class="bi bi-wallet2"></i>
-                        <span class="menu-title">Data Keuangan</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item">
-                            <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Keuangan</a>
-                        </li>
-                        <li class="submenu-item  ">
-                            <a href="<?= base_url() ?>data-keuangan/dana-keluar" class="submenu-link">Dana Keluar</a>
-                        </li>
-                    </ul>
-                </li>
+                <?php if ($this->authorize->inGroup('Bendahara', $this->auth->user()->id)) : ?>
+                    <li class="sidebar-item  has-sub">
+                        <a class="sidebar-link">
+                          <i class="bi bi-wallet2"></i>
+                            <span class="menu-title">Data Keuangan</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item">
+                                <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Keuangan</a>
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="<?= base_url() ?>data-keuangan/dana-keluar" class="submenu-link">Dana Keluar</a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
                 <li class="sidebar-item  has-sub">
                     <a class="sidebar-link">
                         <i class="bi bi-clipboard-pulse"></i>
@@ -101,7 +108,8 @@
                 </li>
                
                 <li class="sidebar-item">
-					<form action="<?= base_url() ?>login" method="POST" id="logout">					
+					<form action="<?= base_url() ?>logout" method="GET" id="logout">	
+                        <?= csrf_field() ?>				
                         <a class="sidebar-link">
 							<i class="bi bi-box-arrow-left"></i>
 							<span>Logout</span>

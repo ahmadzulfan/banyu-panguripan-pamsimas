@@ -29,14 +29,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($user as $key => $value) : ?>
+                        <?php foreach ($users as $key => $user) : ?>
                             <tr>
                                 <td> <?= $key+1 ?> </td>
-                                <td> <?= $value['nama'] ?> </td>
-                                <td> <?= $value['email'] ?> </td>
-                                <td> <?= $value['role'] ?> </td>
+                                <td> <?= $user->name ?> </td>
+                                <td> <?= $user->email ?> </td>
+                                <td> <?= $user->role ?> </td>
                                 <td> 
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteUser(<?= $value['id'] ?>)"> 
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteUser(<?= $user->id ?>)"> 
                                         <i class="bi bi-trash-fill"></i>
                                     </button> 
                                 </td>

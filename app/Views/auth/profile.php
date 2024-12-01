@@ -22,24 +22,17 @@
                         <form method="post" class="forms-sample" action=" "> 
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="<?= $user->name ?>">
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" value=" ">
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" value="<?= $user->email ?>">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone" value="083xxxxxxxxx">
+                                <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone" value="">
                             </div>
                            
-                            <div class="form-group">
-                                <label for="gender" class="form-label">Gender</label>
-                                <select name="gender" id="gender" class="form-control">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
@@ -59,7 +52,7 @@
                                         <label for="current_password" class="form-label">Current Password</label>
                                         <input type="password" name="current_password" id="current_password"
                                             class="form-control" placeholder="Enter your current password"
-                                            value="1L0V3Indonesia">
+                                            value="">
                                     </div>
                                     <div class="form-group my-2">
                                         <label for="password" class="form-label">New Password</label>

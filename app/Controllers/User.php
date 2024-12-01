@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\User as ModelsUser;
+use Myth\Auth\Models\UserModel;
 
 class User extends BaseController
 {
@@ -11,10 +11,11 @@ class User extends BaseController
     {
     } 
 
-    public function index(): string
+    public function index()
     {
-        $model = new ModelsUser();
-        $data['user'] = $model->findAll();
+        $model = new UserModel();
+        
+        $data['users'] = $model->findAll();
         return view('user/index', $data);
     }
 
@@ -25,12 +26,13 @@ class User extends BaseController
 
     public function create()
     {
-        $model = new ModelsUser();
+        $model = new UserModel();
         $data = [
-            'nama' => $this->request->getPost('nama'),
-            'alamat' => $this->request->getPost('alamat'),
-            'no_telepon' => $this->request->getPost('no_telepon'),
-            'email' => $this->request->getPost('email')
+            'name' => $this->request->getPost('nama'),
+            'email' => $this->request->getPost('email'),
+            'username' => '',
+            'role' => 'pelanggan',
+            'password_hash'     => password_hash('123456', PASSWORD_DEFAULT)
         ];
 
         $model->save($data);
@@ -39,7 +41,7 @@ class User extends BaseController
     
     public function delete($id)
     {
-        $model = new ModelsUser();
+        $model = new UserModel();
 
         $model->where('id', $id)->delete();
         echo json_encode(['status' => true]);

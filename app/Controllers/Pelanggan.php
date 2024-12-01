@@ -3,8 +3,11 @@
 namespace App\Controllers;
 
 use App\Models\Pelanggan as ModelsPelanggan;
-use App\Models\User;
 use Exception;
+use Myth\Auth\Entities\User;
+use Myth\Auth\Models\GroupModel;
+use Myth\Auth\Models\UserModel;
+use Myth\Auth\Password;
 
 class Pelanggan extends BaseController
 {
@@ -70,23 +73,49 @@ class Pelanggan extends BaseController
     public function createUser($id)
     {
         $model = new ModelsPelanggan();
-        $userModel = new User();
+        $userModel = model(UserModel::class);
         
         $dataPelanggan = $model->asObject()->find($id);
 
-        $data = [
-            'nama' => $dataPelanggan->nama,
-            'email' => $dataPelanggan->email,
-            'password' => password_hash('123456', PASSWORD_DEFAULT),
-            'role' => 'admin'
-        ];
+        $randomNumber = sprintf('%06d', rand(0, 999999));
 
-        $userModel->insert($data);
+        $hash_password = Password::hash('satepadang');
 
-        $model->where('id', $id)->set('id_user', $userModel->getInsertID())->update();
-        $this->session->setFlashdata('success_message', 'berhasil menambahkan '.$dataPelanggan->nama.' sebagai user');
+        $user = new User();
+        $user->name = $dataPelanggan->nama;
+        $user->email = $dataPelanggan->email;
+        $user->username = 'user_'.$randomNumber;
+        $user->role = 'admin';
+        $user->password_hash = $hash_password;
+        $user->active = 1;
+
+        $userModel->save($user);
+
+        if ($userModel->errors()) {
+            return var_export($userModel->errors());
+            return redirect()->back()->with('error_message', $userModel->errors());
+        } else {
+            
+            $userId = $userModel->insertID();
+
+            $model->where('id', $id)->set('id_user', $userId)->update();
+
+            // Assign the user to a group (e.g., "user" group)
+            $groupModel = new GroupModel();
+            $group = $groupModel->where('name', 'user')->first();  // Or any group you need
+
+            if ($group) {
+                // Insert the user into the group
+                $db = \Config\Database::connect();
+                $db->table('auth_groups_users')->insert([
+                    'group_id' => $group['id'],
+                    'user_id'  => $userId,
+                ]);
+            }
+            
+            return redirect()->to('data-pelanggan')->with('success_message', 'berhasil menambahkan '.$dataPelanggan->nama.' sebagai user');
+        }
         
-        return redirect()->to('data-pelanggan');
     }
     
     public function delete($id)

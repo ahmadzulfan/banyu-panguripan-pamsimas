@@ -45,12 +45,12 @@
                                     <td> <?= $value['no_telepon'] ?> </td>
                                     <td> <?= $value['email'] ?> </td>
                                     <td> 
+                                        <form action="<?= base_url() ?>data-pelanggan/tambah-user/<?= $value['id'] ?>" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-warning btn-sm">
+                                                <i class="bi bi-person-plus"></i>
+                                            </button>
+                                        </form>
                                         <?php if ($value['id_user'] == "") : ?>
-                                            <form action="<?= base_url() ?>data-pelanggan/tambah-user/<?= $value['id'] ?>" method="post" class="d-inline">
-                                                <button type="submit" class="btn btn-warning btn-sm">
-                                                    <i class="bi bi-person-plus"></i>
-                                                </button>
-                                            </form>
                                         <?php endif; ?>
                                         <a href="<?= base_url() ?>data-pelanggan/edit/<?= $value['id'] ?>" type="button" class="btn btn-primary btn-sm" >
                                             <i class="bi bi-pencil-square"></i>

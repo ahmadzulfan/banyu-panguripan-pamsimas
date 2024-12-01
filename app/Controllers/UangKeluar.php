@@ -4,8 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\DanaKeluarModel;
-use CodeIgniter\HTTP\ResponseInterface;
-use Throwable;
 
 class UangKeluar extends BaseController
 {
