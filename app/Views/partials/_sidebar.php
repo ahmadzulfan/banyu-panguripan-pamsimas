@@ -103,7 +103,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= base_url() ?>riwayat">
+                        <a class="sidebar-link" href="<?= base_url() ?>data-tagihan/riwayat">
                             <i class="bi bi-person"></i>
                             <span class="menu-title">Riwayat</span>
                         </a>

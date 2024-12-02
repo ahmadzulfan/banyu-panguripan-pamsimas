@@ -1,5 +1,14 @@
 <?= $this->extend('template/dashboard-admin2.php') ?>
 <?= $this->section('app') ?>
+<?php
+	$lblmonths = date('m');
+	$lbyears = date('Y');
+    $months = array (1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mai',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
+	if (!empty($_REQUEST['month']) && !empty($_REQUEST['year'])) {
+		$lblmonths = $_REQUEST['month'];
+		$lbyears = $_REQUEST['year'];
+	}
+?>
     <div class="content-wrapper">
         <div class="row">
             <div class="col-12 col-lg-12">
@@ -20,7 +29,7 @@
 					<div class="card-body">
 						<form action="" method="GET">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<div class="form-group has-icon-left">
 										<label for="year">Tahun:</label>
 										<div class="position-relative">
@@ -91,3 +100,13 @@
         </div>
         </div>
     </div>
+    
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    const months = ['Januari','Februari','Maret','April','Mai','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+    function numberFormat(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+</script>
+<?= $this->endSection() ?>
