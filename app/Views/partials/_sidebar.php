@@ -98,137 +98,17 @@
                     <i class="bi bi-person-circle"></i>
                         <span class="menu-title">Akun saya</span>
                     </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <form action="<?= base_url() ?>logout" method="GET" id="logout">	
-                            <?= csrf_field() ?>				
-                            <a class="sidebar-link">
-                                <i class="bi bi-box-arrow-left"></i>
-                                <span>Logout</span>
-                            </a>
-                        </form>
-                    </li>
-                <?php endif;?>
-                <!-- Menu Petugas -->
-                <?php if ($this->authorize->inGroup('Petugas', $this->auth->user()->id)) : ?>
-                    <li class="sidebar-item ">
-                    <a href="<?= base_url() ?>" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    </li>
-                    <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url() ?>data-pelanggan">
-                        <i class="bi bi-person"></i>
-                        <span class="menu-title">Data Pelanggan</span>
-                    </a>
-                    </li>
-                    <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url() ?>data-tagihan">
-                        <i class="bi bi-receipt"></i>
-                        <span class="menu-title">Data Tagihan</span>
-                    </a>
-                    </li>
-                    <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url() ?>profile">
-                    <i class="bi bi-person-circle"></i>
-                        <span class="menu-title">Akun saya</span>
-                    </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <form action="<?= base_url() ?>logout" method="GET" id="logout">	
-                            <?= csrf_field() ?>				
-                            <a class="sidebar-link">
-                                <i class="bi bi-box-arrow-left"></i>
-                                <span>Logout</span>
-                            </a>
-                        </form>
-                    </li>
-                    <li class="sidebar-item  has-sub">
-                    <a class="sidebar-link">
-                        <i class="bi bi-clipboard-pulse"></i>
-                        <span class="menu-title">Data Laporan</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item  ">
-                            <a href="<?= base_url() ?>data-laporan" class="submenu-link">Tagihan</a>
-                        </li>
-                        <li class="submenu-item  ">
-                            <a href="#" class="submenu-link">Meteran</a>
-                        </li>
-                    </ul>
-                    </li>
-                    
-                <?php endif;?>
-                <!-- Menu Bendahara -->
-                <?php if ($this->authorize->inGroup('Bendahara', $this->auth->user()->id)) : ?>
-                    <li class="sidebar-item ">
-                    <a href="<?= base_url() ?>" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    </li>
-                    <li class="sidebar-item  has-sub">
+                </li>
+               
+                <li class="sidebar-item">
+					<form action="<?= base_url() ?>logout" method="GET" id="logout">	
+                        <?= csrf_field() ?>				
                         <a class="sidebar-link">
-                          <i class="bi bi-wallet2"></i>
-                            <span class="menu-title">Data Keuangan</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item">
-                                <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Keuangan</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="<?= base_url() ?>data-keuangan/dana-keluar" class="submenu-link">Dana Keluar</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url() ?>profile">
-                    <i class="bi bi-person-circle"></i>
-                        <span class="menu-title">Akun saya</span>
-                    </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <form action="<?= base_url() ?>logout" method="GET" id="logout">	
-                            <?= csrf_field() ?>				
-                            <a class="sidebar-link">
-                                <i class="bi bi-box-arrow-left"></i>
-                                <span>Logout</span>
-                            </a>
-                        </form>
-                    </li>
-                <?php endif;?>
-                <!-- Menu Pelanggan -->
-                <?php if ($this->authorize->inGroup('Pelanggan', $this->auth->user()->id)) : ?>
-                    <li class="sidebar-item ">
-                    <a href="<?= base_url() ?>" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    </li>
-                    <li class="sidebar-item ">
-                    <a href="<?= base_url() ?>" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Riwayar Pembayaran</span>
-                    </a>
-                    </li>
-                    <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url() ?>profile">
-                    <i class="bi bi-person-circle"></i>
-                        <span class="menu-title">Akun saya</span>
-                    </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <form action="<?= base_url() ?>logout" method="GET" id="logout">	
-                            <?= csrf_field() ?>				
-                            <a class="sidebar-link">
-                                <i class="bi bi-box-arrow-left"></i>
-                                <span>Logout</span>
-                            </a>
-                        </form>
-                    </li>
-                <?php endif;?>
-                   
+							<i class="bi bi-box-arrow-left"></i>
+							<span>Logout</span>
+						</a>
+					</form>
+				</li>
             </ul>
         </div>
     </div>
