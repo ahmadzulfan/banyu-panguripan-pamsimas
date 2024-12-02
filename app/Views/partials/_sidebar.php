@@ -54,10 +54,10 @@
                 </li>
                 <?php if ($this->authorize->inGroup('Pimpinan', $this->auth->user()->id)) : ?>
                     <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url() ?>data-pelanggan">
-                        <i class="bi bi-person"></i>
-                        <span class="menu-title">Data Pelanggan</span>
-                    </a>
+                        <a class="sidebar-link" href="<?= base_url() ?>data-pelanggan">
+                            <i class="bi bi-person"></i>
+                            <span class="menu-title">Data Pelanggan</span>
+                        </a>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= base_url() ?>data-user">
@@ -163,19 +163,20 @@
                 <?php endif;?>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= base_url() ?>profile">
-                        <i class="bi bi-person-circle"></i>
+                    <i class="bi bi-person-circle"></i>
                         <span class="menu-title">Akun saya</span>
                     </a>
                 </li>
+               
                 <li class="sidebar-item">
-                    <form action="<?= base_url() ?>logout" method="GET" id="logout">	
+					<form action="<?= base_url() ?>logout" method="GET" id="logout">	
                         <?= csrf_field() ?>				
                         <a class="sidebar-link">
-                            <i class="bi bi-box-arrow-left"></i>
-                            <span>Logout</span>
-                        </a>
-                    </form>
-                </li>
+							<i class="bi bi-box-arrow-left"></i>
+							<span>Logout</span>
+						</a>
+					</form>
+				</li>
             </ul>
         </div>
     </div>
