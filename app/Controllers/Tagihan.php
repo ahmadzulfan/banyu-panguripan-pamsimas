@@ -37,6 +37,7 @@ class Tagihan extends BaseController
 
         $filteredData = $this->tagihanModel->filterData($filter);
 
+        $data['title'] = 'Manajemen Tagihan';
         $data['tagihan'] = $filteredData;
         return view('administrasi/data-tagihan/index', $data);
     }

@@ -15,6 +15,7 @@ class User extends BaseController
     {
         $model = new UserModel();
         
+        $data['title'] = 'Manajemen User';
         $data['users'] = $model->findAll();
         return view('user/index', $data);
     }

@@ -20,6 +20,7 @@ class UangKeluar extends BaseController
 
         $datas = [
             'title' => 'Dana Keluar',
+            'submenu'  => 'keuangan',
             'datas' => $model->findAll(),
         ];
 

@@ -20,6 +20,7 @@ class Pelanggan extends BaseController
     public function index(): string
     {
         $model = new ModelsPelanggan();
+        $data['title'] = 'Manajemen Pelanggan';
         $data['pelanggan'] = $model->findAll();
         return view('pelanggan/index', $data);
     }

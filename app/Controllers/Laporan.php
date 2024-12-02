@@ -25,6 +25,8 @@ class Laporan extends BaseController
         $data['pendapatanByMonth'] = $model->pendapatanByMonth($month);
         $data['pendapatanByYear'] = $model->pendapatanByYear($year);
         $data['statusTagihan'] = $modelTagihan->statusTagihan($month, $year);
+        $data['title'] = 'Data Laporan';
+        $data['submenu'] = 'laporan';
 
         return view('administrasi/data-laporan/index', $data);
     }

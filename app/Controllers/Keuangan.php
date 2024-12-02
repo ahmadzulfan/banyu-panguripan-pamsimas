@@ -11,6 +11,8 @@ class Keuangan extends BaseController
     {
         date_default_timezone_set('Asia/Jakarta');
 
+        $data['title'] = 'Data Keuangan';
+        $data['submenu'] = 'keuangan';
         $data['danaMasuk'] = $this->getDanaMasuk();
         $data['danaKeluar'] = $this->getDanaKeluar();
 
