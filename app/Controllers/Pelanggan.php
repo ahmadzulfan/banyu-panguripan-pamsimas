@@ -100,7 +100,7 @@ class Pelanggan extends BaseController
 
             // Assign the user to a group (e.g., "user" group)
             $groupModel = new GroupModel();
-            $group = $groupModel->where('name', 'Petugas')->first();  // Or any group you need
+            $group = $groupModel->where('name', 'Pelanggan')->first();  // Or any group you need
 
             if ($group) {
                 // Insert the user into the group
