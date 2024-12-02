@@ -102,5 +102,28 @@ class Tagihan extends BaseController
         echo json_encode(['status' => true]);
 
     }
+    
+    public function riwayat()
+    {   
+        $filterMonth = $this->request->getVar('month');
+        $filterYear = $this->request->getVar('year');
+
+        if (!$filterMonth && !$filterYear) {
+            $filterMonth = date('m');
+            $filterYear = date('Y');
+        }
+
+        $filter = [
+            "month" => $filterMonth,
+            "year"  => $filterYear
+        ];
+
+        $filteredData = $this->tagihanModel->filterData($filter);
+
+        $data['title'] = 'Manajemen Tagihan';
+        $data['tagihan'] = $filteredData;
+        return view('administrasi/data-tagihan/riwayat', $data);
+        
+    }
 
 }

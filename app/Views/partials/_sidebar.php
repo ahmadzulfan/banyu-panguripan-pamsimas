@@ -103,6 +103,12 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link" href="<?= base_url() ?>riwayat">
+                            <i class="bi bi-person"></i>
+                            <span class="menu-title">Riwayat</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= base_url() ?>data-user">
                             <i class="bi bi-person-workspace"></i>
                             <span class="menu-title">Data User</span>
@@ -195,7 +201,7 @@
     border-radius: 5px;
 }
 
-/* Menampilkan submenu saat item dalam sidebar aktif */
+
 
 
 .sidebar-item.active .submenu {

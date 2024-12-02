@@ -33,6 +33,7 @@ $routes->group('data-user', ['filter' => 'login'], function($routes) {
 
 $routes->group('data-tagihan', ['filter' => 'login'], function($routes) {
     $routes->get('', 'Tagihan::index');
+    $routes->get('riwayat', 'Tagihan::riwayat');
     $routes->get('tambah', 'Tagihan::tambah');
     $routes->post('tambah', 'Tagihan::create');
     $routes->post('delete/(:segment)', 'Tagihan::delete/$1');
