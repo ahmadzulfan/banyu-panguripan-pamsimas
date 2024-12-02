@@ -82,10 +82,8 @@ class Pelanggan extends BaseController
         $hash_password = Password::hash('12345678');
 
         $user = new User();
-        $user->name = $dataPelanggan->nama;
         $user->email = $dataPelanggan->email;
         $user->username = 'user_'.$randomNumber;
-        $user->role = 'admin';
         $user->password_hash = $hash_password;
         $user->active = 1;
 
