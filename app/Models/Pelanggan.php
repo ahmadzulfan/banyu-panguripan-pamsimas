@@ -11,10 +11,10 @@ class Pelanggan extends Model
 
     protected $useAutoIncrement = true;
 
-    //protected $returnType     = 'array';
+    //protected $returnType     = Pelanggan::class;
     protected $useSoftDeletes = true;
     
-    protected $allowedFields = ['id_user',	'nama',	'alamat',	'no_telepon',	'email'];
+    protected $allowedFields = ['id_user', 'nama', 'alamat', 'no_telepon', 'email'];
 
     // protected bool $allowEmptyInserts = false;
     // protected bool $updateOnlyChanged = true;

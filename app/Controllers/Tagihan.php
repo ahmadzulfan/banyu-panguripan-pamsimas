@@ -57,15 +57,13 @@ class Tagihan extends BaseController
         $tahun = date('Y', strtotime($post['bulan']));
         $pelangganId = $post['pelanggan_id'];
 
-        if (!$validation->run($post, 'createTagihan')) {
+        if (!$validation->run($post, 'createTagihan'))
             return redirect()->back()->withInput()->with('errors', $validation->listErrors());
-        }
 
         $dataTagihan = $this->tagihanModel->where('pelanggan_id', $pelangganId)->where('bulan', $bulan)->where('tahun', $tahun)->first();
 
-        if ($dataTagihan) {
+        if ($dataTagihan)
             return redirect()->back()->withInput()->with('error', 'data tagihan bulan '.$bulanName.' untuk pelanggan id '.$pelangganId.' sudah ada.');
-        }
 
         $jumlahPemakaian = $post['total_pemakaian'];
 

@@ -22,9 +22,9 @@
                     <thead>
                         <tr>
                             <th> No </th>
-                            <th> nama </th>
+                            <th> Username </th>
                             <th> Email </th>
-                            <th> Role </th>
+                            <th> Status </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -32,9 +32,15 @@
                         <?php foreach ($users as $key => $user) : ?>
                             <tr>
                                 <td> <?= $key+1 ?> </td>
-                                <td> <?= $user->name ?> </td>
+                                <td> <?= $user->username ?> </td>
                                 <td> <?= $user->email ?> </td>
-                                <td> <?= $user->role ?> </td>
+                                <td>
+                                    <?php if ($user->active == 0) : ?>
+                                        <span class="badge rounded-pill text-bg-danger text-white">non-aktif</span>
+                                    <?php else: ?>
+                                        <span class="badge rounded-pill text-bg-success text-white">aktif</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td> 
                                     <button type="button" class="btn btn-danger btn-sm" onclick="deleteUser(<?= $user->id ?>)"> 
                                         <i class="bi bi-trash-fill"></i>

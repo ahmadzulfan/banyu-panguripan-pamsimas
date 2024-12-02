@@ -70,4 +70,24 @@ class Validation extends BaseConfig
             'is_natural_no_zero' => 'Total tagihan tidak boleh ber-nilai negatif'
         ],
     ];
+
+    public array $resetPassword = [
+        'current_password'          => 'required',
+        'password'              => 'required|min_length[8]',
+        'confirm_password'      => 'required|matches[password]',
+    ];
+
+    public array $resetPassword_errors = [
+        'current_password' => [
+            'required' => 'Kolom ini tidak boleh kosong',
+        ],
+        'password' => [
+            'required' => 'Kolom ini tidak boleh kosong',
+            'min_length' => 'Password terlalu singkat, minimal terdiri dari 8 karakter'
+        ],
+        'confirm_password' => [
+            'required' => 'Kolom ini tidak boleh kosong',
+            'matches' => 'Password tidak sama, harap masukan ulang',
+        ],
+    ];
 }

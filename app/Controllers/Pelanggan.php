@@ -79,7 +79,7 @@ class Pelanggan extends BaseController
 
         $randomNumber = sprintf('%06d', rand(0, 999999));
 
-        $hash_password = Password::hash('satepadang');
+        $hash_password = Password::hash('12345678');
 
         $user = new User();
         $user->name = $dataPelanggan->nama;

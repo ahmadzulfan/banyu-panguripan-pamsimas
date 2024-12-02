@@ -3,16 +3,16 @@
 use App\Models\User;
 use CodeIgniter\Controller;
 use Myth\Auth\Models\UserModel;
+use Myth\Auth\Password;
 
 class Auth extends Controller
 {
-    private $userModel, $config, $auth;
+    private $config, $auth;
     function __construct()
     {
         date_default_timezone_set('Asia/Jakarta');
         $this->config = config('Auth');
         $this->auth = service('authentication');
-        $this->userModel = new UserModel();
     } 
     
     public function index()
@@ -20,20 +20,43 @@ class Auth extends Controller
         $data['config'] = $this->config;
         return view('auth/login', $data);
     }
-   
-    public function update($id)
-    {
-        $data = [
-            'nama' => $this->request->getPost('nama'),
-            'alamat' => $this->request->getPost('alamat'),
-            'no_telepon' => $this->request->getPost('no_telepon'),
-            'email' => $this->request->getPost('email')
-        ];
 
-        $this->userModel->where('id', $id)->set($data)->update();
-       
+    public function generateTokenForUser()
+    {
+        return bin2hex(random_bytes(16));
+    }
+
+    public function resetPassword()
+    {
+        $validation = service('validation');
+        $post = $this->request->getPost();
+
+        if (!$this->auth->check()) return view('errors/html/error_404');
+        $user = $this->auth->user();
+
+        if (!$validation->run($post, 'resetPassword'))
+            return redirect()->back()->withInput()->with('errors', $validation->listErrors());
+
+        if (!Password::verify($post['current_password'], $user->password_hash))
+            return redirect()->back()->withInput()->with('error', 'Password lama tidak cocok');
+
+        $model = model(UserModel::class);
         
-        return redirect()->to('auth/profile');
+        $model->logResetAttempt(
+            $user->email,
+            $this->generateTokenForUser(),
+            $this->request->getIPAddress(),
+            (string) $this->request->getUserAgent()
+        );
+
+        $newHashPassword = Password::hash($post['password']);
+
+        $userModel = $model->where('id', $user->id)->first();
+        $userModel->password_hash = $newHashPassword;
+        $userModel->reset_at = date('Y-m-d H:i:s');
+        $model->save($userModel);
+
+        return redirect()->back()->with('success_message', 'Berhasil mengubah kata sandi');
     }
     
 } 

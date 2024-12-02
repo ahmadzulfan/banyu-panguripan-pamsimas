@@ -8,9 +8,11 @@ use CodeIgniter\Router\RouteCollection;
 
 // ACCOUNT MANAJEMENT
 $routes->get('/profile', 'AccountController::index');
+$routes->post('/profile/update/(:segment)', 'AccountController::update/$1');
 
-$routes->get('/login', 'Auth::index');
 $routes->get('/', 'Home::index', ['filter' => 'login']);
+$routes->get('/login', 'Auth::index');
+$routes->post('/resetpassword', 'Auth::resetPassword', ['filter' => 'login']);
 //$routes->get('/', 'Home::index');
 
 $routes->group('data-pelanggan', ['filter' => 'login'], function($routes) {
