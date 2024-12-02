@@ -48,10 +48,13 @@ class AccountController extends BaseController
             'no_telepon' => $post['phone'],
         ]);
 
-        $UserModel = model(UserModel::class);
-        $user = $UserModel->find($user->id);
-        $user->email = $post['email'];
-        $UserModel->save($user);
+        if ($post['email'] !== $user->email) {
+            $UserModel = model(UserModel::class);
+            $user = $UserModel->find($user->id);
+            $user->email = $post['email'];
+            $UserModel->save($user);
+        }
+
 
         return redirect()->back()->with('success_message', 'perubahan berhasil tersimpan');
     }
