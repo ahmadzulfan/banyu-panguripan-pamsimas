@@ -9,7 +9,7 @@ use App\Models\TagihanModel;
 
 class Tagihan extends BaseController
 {
-    private $tagihanModel, $meterAirModel, $pelangganModel, $feeModel;
+    private $tagihanModel, $meterAirModel, $pelangganModel, $feeModel, $auth;
     function __construct()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -17,6 +17,7 @@ class Tagihan extends BaseController
         $this->tagihanModel = new TagihanModel();
         $this->feeModel = new BiayaPemeliharaan();
         $this->meterAirModel = new MeterAir();
+        $this->auth = service('authentication');
     } 
 
     public function index()
@@ -105,20 +106,18 @@ class Tagihan extends BaseController
     
     public function riwayat()
     {   
-        $filterMonth = $this->request->getVar('month');
+        if (!$this->auth->check()) return view('errors/html/error_404');
+        $user = $this->auth->user();
+
         $filterYear = $this->request->getVar('year');
 
-        if (!$filterMonth && !$filterYear) {
-            $filterMonth = date('m');
-            $filterYear = date('Y');
-        }
+        if (!$filterYear) $filterYear = date('Y');
 
         $filter = [
-            "month" => $filterMonth,
             "year"  => $filterYear
         ];
 
-        $filteredData = $this->tagihanModel->filterData($filter);
+        $filteredData = $this->tagihanModel->getTagihanByUser($filter, $user->id);
 
         $data['title'] = 'History Tagihan';
         $data['tagihan'] = $filteredData;

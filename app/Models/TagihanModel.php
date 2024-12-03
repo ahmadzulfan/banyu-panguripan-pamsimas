@@ -43,6 +43,13 @@ class TagihanModel extends Model
                     ->where('tahun', $filter['year'])->findAll();
     }
 
+    public function getTagihanByUser($filter, $idUser)
+    {
+        return $this->pelanggan()
+                    ->where('id_user', $idUser)
+                    ->where('tahun', $filter['year'])->findAll();
+    }
+
     public function filterDataPDF($filter)
     {
         return $this->pelanggan()

@@ -161,7 +161,7 @@
                 <!-- Menu Pelanggan -->
                 <?php if ($this->authorize->inGroup('Pelanggan', $this->auth->user()->id)) : ?>
                     <li class="sidebar-item ">
-                        <a href="<?= base_url() ?>" class='sidebar-link'>
+                        <a href="<?= base_url() ?>data-tagihan/riwayat" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Riwayar Pembayaran</span>
                         </a>
