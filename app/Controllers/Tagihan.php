@@ -47,6 +47,7 @@ class Tagihan extends BaseController
     {
         $data['pelanggan'] = $this->pelangganModel->findAll();
         $data['biaya'] = $this->feeModel->first();
+        $data['title'] = 'Tambah Data Tagihan';
         return view('administrasi/data-tagihan/tambah', $data);
     }
 

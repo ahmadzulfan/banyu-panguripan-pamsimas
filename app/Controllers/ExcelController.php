@@ -65,7 +65,7 @@ class ExcelController extends BaseController
             "year"  => $filterYear
         ];
 
-        $filteredData = $tagihanModel->filterData($filter);
+        $filteredData = $tagihanModel->filterDataPDF($filter);
 
         return $filteredData;
     }
