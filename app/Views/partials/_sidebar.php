@@ -88,9 +88,7 @@
                             <li class="submenu-item  ">
                                 <a href="<?= base_url() ?>data-laporan" class="submenu-link">Tagihan</a>
                             </li>
-                            <li class="submenu-item  ">
-                                <a href="#" class="submenu-link">Meteran</a>
-                            </li>
+                            
                         </ul>
                     </li>
                 <?php endif;?>
@@ -100,12 +98,6 @@
                         <a class="sidebar-link" href="<?= base_url() ?>data-pelanggan">
                             <i class="bi bi-person"></i>
                             <span class="menu-title">Data Pelanggan</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= base_url() ?>data-tagihan/riwayat">
-                            <i class="bi bi-person"></i>
-                            <span class="menu-title">Riwayat</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -125,14 +117,9 @@
                             <i class="bi bi-clipboard-pulse"></i>
                             <span class="menu-title">Data Laporan</span>
                         </a>
-                        <ul class="submenu <?php if (!empty($submenu) && $submenu == 'laporan') {
-                            echo 'submenu-open'; }?>">
-                            <li class="submenu-item <?php if ($title == 'Data Laporan') {
-                            echo 'active'; }?>">
-                                <a href="<?= base_url() ?>data-laporan" class="submenu-link">Tagihan</a>
-                            </li>
+                        <ul class="submenu ">
                             <li class="submenu-item  ">
-                                <a href="#" class="submenu-link">Meteran</a>
+                                <a href="<?= base_url() ?>data-laporan" class="submenu-link">Tagihan</a>
                             </li>
                         </ul>
                     </li>
@@ -163,7 +150,7 @@
                     <li class="sidebar-item ">
                         <a href="<?= base_url() ?>data-tagihan/riwayat" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
-                            <span>Riwayar Pembayaran</span>
+                            <span>Riwayat Pembayaran</span>
                         </a>
                     </li>
                 <?php endif;?>
@@ -251,7 +238,7 @@
             });
         });
 
-        // Menangani klik pada "Akun saya" untuk menambahkan kelas active
+   
         
     });
 
