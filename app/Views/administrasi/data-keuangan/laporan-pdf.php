@@ -35,7 +35,7 @@
     <table border=1 width=100% cellpadding=2 cellspacing=0 style="margin-top: 2.5rem; text-align:center;">  
         <thead>    
             <tr align=center>  
-                <td width="2%">ID</td> 
+                
                 <td width="5%">PERIODE</td>
                 <td width="15%">KETERANGAN</td>  
                 <td width="15%">DANA KAS</td>  
@@ -43,41 +43,43 @@
             </tr>    
         </thead> 
         <?php $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
-		    <?php $pendapatanPerBulan = $dana['dana_masuk'] - $danaKeluar[$dana['periode']];
-					$totDanaMasuk += $dana['dana_masuk'];
-					$totDanaKeluar += $danaKeluar[$dana['periode']];
-					$pendapatan += $pendapatanPerBulan; 
-					?>
+								<?php 
+									$d_keluar = 0;
+									$totDanaMasuk += $dana['dana_masuk'];
+								?>
    
-        <tbody>    
-            <tr>        
-               
-                    <tr>
-                    <tr>
-                        <td><?= $key+1 ?></td>
-						<td><?= month_indo($dana['periode']) ?></td>
-						<td>Pendapatan PAM bulan Rp <?= month_indo($dana['periode']) ?></td>
-						<td>Pemasukan : Rp <?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
-					</tr>
-					<tr>
-                        <td><?= $key+1 ?></td>
-						<td><?= month_indo($dana['periode']) ?></td>
-						<td>Pulsa Listrik Rp <?= month_indo($dana['periode']) ?></td>
-						<td>Pengeluaran : Rp <?= number_format($danaKeluar[$dana['periode']], 0, '.', '.') ?></td>
-					</tr>
-                    <tr>
-					<th colspan="3">Pendapatan Bulan <?= month_indo($dana['periode']) ?></td>
-					<th colspan="1">Rp <?= number_format($pendapatanPerBulan, 0, '.', '.') ?></th>
-					</tr>
+   <tbody>
+        <tr>
+            
+            <td><?= month_indo($dana['periode']) ?></td>
+            <td>Pendapatan PAM bulan <?= month_indo($dana['periode']) ?></td>
+            <td>Pemasukan : Rp <?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
+        </tr>
+        <?php if (!empty($danaKeluar[$dana['periode']])) : ?>
+            <?php foreach ($danaKeluar[$dana['periode']] as $key => $dk) : ?>
+                <?php $d_keluar += $dk['dana_keluar'] ?>
                 <tr>
-				
-            </tr>  
-        </tbody>
+                    <td><?= month_indo($dana['periode']) ?></td>
+                    <td><?= $dk['keterangan'] ?></td>
+                    <td>Pengeluaran : Rp <?= number_format($dk['dana_keluar'], 0, '.', '.') ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <?php 
+            $pendapatanPerBulan = $dana['dana_masuk'] - $d_keluar;
+            $pendapatan += $pendapatanPerBulan;
+            $totDanaKeluar += $d_keluar; 
+        ?>
+        <tr>
+            <th colspan="2">Pendapatan Bulan <?= month_indo($dana['periode']) ?></td>
+            <th>Rp <?= number_format($pendapatanPerBulan, 0, '.', '.') ?></th>
+        </tr>
+    </tbody>
         <?php endforeach; ?>
         <tfoot>
 			<tr>
-			<th colspan="3">Total Pendapatan</th>
-			<th id="total_pendapatan" colspan="1">Rp <?= number_format($pendapatan, 0, '.', '.') ?></th>
+			<th colspan="2">Total Pendapatan</th>
+			<th id="total_pendapatan">Rp <?= number_format($pendapatan, 0, '.', '.') ?></th>
 			</tr>
 		</tfoot>
     </table>  

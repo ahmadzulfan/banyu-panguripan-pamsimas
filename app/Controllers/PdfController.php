@@ -80,7 +80,7 @@ class PdfController extends BaseController
         // Hitung total pendapatan
         $pendapatan = 0;
         foreach ($danaMasuk as $key => $dana) {
-            $pendapatanPerBulan = $dana['dana_masuk'] - ($danaKeluar[$dana['periode']] ?? 0);
+            $pendapatanPerBulan = (int)$dana['dana_masuk'] - ((int)$danaKeluar[$dana['periode']][0]['dana_keluar'] ?? 0);
             $pendapatan += $pendapatanPerBulan;
         }
 
@@ -123,15 +123,20 @@ class PdfController extends BaseController
     private function getDanaKeluar()
     {
         $model = new DanaKeluarModel();
-        $query = $model->select('SUM(jumlah_keluar) as dana_keluar, MONTH(tanggal_keluar) as periode')
-                       ->groupBy('MONTH(tanggal_keluar)')
-                       ->get()->getResultArray();
 
-        // Konversi ke array dengan key periode
+        $query = $model->select('jumlah_keluar as dana_keluar, MONTH(tanggal_keluar) as periode, keterangan')
+                    ->orderBy('tanggal_keluar', 'asc')
+                    ->get()->getResultArray();
+
+        $totalKeluar = 0;
         $arr = [];
         foreach ($query as $value) {
-            $arr[$value['periode']] = $value['dana_keluar'];
+            $arr[$value['periode']][] = ['dana_keluar' => $value['dana_keluar'], 'keterangan' => $value['keterangan']];
+            $totalKeluar += $value['dana_keluar'];
         }
+
+        $arr['total_pengeluaran'] = $totalKeluar;
+
         return $arr;
     }
 }
