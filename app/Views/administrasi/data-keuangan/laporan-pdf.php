@@ -39,17 +39,19 @@
                 <td width="5%">PERIODE</td>
                 <td width="15%">KETERANGAN</td>  
                 <td width="15%">DANA KAS</td>  
-                <?php foreach ($months as $key => $month) : ?>
-                    <td width="5%"><?= $month ?></td>
-                <?php endforeach; ?>
+                
             </tr>    
-        </thead>    
+        </thead> 
+        <?php $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
+		    <?php $pendapatanPerBulan = $dana['dana_masuk'] - $danaKeluar[$dana['periode']];
+					$totDanaMasuk += $dana['dana_masuk'];
+					$totDanaKeluar += $danaKeluar[$dana['periode']];
+					$pendapatan += $pendapatanPerBulan; 
+					?>
+   
         <tbody>    
             <tr>        
-                <?php $total=0; ?>
-
-                <?php foreach ($datas as $key => $data) : ?>
-                    <?php $total+=$data['total_tagihan'] ?>
+               
                     <tr>
                     <tr>
                         <td><?= $key+1 ?></td>
@@ -63,14 +65,21 @@
 						<td>Pulsa Listrik Rp <?= month_indo($dana['periode']) ?></td>
 						<td>Pengeluaran : Rp <?= number_format($danaKeluar[$dana['periode']], 0, '.', '.') ?></td>
 					</tr>
-
-                <?php endforeach; ?>
+                    <tr>
+					<th colspan="3">Pendapatan Bulan <?= month_indo($dana['periode']) ?></td>
+					<th colspan="1">Rp <?= number_format($pendapatanPerBulan, 0, '.', '.') ?></th>
+					</tr>
                 <tr>
-				<th colspan="2">Pendapatan Bulan <?= month_indo($dana['periode']) ?></td>
-				<th>Rp <?= number_format($pendapatanPerBulan, 0, '.', '.') ?></th>
- 
+				
             </tr>  
         </tbody>
+        <?php endforeach; ?>
+        <tfoot>
+			<tr>
+			<th colspan="3">Total Pendapatan</th>
+			<th id="total_pendapatan" colspan="1">Rp <?= number_format($pendapatan, 0, '.', '.') ?></th>
+			</tr>
+		</tfoot>
     </table>  
 </body>  
 
