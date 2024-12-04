@@ -46,14 +46,15 @@ $routes->group('data-keuangan', ['filter' => 'login'], function($routes) {
     $routes->get('dana-keluar', 'UangKeluar::index');
     $routes->post('dana-keluar', 'UangKeluar::store');
     $routes->post('dana-keluar/delete/(:segment)', 'UangKeluar::delete/$1');
-    $routes->get('pdf/generate', 'PdfController::generate');
+    $routes->get('pdf/export', 'PdfController::export');
+    $routes->get('excel/export', 'ExcelController::export');
 });
 
 $routes->group('data-laporan', ['filter' => 'login'], function($routes) {
     $routes->get('', 'Laporan::index');
     $routes->get('pdf/generate', 'PdfController::generate');
     $routes->get('struk/(:segment)', 'PdfController::struk/$1');
-    $routes->get('excel/export', 'ExcelController::export');
+    $routes->get('excel/generate', 'ExcelController::generate');
 });
 
 $routes->post('/ajax/data-tagihan', 'GetAjax::getDataTagiahanById');

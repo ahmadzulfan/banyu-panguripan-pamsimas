@@ -5,6 +5,9 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\TagihanModel;
 use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Models\DanaKeluarModel;
+use App\Models\Pembayaran;
 
 class PdfController extends BaseController
 {
@@ -66,5 +69,69 @@ class PdfController extends BaseController
         $dompdf->stream($filename, array("Attachment" => 0));
 
         exit();
+    }
+
+    public function export()
+    {
+        // Ambil data dana masuk dan dana keluar dari model
+        $danaMasuk = $this->getDanaMasuk();
+        $danaKeluar = $this->getDanaKeluar();
+
+        // Hitung total pendapatan
+        $pendapatan = 0;
+        foreach ($danaMasuk as $key => $dana) {
+            $pendapatanPerBulan = $dana['dana_masuk'] - ($danaKeluar[$dana['periode']] ?? 0);
+            $pendapatan += $pendapatanPerBulan;
+        }
+
+        // Data untuk dikirim ke view
+        $data = [
+            'danaMasuk' => $danaMasuk,
+            'danaKeluar' => $danaKeluar,
+            'pendapatan' => $pendapatan,
+        ];
+
+        $filename = 'Laporan Keuangan PAM - ' . date('Y-m-d-H-i-s');
+
+        // Inisialisasi Dompdf
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($options);
+
+        // Load HTML view
+        $dompdf->loadHtml(view('administrasi/data-keuangan/laporan-pdf', $data));
+
+        // Atur ukuran kertas dan orientasi
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render HTML ke PDF
+        $dompdf->render();
+
+        // Tampilkan PDF di browser
+        $dompdf->stream($filename, array("Attachment" => false));
+
+        exit();
+    }
+
+    private function getDanaMasuk()
+    {
+        $model = new Pembayaran();
+
+        return $model->danaMasukPerPeriode();
+    }
+
+    private function getDanaKeluar()
+    {
+        $model = new DanaKeluarModel();
+        $query = $model->select('SUM(jumlah_keluar) as dana_keluar, MONTH(tanggal_keluar) as periode')
+                       ->groupBy('MONTH(tanggal_keluar)')
+                       ->get()->getResultArray();
+
+        // Konversi ke array dengan key periode
+        $arr = [];
+        foreach ($query as $value) {
+            $arr[$value['periode']] = $value['dana_keluar'];
+        }
+        return $arr;
     }
 }

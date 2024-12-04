@@ -49,75 +49,8 @@
       </div>
     </div>
   </div>
-  <div class="container" data-aos="fade-up">
-    <div class="row">
-      <div class="col-md-6 col-lg-4 text-center d-flex align-items-stretch mb-7 mb-lg-10">
-        <div class="card">
-          <div class="card-body">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <i class="bi bi-grid-fill" style="font-size: 30px;"></i>
-              <h4 class="title"><a href="https://pdamkendal.com/berita/profil/sejarah-perusahaan">Sejarah Perusahaan</a></h4>
-              <p class="description">Kenali PERUMDA Air Minum Tirto Panguripan</p>
-          </div>
-        </div>
-    </div>
-  </div>
-    <div class="col-md-6 col-lg-4 text-center d-flex align-items-stretch mb-7 mb-lg-10">
-      <div class="card">
-        <div class="card-body">
-          <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-            <i class="bi bi-grid-fill" style="font-size: 30px;"></i>
-            <h4 class="title"><a href="https://pdamkendal.com/berita/profil/visi-dan-misi-perusahaan">Visi dan Misi Perusahaan</a></h4>
-            <p class="description">Merupakan tujuan utama dan cita-cita kami demi tercainya Pelayanan Prima</p>
-          </div>
-        </div>
-      </div>
-  </div>
-    <div class="col-md-6 col-lg-4 text-center d-flex align-items-stretch mb-7 mb-lg-10">
-      <div class="card">
-        <div class="card-body">
-          <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-          <i class="bi bi-grid-fill" style="font-size: 30px;"></i>
-          <h4 class="title"><a href="https://pdamkendal.com/berita/profil/strategi-perusahaan">Strategi Perusahaan</a></h4>
-          <p class="description">Untuk menunjang Visi dan Misi Perumda Air Minum Tirto Panguripan</p>
-        </div>
-        </div>
-      </div>
-  </div>
-  <div class="container" data-aos="fade-up">
-    <div class="row">
-      <div class="col-md-6 col-lg-4 text-center d-flex align-items-stretch mb-7 mb-lg-10">
-        <div class="card">
-          <div class="card-body">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <i class="bi bi-grid-fill" style="font-size: 30px;"></i>
-              <h4 class="title"><a href="https://pdamkendal.com/berita/profil/sejarah-perusahaan">Sejarah Perusahaan</a></h4>
-              <p class="description">Kenali PERUMDA Air Minum Tirto Panguripan</p>
-          </div>
-        </div>
-    </div>
-  </div>
-    <div class="col-md-6 col-lg-4 text-center d-flex align-items-stretch mb-7 mb-lg-10">
-      <div class="card">
-        <div class="card-body">
-          <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-            <i class="bi bi-grid-fill" style="font-size: 30px;"></i>
-            <h4 class="title"><a href="https://pdamkendal.com/berita/profil/visi-dan-misi-perusahaan">Visi dan Misi Perusahaan</a></h4>
-            <p class="description">Merupakan tujuan utama dan cita-cita kami demi tercainya Pelayanan Prima</p>
-          </div>
-        </div>
-      </div>
-  </div>
-    <div class="col-md-6 col-lg-4 text-center d-flex align-items-stretch mb-7 mb-lg-10">
-      <div class="card">
-        <div class="card-body">
-          <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-          <i class="bi bi-grid-fill" style="font-size: 30px;"></i>
-          <h4 class="title"><a href="https://pdamkendal.com/berita/profil/strategi-perusahaan">Strategi Perusahaan</a></h4>
-          <p class="description">Untuk menunjang Visi dan Misi Perumda Air Minum Tirto Panguripan</p>
-        </div>
-        </div>
-      </div>
+
+    
   </div>
            
 

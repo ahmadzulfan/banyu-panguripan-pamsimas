@@ -39,31 +39,47 @@
                 <td width="5%">PERIODE</td>
                 <td width="15%">KETERANGAN</td>  
                 <td width="15%">DANA KAS</td>  
-                <?php foreach ($months as $key => $month) : ?>
-                    <td width="5%"><?= $month ?></td>
-                <?php endforeach; ?>
+                
             </tr>    
-        </thead>    
+        </thead> 
+        <?php $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
+		    <?php $pendapatanPerBulan = $dana['dana_masuk'] - $danaKeluar[$dana['periode']];
+					$totDanaMasuk += $dana['dana_masuk'];
+					$totDanaKeluar += $danaKeluar[$dana['periode']];
+					$pendapatan += $pendapatanPerBulan; 
+					?>
+   
         <tbody>    
             <tr>        
-                <td>1</td>  
-                <td>012</td>  
-                <td>Resita</td>  
-                <td>SembungJambu RT 09/02</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
-                <td>85</td> 
+               
+                    <tr>
+                    <tr>
+                        <td><?= $key+1 ?></td>
+						<td><?= month_indo($dana['periode']) ?></td>
+						<td>Pendapatan PAM bulan Rp <?= month_indo($dana['periode']) ?></td>
+						<td>Pemasukan : Rp <?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
+					</tr>
+					<tr>
+                        <td><?= $key+1 ?></td>
+						<td><?= month_indo($dana['periode']) ?></td>
+						<td>Pulsa Listrik Rp <?= month_indo($dana['periode']) ?></td>
+						<td>Pengeluaran : Rp <?= number_format($danaKeluar[$dana['periode']], 0, '.', '.') ?></td>
+					</tr>
+                    <tr>
+					<th colspan="3">Pendapatan Bulan <?= month_indo($dana['periode']) ?></td>
+					<th colspan="1">Rp <?= number_format($pendapatanPerBulan, 0, '.', '.') ?></th>
+					</tr>
+                <tr>
+				
             </tr>  
         </tbody>
+        <?php endforeach; ?>
+        <tfoot>
+			<tr>
+			<th colspan="3">Total Pendapatan</th>
+			<th id="total_pendapatan" colspan="1">Rp <?= number_format($pendapatan, 0, '.', '.') ?></th>
+			</tr>
+		</tfoot>
     </table>  
 </body>  
 

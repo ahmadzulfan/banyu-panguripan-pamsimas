@@ -15,7 +15,7 @@ class ExcelController extends BaseController
 
     }
 
-    public function export()
+    public function generate()
     {
         $filterMonth = $this->request->getVar('month');
         $filterYear = $this->request->getVar('year');
@@ -65,7 +65,7 @@ class ExcelController extends BaseController
             "year"  => $filterYear
         ];
 
-        $filteredData = $tagihanModel->filterData($filter);
+        $filteredData = $tagihanModel->filterDataPDF($filter);
 
         return $filteredData;
     }
