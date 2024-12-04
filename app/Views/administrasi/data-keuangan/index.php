@@ -84,12 +84,12 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="d-flex justify-content-end gap-2">
-							<a href="<?= base_url() ?>data-keuangan/tambah">
+							<a href="<?= base_url() ?>data-keuangan/excel/export">
 								<button type="button" class="btn btn-success btn-sm mb-3" z>
 									<i class="bi bi-file-earmark-spreadsheet" style="font-size: 18px;"></i> Excel
 								</button>
 							</a>
-							<a href="<?= base_url() ?>data-keuangan/pdf/generate" target="_blank">
+							<a href="<?= base_url() ?>data-keuangan/pdf/export" target="_blank">
 								<button type="button" class="btn btn-danger btn-sm mb-3" z>
 									<i class="bi bi-filetype-pdf" style="font-size: 18px;"></i> PDF
 								</button>

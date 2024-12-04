@@ -67,4 +67,29 @@ class PdfController extends BaseController
 
         exit();
     }
+
+    // controller untuk ekspor data keuangan
+    public function export()
+    {
+
+        
+        $filename = 'Laporan Keuangan PAM - '. date('y-m-d-H-i-s');
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+
+        // load HTML content
+        $dompdf->loadHtml(view('administrasi/data-laporan/laporan-pdf', ));
+
+        // (optional) setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // render html as PDF
+        $dompdf->render();
+
+        // output the generated pdf
+        $dompdf->stream($filename, array("Attachment" => 0));
+
+        exit();
+    }
 }

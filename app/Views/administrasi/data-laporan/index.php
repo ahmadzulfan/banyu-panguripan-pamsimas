@@ -171,7 +171,7 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="d-flex justify-content-end gap-2">
-						<a href="<?= base_url() ?>data-laporan/excel/export">
+						<a href="<?= base_url() ?>data-laporan/excel/generate">
 							<button type="button" class="btn btn-success btn-sm mb-3" z>
 								<i class="bi bi-file-earmark-spreadsheet" style="font-size: 18px;"></i> Excel
 							</button>
