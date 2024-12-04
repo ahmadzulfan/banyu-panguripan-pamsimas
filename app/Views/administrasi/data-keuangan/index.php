@@ -106,24 +106,33 @@
 								</tr>
 							</thead>
 							<?php $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
-								<?php $pendapatanPerBulan = $dana['dana_masuk'] - $danaKeluar[$dana['periode']];
+								<?php 
+									$d_keluar = 0;
 									$totDanaMasuk += $dana['dana_masuk'];
-									$totDanaKeluar += $danaKeluar[$dana['periode']];
-									$pendapatan += $pendapatanPerBulan; 
 								?>
 
 							<tbody>
-									<tr>
-										<td><?= month_indo($dana['periode']) ?></td>
-										<td>Pendapatan PAM bulan Rp <?= month_indo($dana['periode']) ?></td>
-										<td>Pemasukan : Rp <?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
-									</tr>
-									<tr>
-										<td><?= month_indo($dana['periode']) ?></td>
-										<td>Pulsa Listrik Rp <?= month_indo($dana['periode']) ?></td>
-										<td>Pengeluaran : Rp <?= number_format($danaKeluar[$dana['periode']], 0, '.', '.') ?></td>
-									</tr>
-									<tr>
+								<tr>
+									<td><?= month_indo($dana['periode']) ?></td>
+									<td>Pendapatan PAM bulan <?= month_indo($dana['periode']) ?></td>
+									<td>Pemasukan : Rp <?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
+								</tr>
+								<?php if (!empty($danaKeluar[$dana['periode']])) : ?>
+									<?php foreach ($danaKeluar[$dana['periode']] as $key => $dk) : ?>
+										<?php $d_keluar += $dk['dana_keluar'] ?>
+										<tr>
+											<td><?= month_indo($dana['periode']) ?></td>
+											<td><?= $dk['keterangan'] ?></td>
+											<td>Pengeluaran : Rp <?= number_format($dk['dana_keluar'], 0, '.', '.') ?></td>
+										</tr>
+									<?php endforeach; ?>
+								<?php endif; ?>
+								<?php 
+									$pendapatanPerBulan = $dana['dana_masuk'] - $d_keluar;
+									$pendapatan += $pendapatanPerBulan;
+									$totDanaKeluar += $d_keluar; 
+								?>
+								<tr>
 									<th colspan="2">Pendapatan Bulan <?= month_indo($dana['periode']) ?></td>
 									<th>Rp <?= number_format($pendapatanPerBulan, 0, '.', '.') ?></th>
 								</tr>
