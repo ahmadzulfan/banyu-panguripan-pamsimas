@@ -32,11 +32,17 @@
                                 <th> Username </th>
                                 <th> Email </th>
                                 <th> Status </th>
+                                <th> Role </th>
                                 <th> Action </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($users as $key => $user) : ?>
+                            <?php
+
+                            use Myth\Auth\Models\GroupModel;
+                            $groupModel = model(GroupModel::class);
+
+                            foreach ($users as $key => $user) : ?>
                                 <tr>
                                     <td> <?= $key+1 ?> </td>
                                     <td> <?= $user->username ?> </td>
@@ -48,6 +54,7 @@
                                             <span class="badge rounded-pill text-bg-success text-white">aktif</span>
                                         <?php endif; ?>
                                     </td>
+                                    <td><?= $groupModel->getGroupsForUser($user->id)[0]['name'] ?></td>
                                     <td>
                                         <a href="<?= base_url() ?>data-user/edit/<?= $user->id ?>" type="button" class="btn btn-primary btn-sm" >
                                             <i class="bi bi-pencil-square"></i>
