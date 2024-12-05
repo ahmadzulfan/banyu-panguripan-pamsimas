@@ -52,84 +52,26 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <?php if ($this->authorize->inGroup('Pimpinan', $this->auth->user()->id)) : ?>
+                <?php if ($this->authorize->hasPermission('manage-pelanggan', $this->auth->user()->id)) : ?>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= base_url() ?>data-pelanggan">
                             <i class="bi bi-person"></i>
                             <span class="menu-title">Data Pelanggan</span>
                         </a>
                     </li>
+                <?php endif; ?>
+                <?php if ($this->authorize->hasPermission('manage-users', $this->auth->user()->id)) : ?>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= base_url() ?>data-user">
                             <i class="bi bi-person-workspace"></i>
                             <span class="menu-title">Data User</span>
                         </a>
                     </li>
+                <?php endif; ?>
+                <?php if ($this->authorize->hasPermission('manage-keuangan', $this->auth->user()->id)) : ?>
                     <li class="sidebar-item has-sub">
                         <a class="sidebar-link">
-                          <i class="bi bi-wallet2"></i>
-                            <span class="menu-title">Data Keuangan</span>
-                        </a>
-                        <ul class="submenu">
-                            <li class="submenu-item">
-                                <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Keuangan</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="<?= base_url() ?>data-keuangan/dana-keluar" class="submenu-link">Dana Keluar</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item  has-sub">
-                        <a class="sidebar-link">
-                            <i class="bi bi-clipboard-pulse"></i>
-                            <span class="menu-title">Data Laporan</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item  ">
-                                <a href="<?= base_url() ?>data-laporan" class="submenu-link">Tagihan</a>
-                            </li>
-                            
-                        </ul>
-                    </li>
-                <?php endif;?>
-                <!-- Menu Petugas -->
-                <?php if ($this->authorize->inGroup('Petugas', $this->auth->user()->id)) : ?>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= base_url() ?>data-pelanggan">
-                            <i class="bi bi-person"></i>
-                            <span class="menu-title">Data Pelanggan</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= base_url() ?>data-user">
-                            <i class="bi bi-person-workspace"></i>
-                            <span class="menu-title">Data User</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= base_url() ?>data-tagihan">
-                            <i class="bi bi-receipt"></i>
-                            <span class="menu-title">Data Tagihan</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item  has-sub">
-                        <a class="sidebar-link">
-                            <i class="bi bi-clipboard-pulse"></i>
-                            <span class="menu-title">Data Laporan</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item  ">
-                                <a href="<?= base_url() ?>data-laporan" class="submenu-link">Tagihan</a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                <?php endif;?>
-                <!-- Menu Bendahara -->
-                <?php if ($this->authorize->inGroup('Bendahara', $this->auth->user()->id)) : ?>
-                    <li class="sidebar-item has-sub">
-                        <a class="sidebar-link">
-                          <i class="bi bi-wallet2"></i>
+                            <i class="bi bi-wallet2"></i>
                             <span class="menu-title">Data Keuangan</span>
                         </a>
                         <ul class="submenu <?php if (!empty($submenu) && $submenu == 'keuangan') {
@@ -144,16 +86,29 @@
                             </li>
                         </ul>
                     </li>
-                <?php endif;?>
-                <!-- Menu Pelanggan -->
-                <?php if ($this->authorize->inGroup('Pelanggan', $this->auth->user()->id)) : ?>
+                <?php endif; ?>
+                <?php if ($this->authorize->hasPermission('manage-laporan', $this->auth->user()->id)) : ?>
+                    <li class="sidebar-item  has-sub">
+                        <a class="sidebar-link">
+                            <i class="bi bi-clipboard-pulse"></i>
+                            <span class="menu-title">Data Laporan</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="<?= base_url() ?>data-laporan" class="submenu-link">Tagihan</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                <?php endif; ?>
+                <?php if ($this->authorize->hasPermission('manage-riwayat-pembayaran', $this->auth->user()->id)) : ?>
                     <li class="sidebar-item ">
                         <a href="<?= base_url() ?>data-tagihan/riwayat" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Riwayat Pembayaran</span>
                         </a>
                     </li>
-                <?php endif;?>
+                <?php endif; ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= base_url() ?>profile">
                     <i class="bi bi-person-circle"></i>

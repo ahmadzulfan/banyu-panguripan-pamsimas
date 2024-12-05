@@ -53,8 +53,7 @@
                     <input type="password" name="password" class="form-control form-control-xl <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?=lang('Auth.password')?>">
                     <div class="form-control-icon">
                         <i class="bi bi-shield-lock"></i>
-                    </div>
-                    <div class="invalid-feedback">
+                    </div><div class="invalid-feedback">
                         <?= session('errors.password') ?>
                     </div>
                 </div>
@@ -69,11 +68,6 @@
                 <?php endif; ?>
                 <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5"><?=lang('Auth.loginAction')?></button>
             </form>
-            <div class="text-center mt-5 text-lg fs-4">
-                <?php if ($config->activeResetter): ?>
-                    <p><a class="font-bold" href="<?= url_to('forgot') ?>">Forgot password?</a>.</p>
-                <?php endif; ?>
-            </div>
         </div>
     </div>
     <div class="col-lg-7 d-none d-lg-block">

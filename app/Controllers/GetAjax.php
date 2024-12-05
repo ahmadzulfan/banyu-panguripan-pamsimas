@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MeterAir;
+use App\Models\Pelanggan;
 use App\Models\TagihanModel;
 
 class GetAjax extends BaseController
@@ -27,6 +28,14 @@ class GetAjax extends BaseController
         $model = new MeterAir();
         $tagihan = $model->getLatestMeter($customerId);
         echo json_encode($tagihan);
+    }
+
+    public function getDataPelangganById()
+    {
+        $customerId = $this->request->getPost('id');
+        $model = model(Pelanggan::class);
+        $pelanggan = $model->find($customerId);
+        echo json_encode($pelanggan);
     }
 
 }

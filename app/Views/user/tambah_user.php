@@ -23,17 +23,17 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="username" class="form-control" name="username" placeholder="username" value="<?= old('username') ?>">
-                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['username']) ? session()->getFlashdata('validation')['username'] : '' ?></small>
-                            </div>
-                            <div class="form-group">
                                 <label for="alamat">Alamat</label>
                                 <input type="alamat" class="form-control" name="alamat" placeholder="alamat" value="<?= old('alamat') ?>" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="no_telepon">No Telepon</label>
                                 <input type="no_telepon" class="form-control" name="no_telepon" placeholder="no_telepon" value="<?= old('no_telepon') ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="username" class="form-control" name="username" placeholder="username" value="<?= old('username') ?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['username']) ? session()->getFlashdata('validation')['username'] : '' ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email (Optional)</label>

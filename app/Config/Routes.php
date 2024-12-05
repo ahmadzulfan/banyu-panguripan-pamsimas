@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 // ACCOUNT MANAJEMENT
-$routes->get('/profile', 'AccountController::index');
+$routes->get('/profile', 'AccountController::index', ['filter' => 'login']);
 $routes->post('/profile/update/(:segment)', 'AccountController::update/$1');
 
 $routes->get('/', 'Home::index', ['filter' => 'login']);
@@ -60,5 +60,6 @@ $routes->group('data-laporan', ['filter' => 'login'], function($routes) {
     $routes->get('excel/generate', 'ExcelController::generate');
 });
 
+$routes->post('/ajax/data-pelanggan', 'GetAjax::getDataPelangganById');
 $routes->post('/ajax/data-tagihan', 'GetAjax::getDataTagiahanById');
 $routes->post('/ajax/data-tagihan/getbyidpelanggan', 'GetAjax::getAllDataTagiahanByPelangganId');
