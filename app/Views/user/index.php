@@ -20,7 +20,7 @@
                     <div class="d-flex justify-content-end">
                         <a href="<?= base_url() ?>data-user/tambah">
                             <button type="button" class="btn btn-primary btn-sm mb-3">
-                                <i class="bi bi-plus-circle"></i> Tambah Pelanggan 
+                                <i class="bi bi-plus-circle"></i> Tambah User 
                             </button>
                         </a>
                     </div>
@@ -91,6 +91,8 @@
                     type: "POST",
                     url: "<?= base_url() ?>data-user/delete/"+id,
                     success: function(result){
+                        console.log(result);
+                        
                         Swal.fire({
                             allowOutsideClick: false,
                             title: "Deleted!",
@@ -101,6 +103,8 @@
                         });
                     },
                     error:function(err){
+                        console.log(err);
+                        
                         alert(err)
                     }
                 })

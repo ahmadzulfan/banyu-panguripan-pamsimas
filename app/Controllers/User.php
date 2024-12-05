@@ -3,13 +3,13 @@
 namespace App\Controllers;
 
 use App\Models\Pelanggan;
+use Exception;
 use Myth\Auth\Models\GroupModel;
 use Myth\Auth\Models\UserModel;
 use Myth\Auth\Password;
 
 class User extends BaseController
 {
-    private $session;
     function __construct()
     {
     } 
@@ -145,11 +145,22 @@ class User extends BaseController
     
     public function delete($id)
     {
-        $model = new UserModel();
+        if (!$id) return redirect()->back()->with('error_message', 'Id tidak ditemukan.');
 
-        $model->where('id', $id)->delete();
+        $userModel = new UserModel();
+        $pelangganModel = model(Pelanggan::class);
 
-        echo json_encode(['status' => true]);
+        try {
+
+            $userModel->where('id', $id)->delete();
+
+            $pelangganModel->where('id_user', $id)->set(['id_user' => NULL])->update();
+
+            echo json_encode(['status' => true, 'message' => 'data berhasil dihapus']);
+
+        } catch (Exception $e) {
+            echo json_encode(['status' => false, 'message' => $e->getMessage()]);
+        }
 
     }
 
