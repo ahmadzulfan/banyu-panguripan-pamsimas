@@ -14,6 +14,7 @@ class Pelanggan extends BaseController
     function __construct()
     {
         date_default_timezone_set('Asia/Jakarta');
+        helper('form');
     } 
     public function index(): string
     {
@@ -32,47 +33,9 @@ class Pelanggan extends BaseController
     {
         $model = new ModelsPelanggan();
 
-        helper('form');
-
         $post = $this->request->getPost();
 
-        $rules = [
-            'nama' => [
-                'rules'  => 'required|min_length[6]|max_length[25]',
-                'errors' => [
-                    'required'   => 'Nama harus diisi.',
-                    'min_length' => 'Nama harus lebih dari 5 karakter.',
-                    'max_length' => 'Nama tidak boleh lebih dari 25 karakter.',
-                ]
-            ],
-            'alamat' => [
-                'rules'  => 'required',
-                'errors' => [
-                    'required'   => 'Alamat harus diisi.',
-                ]
-            ],
-            'no_telepon' => [
-                'rules'  => 'required|min_length[11]|numeric|max_length[15]|is_unique[pelanggan.no_telepon]',
-                'errors' => [
-                    'required'   => 'No Telepon harus diisi.',
-                    'min_length' => 'No Telepon harus lebih dari 10 karakter.',
-                    'max_length' => 'No Telepon tidak boleh lebih dari 15 karakter.',
-                    'numeric'    => 'No Telepon harus berupa angka',
-                    'is_unique'  => 'No Telepon ini sudah terdaftar'
-                ]
-            ],
-        ];
-
-        if ($post['email']) {
-            $rules['email'] = [
-                    'rules'  => 'required|valid_email|is_unique[pelanggan.email]',
-                    'errors' => [
-                        'required'      => 'Email harus diisi.',
-                        'valid_email'   => 'Format email tidak valid',
-                        'is_unique'     => 'Email ini sudah terdaftar'
-                    ]
-                ];
-        }
+        $rules = $this->validationRules($post);
 
         if (!$this->validate($rules)){
             return redirect()->to('data-pelanggan/tambah')->withInput()->with('validation', $this->validator->getErrors());
@@ -103,13 +66,25 @@ class Pelanggan extends BaseController
 
     public function update($id)
     {
-        $model = new ModelsPelanggan();
+        $model = model(ModelsPelanggan::class);
+
+        $pelanggan = $model->asObject()->find($id);
+
+        $post = $this->request->getPost();
+
+        $rules = $this->validationRules(post: $post, mode: 'update', pelanggan: $pelanggan);
+
+        if (!$this->validate($rules)){
+            return redirect()->to('data-pelanggan/edit/'.$id)->withInput()->with('validation', $this->validator->getErrors());
+        }
+
         $data = [
-            'nama' => $this->request->getPost('nama'),
-            'alamat' => $this->request->getPost('alamat'),
-            'no_telepon' => $this->request->getPost('no_telepon'),
-            'email' => $this->request->getPost('email')
+            'nama'          => $post['nama'],
+            'alamat'        => $post['alamat'],
+            'no_telepon'    => $post['no_telepon'],
         ];
+
+        if ($this->request->getPost('email')) $data['email'] = $this->request->getPost('email');
 
         $model->where('id', $id)->set($data)->update();
         
@@ -178,5 +153,75 @@ class Pelanggan extends BaseController
                  ->setStatusCode(404)
                  ->setJSON(['status' => false, 'message' => $e->getMessage()]);
         }
+    }
+
+    private function validationRules($post, $mode = 'create', $pelanggan = null)
+    {
+        $rules = [
+            'nama' => [
+                'rules'  => 'required|min_length[6]|max_length[25]',
+                'errors' => [
+                    'required'   => 'Nama harus diisi.',
+                    'min_length' => 'Nama harus lebih dari 5 karakter.',
+                    'max_length' => 'Nama tidak boleh lebih dari 25 karakter.',
+                ]
+            ],
+            'alamat' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required'   => 'Alamat harus diisi.',
+                ]
+            ],
+            'no_telepon' => [
+                'rules'  => 'required|min_length[11]|numeric|max_length[15]|is_unique[pelanggan.no_telepon]',
+                'errors' => [
+                    'required'   => 'No Telepon harus diisi.',
+                    'min_length' => 'No Telepon harus lebih dari 10 karakter.',
+                    'max_length' => 'No Telepon tidak boleh lebih dari 15 karakter.',
+                    'numeric'    => 'No Telepon harus berupa angka',
+                    'is_unique'  => 'No Telepon ini sudah terdaftar'
+                ]
+            ],
+        ];
+
+        if ($post['email']) {
+            $rules['email'] = [
+                    'rules'  => 'required|valid_email|is_unique[pelanggan.email]',
+                    'errors' => [
+                        'required'      => 'Email harus diisi.',
+                        'valid_email'   => 'Format email tidak valid',
+                        'is_unique'     => 'Email ini sudah terdaftar'
+                    ]
+                ];
+        }
+
+        if ($mode == 'update') {
+            if ($pelanggan->no_telepon == $post['no_telepon']) {
+                $rules['no_telepon'] = [
+                    'rules'  => 'required|min_length[11]|numeric|max_length[15]',
+                    'errors' => [
+                        'required'   => 'No Telepon harus diisi.',
+                        'min_length' => 'No Telepon harus lebih dari 10 karakter.',
+                        'max_length' => 'No Telepon tidak boleh lebih dari 15 karakter.',
+                        'numeric'    => 'No Telepon harus berupa angka',
+                        'is_unique'  => 'No Telepon ini sudah terdaftar'
+                    ]
+                ];
+            }
+            if ($post['email']) {
+                if ($pelanggan->email == $post['email']) {
+                    $rules['email'] = [
+                        'rules'  => 'required|valid_email',
+                        'errors' => [
+                            'required'      => 'Email harus diisi.',
+                            'valid_email'   => 'Format email tidak valid',
+                            'is_unique'     => 'Email ini sudah terdaftar'
+                        ]
+                    ];
+                }
+            }
+        }
+
+        return $rules;
     }
 }

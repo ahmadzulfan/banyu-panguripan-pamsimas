@@ -12,19 +12,23 @@
                             <form method="post" class="forms-sample" action="<?= base_url() ?>data-pelanggan/update/<?=$pelanggan['id']?>">
                             <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input type="nama" class="form-control" name="nama" placeholder="nama" value="<?=$pelanggan['nama']?>">
+                                <input type="nama" class="form-control" name="nama" placeholder="nama" value="<?= old('nama', $pelanggan['nama']) ?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['nama']) ? session()->getFlashdata('validation')['nama'] : '' ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <input type="alamat" class="form-control" name="alamat" placeholder="alamat" value="<?=$pelanggan['alamat']?>">
+                                <input type="alamat" class="form-control" name="alamat" placeholder="alamat" value="<?= old('alamat', $pelanggan['alamat']) ?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['alamat']) ? session()->getFlashdata('validation')['alamat'] : '' ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="no_telepon">No Telepon</label>
-                                <input type="no_telepon" class="form-control" name="no_telepon" placeholder="no_telepon" value="<?=$pelanggan['no_telepon']?>">
+                                <input type="no_telepon" class="form-control" name="no_telepon" placeholder="no_telepon" value="<?=old('no_telepon', $pelanggan['no_telepon'])?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['no_telepon']) ? session()->getFlashdata('validation')['no_telepon'] : '' ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="email" value="<?=$pelanggan['email']?>">
+                                <input type="email" class="form-control" name="email" placeholder="email" value="<?=old('email', $pelanggan['email'])?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['email']) ? session()->getFlashdata('validation')['email'] : '' ?></small>
                             </div>
                             <button type="save" class="btn btn-primary me-2">Submit</button>
                             <button class="btn btn-light">Cancel</button>
