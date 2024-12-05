@@ -79,8 +79,14 @@ class PdfController extends BaseController
 
         // Hitung total pendapatan
         $pendapatan = 0;
-        foreach ($danaMasuk as $key => $dana) {
-            $pendapatanPerBulan = (int)$dana['dana_masuk'] - ((int)$danaKeluar[$dana['periode']][0]['dana_keluar'] ?? 0);
+        foreach ($danaMasuk as $dana) {
+            $danaKeluarBulanan = 0;
+            if (!empty($danaKeluar[$dana['periode']])) {
+                foreach ($danaKeluar[$dana['periode']] as $dk) {
+                    $danaKeluarBulanan += $dk['dana_keluar'];
+                }
+            }
+            $pendapatanPerBulan = (int)$dana['dana_masuk'] - ((int)$danaKeluarBulanan);
             $pendapatan += $pendapatanPerBulan;
         }
 

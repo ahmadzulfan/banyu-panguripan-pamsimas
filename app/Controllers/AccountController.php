@@ -43,16 +43,19 @@ class AccountController extends BaseController
         $post = $this->request->getPost();
 
         $PelangganModel = model(Pelanggan::class);
-        $PelangganModel->update($id, [
-            'nama' => $post['name'],
-            'email' => $post['email'],
-            'no_telepon' => $post['phone'],
-        ]);
 
+        
         if ($post['email'] !== $user->email) {
+            
+            $PelangganModel->update($id, [
+                'nama' => $post['name'],
+                'email' => ($post['email']) ? $post['email'] : NULL,
+                'no_telepon' => $post['phone'],
+            ]);
+
             $UserModel = model(UserModel::class);
             $user = $UserModel->find($user->id);
-            $user->email = $post['email'];
+            $user->email = ($post['email']) ? $post['email'] : NULL;
             $UserModel->save($user);
         }
 

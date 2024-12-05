@@ -11,11 +11,9 @@ use Myth\Auth\Password;
 
 class Pelanggan extends BaseController
 {
-    private $session;
     function __construct()
     {
         date_default_timezone_set('Asia/Jakarta');
-        $this->session = service('session');
     } 
     public function index(): string
     {
@@ -26,30 +24,78 @@ class Pelanggan extends BaseController
     }
     public function tambah()
     {
-        return view('pelanggan/tambah_pelanggan');
+        $data['title'] = 'Tambah Data Pelanggan';
+        return view('pelanggan/tambah_pelanggan', $data);
     }
 
     public function create()
     {
         $model = new ModelsPelanggan();
-        $data = [
-            'nama' => $this->request->getPost('nama'),
-            'alamat' => $this->request->getPost('alamat'),
-            'no_telepon' => $this->request->getPost('no_telepon'),
-            'email' => $this->request->getPost('email')
+
+        helper('form');
+
+        $post = $this->request->getPost();
+
+        $rules = [
+            'nama' => [
+                'rules'  => 'required|min_length[6]|max_length[25]',
+                'errors' => [
+                    'required'   => 'Nama harus diisi.',
+                    'min_length' => 'Nama harus lebih dari 5 karakter.',
+                    'max_length' => 'Nama tidak boleh lebih dari 25 karakter.',
+                ]
+            ],
+            'alamat' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required'   => 'Alamat harus diisi.',
+                ]
+            ],
+            'no_telepon' => [
+                'rules'  => 'required|min_length[11]|numeric|max_length[15]|is_unique[pelanggan.no_telepon]',
+                'errors' => [
+                    'required'   => 'No Telepon harus diisi.',
+                    'min_length' => 'No Telepon harus lebih dari 10 karakter.',
+                    'max_length' => 'No Telepon tidak boleh lebih dari 15 karakter.',
+                    'numeric'    => 'No Telepon harus berupa angka',
+                    'is_unique'  => 'No Telepon ini sudah terdaftar'
+                ]
+            ],
         ];
 
+        if ($post['email']) {
+            $rules['email'] = [
+                    'rules'  => 'required|valid_email|is_unique[pelanggan.email]',
+                    'errors' => [
+                        'required'      => 'Email harus diisi.',
+                        'valid_email'   => 'Format email tidak valid',
+                        'is_unique'     => 'Email ini sudah terdaftar'
+                    ]
+                ];
+        }
+
+        if (!$this->validate($rules)){
+            return redirect()->to('data-pelanggan/tambah')->withInput()->with('validation', $this->validator->getErrors());
+        }
+
+        $data = [
+            'nama'          => $post['nama'],
+            'alamat'        => $post['alamat'],
+            'no_telepon'    => $post['no_telepon'],
+        ];
+
+        if ($this->request->getPost('email')) $data['email'] = $this->request->getPost('email');
+
         $model->save($data);
-        $this->session->setFlashdata('success_message', 'berhasil menambahkan data');
         
-        return redirect()->to('data-pelanggan');
+        return redirect()->to('data-pelanggan')->with('success_message', 'berhasil menambahkan data');
     }
 
     public function edit($id)
     {
         $model = new ModelsPelanggan();
         
-        
+        $data['title'] = 'Edit Data Pelanggan';
         $data['pelanggan'] = $model->find($id);
 
         return view('pelanggan/edit_pelanggan', $data);
@@ -66,9 +112,8 @@ class Pelanggan extends BaseController
         ];
 
         $model->where('id', $id)->set($data)->update();
-        $this->session->setFlashdata('success_message', 'berhasil mengubah data');
         
-        return redirect()->to('data-pelanggan');
+        return redirect()->to('data-pelanggan')->with('success_message', 'berhasil mengubah data');
     }
 
     public function createUser($id)
@@ -83,7 +128,7 @@ class Pelanggan extends BaseController
         $hash_password = Password::hash('12345678');
 
         $user = new User();
-        $user->email = $dataPelanggan->email;
+        if ($dataPelanggan->email) $user->email = $dataPelanggan->email;
         $user->username = 'user_'.$randomNumber;
         $user->password_hash = $hash_password;
         $user->active = 1;

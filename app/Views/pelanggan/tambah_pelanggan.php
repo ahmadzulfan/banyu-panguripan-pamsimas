@@ -8,21 +8,26 @@
                         <h4 class="card-title">Form Input Pengguna Baru</h4>
                         <p class="card-description"> Basic form layout </p>
                             <form method="post" class="forms-sample">
+                            <?= csrf_field() ?>
                             <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input type="nama" class="form-control" name="nama" placeholder="nama" required>
+                                <input type="nama" class="form-control" name="nama" placeholder="nama" value="<?= old('nama') ?>" required>
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['nama']) ? session()->getFlashdata('validation')['nama'] : '' ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <input type="alamat" class="form-control" name="alamat" placeholder="alamat">
+                                <input type="alamat" class="form-control" name="alamat" placeholder="alamat" value="<?= old('alamat') ?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['alamat']) ? session()->getFlashdata('validation')['alamat'] : '' ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="no_telepon">No Telepon</label>
-                                <input type="no_telepon" class="form-control" name="no_telepon" placeholder="no_telepon">
+                                <input type="no_telepon" class="form-control" name="no_telepon" placeholder="no_telepon" value="<?= old('no_telepon') ?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['no_telepon']) ? session()->getFlashdata('validation')['no_telepon'] : '' ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="email">
+                                <input type="email" class="form-control" name="email" placeholder="email" value="<?= old('email') ?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['email']) ? session()->getFlashdata('validation')['email'] : '' ?></small>
                             </div>
                             <button type="save" class="btn btn-primary me-2">Submit</button>
                             <button class="btn btn-light">Cancel</button>
