@@ -102,6 +102,8 @@ class User extends BaseController
     {
         $userModel = model(UserModel::class);
 
+        $pelangganModel = model(Pelanggan::class);
+
         $userValidationRules = $userModel->getValidationRules();
 
         $userValidationRules['id'] = 'max_length[19]|is_natural_no_zero';
@@ -112,17 +114,30 @@ class User extends BaseController
         
         $user = $userModel->asObject()->find($id);
 
+        $pelanggan = $pelangganModel->asObject()->where('id_user', $user->id)->first();
+
         $rules = $this->validationRules(post: $post, mode: 'update', user: $user);
 
         if (!$this->validate($rules))
             return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
         
         $user->username = $post['username'];
+
         $user->active = $post['status'];
 
-        if ($post['email']) $data['email'] = $post['email'];
+        $user->email = NULL;
+
+        $pelanggan->email = NULL;
+
+        if ($post['email']) {
+            $user->email = $post['email'];
+
+            $pelanggan->email = $post['email'];
+        }
+
+        $pelangganModel->save($pelanggan);
         
-        if ($post['password']) $data['password'] = Password::hash($post['password']);
+        if ($post['password']) $user->password_hash = Password::hash($post['password']);
         
         if (!$userModel->save($user)) 
             return redirect()->back()->withInput()->with('error_message', 'On error occured');
@@ -201,10 +216,10 @@ class User extends BaseController
             }
             if ($user->username == $post['username']) {
                 $rules['username'] = [
-                    'rules'  => 'required|min_length[6]|max_length[30]',
+                    'rules'  => 'required|min_length[3]|max_length[30]',
                     'errors' => [
                         'required'   => 'Username harus diisi.',
-                        'min_length' => 'Username harus lebih dari 5 karakter.',
+                        'min_length' => 'Username harus lebih dari 3 karakter.',
                         'max_length' => 'Username tidak boleh lebih dari 30 karakter.',
                     ]
                     ];
