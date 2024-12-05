@@ -28,6 +28,9 @@ $routes->group('data-pelanggan', ['filter' => 'login'], function($routes) {
 $routes->group('data-user', ['filter' => 'login'], function($routes) {
     $routes->get('', 'User::index');
     $routes->get('tambah', 'User::tambah');
+    $routes->post('tambah', 'User::create');
+    $routes->get('edit/(:segment)', 'User::edit/$1');
+    $routes->post('edit/(:segment)', 'User::update/$1');
     $routes->post('delete/(:segment)', 'User::delete/$1');
 });
 

@@ -17,40 +17,50 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                <div class="table-responsive">
-                    <table id="dataTable" class="table">
-                    <thead>
-                        <tr>
-                            <th> No </th>
-                            <th> Username </th>
-                            <th> Email </th>
-                            <th> Status </th>
-                            <th> Action </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($users as $key => $user) : ?>
+                    <div class="d-flex justify-content-end">
+                        <a href="<?= base_url() ?>data-user/tambah">
+                            <button type="button" class="btn btn-primary btn-sm mb-3">
+                                <i class="bi bi-plus-circle"></i> Tambah Pelanggan 
+                            </button>
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="dataTable" class="table">
+                        <thead>
                             <tr>
-                                <td> <?= $key+1 ?> </td>
-                                <td> <?= $user->username ?> </td>
-                                <td> <?= $user->email ?> </td>
-                                <td>
-                                    <?php if ($user->active == 0) : ?>
-                                        <span class="badge rounded-pill text-bg-danger text-white">non-aktif</span>
-                                    <?php else: ?>
-                                        <span class="badge rounded-pill text-bg-success text-white">aktif</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td> 
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteUser(<?= $user->id ?>)"> 
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button> 
-                                </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                    </table>
-                </div>
+                                <th> No </th>
+                                <th> Username </th>
+                                <th> Email </th>
+                                <th> Status </th>
+                                <th> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($users as $key => $user) : ?>
+                                <tr>
+                                    <td> <?= $key+1 ?> </td>
+                                    <td> <?= $user->username ?> </td>
+                                    <td> <?= $user->email ?> </td>
+                                    <td>
+                                        <?php if ($user->active == 0) : ?>
+                                            <span class="badge rounded-pill text-bg-danger text-white">non-aktif</span>
+                                        <?php else: ?>
+                                            <span class="badge rounded-pill text-bg-success text-white">aktif</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="<?= base_url() ?>data-user/edit/<?= $user->id ?>" type="button" class="btn btn-primary btn-sm" >
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteUser(<?= $user->id ?>)"> 
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button> 
+                                    </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

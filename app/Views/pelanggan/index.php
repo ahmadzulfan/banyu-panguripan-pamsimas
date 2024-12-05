@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-end">
                         <a href="<?= base_url() ?>data-pelanggan/tambah">
-                            <button type="button" class="btn btn-primary btn-sm mb-3" z>
+                            <button type="button" class="btn btn-primary btn-sm mb-3">
                                 <i class="bi bi-plus-circle"></i> Tambah Pelanggan 
                             </button>
                         </a>
@@ -45,13 +45,6 @@
                                     <td> <?= $value['no_telepon'] ?> </td>
                                     <td> <?= $value['email'] ?> </td>
                                     <td> 
-                                        <form action="<?= base_url() ?>data-pelanggan/tambah-user/<?= $value['id'] ?>" method="post" class="d-inline">
-                                            <button type="submit" class="btn btn-warning btn-sm">
-                                                <i class="bi bi-person-plus"></i>
-                                            </button>
-                                        </form>
-                                        <?php if ($value['id_user'] == "") : ?>
-                                        <?php endif; ?>
                                         <a href="<?= base_url() ?>data-pelanggan/edit/<?= $value['id'] ?>" type="button" class="btn btn-primary btn-sm" >
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
