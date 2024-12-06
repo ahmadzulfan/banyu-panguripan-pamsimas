@@ -38,7 +38,7 @@ class Pembayaran extends Model
 
     public function danaMasukPerPeriode()
     {
-        return $this->select('SUM(jumlah_dibayar) as dana_masuk, MONTH(tanggal_pembayaran) as periode')
+        return $this->select('SUM(jumlah_dibayar) as dana_masuk, MONTH(tanggal_pembayaran) as periode, tanggal_pembayaran as tanggal')
                     ->groupBy('MONTH(tanggal_pembayaran)')
                     ->get()->getResultArray();
     }
