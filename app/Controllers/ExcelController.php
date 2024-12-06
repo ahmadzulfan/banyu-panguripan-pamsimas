@@ -8,6 +8,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Models\DanaKeluarModel;
 use App\Models\Pembayaran;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 
 class ExcelController extends BaseController
 {
@@ -73,67 +75,139 @@ class ExcelController extends BaseController
     }
 
     public function export()
-{
-    $danaMasuk = $this->getDanaMasuk();  // Data dana masuk
-    $danaKeluar = $this->getDanaKeluar();  // Data dana keluar
+    {
+        $danaMasuk = $this->getDanaMasuk();  // Data dana masuk
+        $danaKeluar = $this->getDanaKeluar();  // Data dana keluar
 
-    $spreadsheet = new Spreadsheet();
-    $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
 
-    // Header untuk laporan
-    $sheet->setCellValue('A1', 'PERIODE')
-          ->setCellValue('B1', 'KETERANGAN')
-          ->setCellValue('C1', 'DANA KAS');
+        $title = 'Laporan Keuangan - Pamsimas Banyu Panguripan';
 
-    $row = 2; // Baris awal setelah header
+        $sheet->mergeCells('A1:E1');
+        $sheet->setCellValue('A1', $title);
 
-    $totalPendapatan = 0;
+        $sheet->getStyle('A1')
+              ->getFont()
+              ->setBold(true)
+              ->setSize(16);
 
-    foreach ($danaMasuk as $key => $dana) {
-        $periode = month_indo($dana['periode']);
-        $danaMasukBulan = $dana['dana_masuk'];
-        $danaKeluarBulan = 0;
-        $pendapatanBulan = 0;
+        $sheet->getStyle('A1')
+              ->getAlignment()
+              ->setHorizontal(Alignment::HORIZONTAL_CENTER)
+              ->setVertical(Alignment::VERTICAL_CENTER);
 
-        // Baris pemasukan
-        $sheet->setCellValue('A' . $row, $periode)
-              ->setCellValue('B' . $row, "Pendapatan PAM bulan $periode")
-              ->setCellValue('C' . $row, "Pemasukan: Rp " . number_format($danaMasukBulan, 0, '.', '.'));
-        $row++;
+        $sheet->setCellValue('A2', 'No')
+            ->setCellValue('B2', 'Tanggal')
+            ->setCellValue('C2', 'Keterangan')
+            ->setCellValue('D2', 'Pemasukan')
+            ->setCellValue('E2', 'Pengeluaran');
 
-        foreach ($danaKeluar[$dana['periode']] as $key => $dk) {
-            $danaKeluarBulan += $dk['dana_keluar'];
-            // Baris pengeluaran
-            $sheet->setCellValue('A' . $row, $periode)
-                ->setCellValue('B' . $row, $dk['keterangan'])
-                ->setCellValue('C' . $row, "Pengeluaran: Rp " . number_format($dk['dana_keluar'], 0, '.', '.'));
+        $sheet->getStyle('A2:E2')
+              ->getFont()->setBold(true)
+              ->setSize(11);
+
+        // Mengatur perataan teks header ke tengah
+        $sheet->getStyle('A2:E2')
+              ->getAlignment()
+              ->setHorizontal(Alignment::HORIZONTAL_CENTER)
+              ->setVertical(Alignment::VERTICAL_CENTER);
+
+        $row = 3; // Baris awal setelah header
+
+        $totalPendapatan = 0;
+        $totalPemasukan = 0;
+        $totalPengeluaran = 0;
+        $no = 1;
+
+        foreach ($danaMasuk as $dana) {
+            $periode = month_indo($dana['periode']);
+            $danaKeluarBulan = 0;
+            $pendapatanBulan = 0;
+            $danaMasukBulan = $dana['dana_masuk'];
+            $totalPemasukan += $danaMasukBulan;
+
+            // Baris pemasukan
+            $sheet->setCellValue('A' . $row, $no)
+                ->setCellValue('B' . $row, tgl_indo($dana['tanggal']))
+                ->setCellValue('C' . $row, "Pendapatan PAM bulan $periode")
+                ->setCellValue('D' . $row, "Rp".number_format($danaMasukBulan, 0, '.', '.'));
+
+            $sheet->getStyle('A')
+                    ->getAlignment()
+                    ->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle('D')
+                    ->getAlignment()
+                    ->setHorizontal(Alignment::HORIZONTAL_RIGHT);
             $row++;
+
+            foreach ($danaKeluar[$dana['periode']] as $dk) {
+                $no++;
+                $danaKeluarBulan += $dk['dana_keluar'];
+                $totalPengeluaran += $danaKeluarBulan;
+                // Baris pengeluaran
+                $sheet->setCellValue('A' . $row, $no)
+                    ->setCellValue('B' . $row, tgl_indo($dk['tanggal']))
+                    ->setCellValue('C' . $row, $dk['keterangan'])
+                    ->setCellValue('E' . $row, "Rp".number_format($danaKeluarBulan, 0, '.', '.'));
+
+                $sheet->getStyle('A')
+                    ->getAlignment()
+                    ->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('E')
+                        ->getAlignment()
+                        ->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+                $row++;
+            }
+
+            $pendapatanBulan = $danaMasukBulan - $danaKeluarBulan;
+            $totalPendapatan += $pendapatanBulan;
+
+            $no++;
         }
 
-        $pendapatanBulan = $danaMasukBulan - $danaKeluarBulan;
-        $totalPendapatan += $pendapatanBulan;
+        $sheet->setCellValue('C' . $row, "Total")
+            ->setCellValue('D' . $row, "Rp".number_format($totalPemasukan, 0, '.', '.'))
+            ->setCellValue('E' . $row, "Rp".number_format($totalPengeluaran, 0, '.', '.'));
 
-        // Baris pendapatan bulan
-        $sheet->setCellValue('B' . $row, "Pendapatan Bulan $periode")
-              ->setCellValue('C' . $row, "Rp " . number_format($pendapatanBulan, 0, '.', '.'));
+        $sheet->getStyle('D' . $row . ':' . 'E' . $row)
+            ->getAlignment()
+            ->setHorizontal(Alignment::HORIZONTAL_RIGHT);
         $row++;
+
+        $sheet->setCellValue('C' . $row, "Saldo Akhir")
+            ->setCellValue('E' . $row, "Rp".number_format($totalPendapatan, 0, '.', '.'));
+
+        $sheet->getStyle('E')
+            ->getAlignment()
+            ->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+
+        $sheet->getColumnDimension('A')->setWidth(5);
+        $sheet->getColumnDimension('B')->setWidth(20);
+        $sheet->getColumnDimension('C')->setWidth(35);
+        $sheet->getColumnDimension('D')->setWidth(15);
+        $sheet->getColumnDimension('E')->setWidth(15);
+
+        $highestColumn = $sheet->getHighestColumn();
+        $highestRow = $sheet->getHighestRow();
+        
+        $sheet->getStyle('A2:' . $highestColumn . $highestRow)
+              ->getBorders()
+              ->getAllBorders()
+              ->setBorderStyle(Border::BORDER_THIN)
+              ->getColor()->setRGB('000000');
+
+        // Menyimpan file dan mengirimkan ke browser untuk diunduh
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'Laporan-Keuangan-PAM-' . date('Y-m-d-His');
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+        exit();
     }
-
-    // Baris total pendapatan
-    $sheet->setCellValue('B' . $row, "Total Pendapatan")
-          ->setCellValue('C' . $row, "Rp " . number_format($totalPendapatan, 0, '.', '.'));
-
-    // Menyimpan file dan mengirimkan ke browser untuk diunduh
-    $writer = new Xlsx($spreadsheet);
-    $filename = 'Laporan-Keuangan-PAM-' . date('Y-m-d-His');
-
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
-    header('Cache-Control: max-age=0');
-
-    $writer->save('php://output');
-    exit();
-}
 
     private function getDanaMasuk()
     {
@@ -146,14 +220,14 @@ class ExcelController extends BaseController
     {
         $model = new DanaKeluarModel();
 
-        $query = $model->select('jumlah_keluar as dana_keluar, MONTH(tanggal_keluar) as periode, keterangan')
+        $query = $model->select('jumlah_keluar as dana_keluar, MONTH(tanggal_keluar) as periode, keterangan, tanggal_keluar as tanggal')
                     ->orderBy('tanggal_keluar', 'asc')
                     ->get()->getResultArray();
 
         $totalKeluar = 0;
         $arr = [];
         foreach ($query as $value) {
-            $arr[$value['periode']][] = ['dana_keluar' => $value['dana_keluar'], 'keterangan' => $value['keterangan']];
+            $arr[$value['periode']][] = ['dana_keluar' => $value['dana_keluar'], 'keterangan' => $value['keterangan'], 'tanggal' => $value['tanggal']];
             $totalKeluar += $value['dana_keluar'];
         }
 
