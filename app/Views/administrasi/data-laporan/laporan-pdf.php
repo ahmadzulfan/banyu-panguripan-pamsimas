@@ -25,11 +25,11 @@
 <body>
     <x-header style="clear:both; position:relative;">
         <div style="position:absolute; left:0pt; width:292pt;">
-            <span style="font-size: large; font-weight:bold;">LEMBAR CATAT DATA PENAGIHAN</span><br>
+            <span style="font-size: large; font-weight:bold;">LAPORAN PEMBAYARAN TAGIHAN</span><br>
             <span style="font-size: large; font-weight:bold;">PAMSIMAS - BANYU PANGURIPAN</span>
         </div>
         <div align=right style="font-size: large; font-weight:bold;">
-        <div class="bulan" style="text-transform: uppercase;">bulan <?=month_indo($_REQUEST['month'])?></div>
+        <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo($_REQUEST['month'])?></div>
         </div>
     </x-header>
     <table border=1 width=100% cellpadding=2 cellspacing=0 style="margin-top: 2.5rem; text-align:center;">  

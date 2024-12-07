@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Form Input Pengguna Baru</h4>
-                        <p class="card-description"> Basic form layout </p>
+                        <p class="card-description"> Harap Mengisikan data sesuai format </p>
                             <form method="post" class="forms-sample">
                             <?= csrf_field() ?>
                             <div class="form-group">
@@ -29,8 +29,8 @@
                                 <input type="email" class="form-control" name="email" placeholder="email" value="<?= old('email') ?>">
                                 <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['email']) ? session()->getFlashdata('validation')['email'] : '' ?></small>
                             </div>
-                            <button type="save" class="btn btn-primary me-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <button type="save" class="btn btn-primary me-2">Simpan</button>
+                            
                             </form>
                     </div>
                 </div>

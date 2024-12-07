@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body px-4 py-4-5">
                         <h3>Data Keuangan PAMSIMAS</h3>
-                        <p class="text-subtitle text-muted">Halaman untuk manajemen data kas minggu ini seperti melihat, mengubah dan
+                        <p class="text-subtitle text-muted">Halaman untuk manajemen data kas seperti melihat, mengubah dan
                                     menghapus.
                         </p>
                     </div>

@@ -7,7 +7,7 @@
                             <div class="card">
                                 <div class="card-body px-4 py-4-5">
                                 <h3>Data Dana Keluar</h3>
-                                <p class="text-subtitle text-muted">Halaman untuk manajemen data kas minggu ini seperti melihat, mengubah dan
+                                <p class="text-subtitle text-muted">Halaman untuk manajemen data Pengeluaran ini seperti melihat, mengubah dan
                                             menghapus.
                                 </p>
                         </div>
@@ -41,13 +41,7 @@
                                         <td><?= number_format($data['jumlah_keluar'], 0, '.', '.') ?></td>
                                         <td><?= $data['keterangan'] ?></td>
                                         <td> 
-                                            <button id="btn-edit" type="button" class="btn btn-primary btn-sm" 
-                                                    data-id="<?= $data['id'] ?>" 
-                                                    data-tanggal_keluar="<?= $data['tanggal_keluar'] ?>" 
-                                                    data-jumlah_keluar="<?= $data['jumlah_keluar'] ?>" 
-                                                    data-keterangan="<?= $data['keterangan'] ?>">
-                                                    <i class="bi bi-info-circle"></i>
-                                            </button>
+                                            
                                             <button type="button" class="btn btn-danger btn-sm" onclick="deleteDanaMasuk(<?= $data['id'] ?>)">  
                                                 <i class="bi bi-trash-fill"></i>
                                             </button> 

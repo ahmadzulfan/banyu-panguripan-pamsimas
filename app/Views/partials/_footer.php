@@ -5,7 +5,7 @@
         </div>
         <div class="float-end">
             <p>Develop with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                by <a href="https://saugi.me">DnA Web Works</a></p>
+                by <a href="">DnA Web Works</a></p>
         </div>
     </div>
 </footer>
