@@ -29,7 +29,7 @@
             <span style="font-size: large; font-weight:bold;">PAMSIMAS - BANYU PANGURIPAN</span>
         </div>
         <div align=right style="font-size: large; font-weight:bold;">
-        <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo($_REQUEST['month'])?></div>
+        <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo($_REQUEST['month'] )?>  <?=($_REQUEST['year'] )?></div>
         </div>
     </x-header>
     <table border=1 width=100% cellpadding=2 cellspacing=0 style="margin-top: 2.5rem; text-align:center;">  
@@ -63,6 +63,27 @@
             
         </tbody>
     </table>  
+    
+    
+        
+        <div style="position: fixed; bottom: 30px; width: 100%; text-align: center; font-size: 14px;">
+            <table style="width: 100%; margin-top: 50px;">
+                <tr>
+                    <td style="text-align: left; width: 50%; font-size: 14px;">
+                        <p style="margin-left: 30px;">Mengetahui,</p>
+                        <p><strong>Pimpinan PAMSIMAS</strong></p>
+                        <br><br>
+                        <p>________________________</p>
+                    </td>
+                    <td style="text-align: right; width: 50%; font-size: 14px;">
+                        <p style="margin-right: 40px;">Mengetahui,</p>
+                        <p style="margin-right: 20px;"><strong>Petugas Lapangan</strong></p>
+                        <br><br>
+                        <p>________________________</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
 </body>  
 
 </html>

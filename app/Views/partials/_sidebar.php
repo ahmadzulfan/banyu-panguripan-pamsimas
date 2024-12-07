@@ -45,7 +45,7 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
-                <!-- Menu Pimpinan -->
+               
                 <li class="sidebar-item ">
                     <a href="<?= base_url() ?>" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
@@ -65,6 +65,14 @@
                         <a class="sidebar-link" href="<?= base_url() ?>data-user">
                             <i class="bi bi-person-workspace"></i>
                             <span class="menu-title">Data User</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <?php if ($this->authorize->hasPermission('manage-tagihan', $this->auth->user()->id)) : ?>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="<?= base_url() ?>data-tagihan">
+                            <i class="bi bi-person"></i>
+                            <span class="menu-title">Data Tagihan</span>
                         </a>
                     </li>
                 <?php endif; ?>
