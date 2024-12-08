@@ -27,6 +27,7 @@ class User extends BaseController
     {
         $model = model(Pelanggan::class);
         $pelanggans = $model->where('id_user', NULL)->findAll();
+        $data['title'] = 'Tambah User';
         $data['pelanggan'] = $pelanggans;
         return view('user/tambah_user', $data);
     }
@@ -95,6 +96,7 @@ class User extends BaseController
         $data['user'] = $user;
         $data['pelanggan'] = $pelanggan;
         $data['role'] = $role;
+        $data['title'] = 'Edit User';
         return view('user/edit_user', $data);
     }
 
