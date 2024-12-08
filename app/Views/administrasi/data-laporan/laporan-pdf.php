@@ -66,7 +66,7 @@
     
     
         
-        <div style="position: fixed; bottom: 30px; width: 100%; text-align: center; font-size: 14px;">
+        <div style="width: 100%; text-align: center; font-size: 14px;">
             <table style="width: 100%; margin-top: 50px;">
                 <tr>
                     <td style="text-align: left; width: 50%; font-size: 14px;">

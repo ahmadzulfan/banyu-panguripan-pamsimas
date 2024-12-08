@@ -17,8 +17,8 @@
                 <div class="card">
                     <div class="card-body px-4 py-4-5">
                         <h3>Data Keuangan PAMSIMAS</h3>
-                        <p class="text-subtitle text-muted">Halaman untuk manajemen data kas seperti melihat, mengubah dan
-                                    menghapus.
+                        <p class="text-subtitle text-muted">
+							Halaman untuk manajemen data kas seperti melihat, mengubah dan menghapus.
                         </p>
                     </div>
                 </div>
@@ -100,30 +100,40 @@
 
 							<thead>
 								<tr>
+									<th> Tanggal Transaksi </th>
 									<th> Periode </th>
 									<th> Keterangan </th>
+									<th> Uang Masuk </th>
+									<th> Uang Keluar </th>
 									<th> Dana KAS</th>
 								</tr>
 							</thead>
-							<?php $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
+							<?php $danaKas=0; $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
 								<?php 
 									$d_keluar = 0;
 									$totDanaMasuk += $dana['dana_masuk'];
+									$danaKas += $dana['dana_masuk'];
 								?>
 
 							<tbody>
 								<tr>
+									<td><?= tgl_indo($dana['tanggal']) ?></td>
 									<td><?= month_indo($dana['periode']) ?></td>
 									<td>Pendapatan PAM bulan <?= month_indo($dana['periode']) ?></td>
-									<td>Pemasukan : Rp <?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
+									<td>Rp<?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
+									<td></td>
+									<td>Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
 								</tr>
 								<?php if (!empty($danaKeluar[$dana['periode']])) : ?>
 									<?php foreach ($danaKeluar[$dana['periode']] as $key => $dk) : ?>
-										<?php $d_keluar += $dk['dana_keluar'] ?>
+										<?php $d_keluar += $dk['dana_keluar']; $danaKas -= $dk['dana_keluar']; ?>
 										<tr>
+											<td><?= tgl_indo($dk['tanggal']) ?></td>
 											<td><?= month_indo($dana['periode']) ?></td>
 											<td><?= $dk['keterangan'] ?></td>
-											<td>Pengeluaran : Rp <?= number_format($dk['dana_keluar'], 0, '.', '.') ?></td>
+											<td></td>
+											<td>Rp<?= number_format($dk['dana_keluar'], 0, '.', '.') ?></td>
+											<td>Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
 										</tr>
 									<?php endforeach; ?>
 								<?php endif; ?>
@@ -132,15 +142,12 @@
 									$pendapatan += $pendapatanPerBulan;
 									$totDanaKeluar += $d_keluar; 
 								?>
-								<tr>
-									<th colspan="2">Pendapatan Bulan <?= month_indo($dana['periode']) ?></td>
-									<th>Rp <?= number_format($pendapatanPerBulan, 0, '.', '.') ?></th>
-								</tr>
 							</tbody>
 							<?php endforeach; ?>
 							<tfoot>
 								<tr>
-									<th colspan="2">Total Pendapatan</th>
+									<th colspan="2"></th>
+									<th colspan="3">Dana KAS</th>
 									<th id="total_pendapatan">Rp <?= number_format($pendapatan, 0, '.', '.') ?></th>
 								</tr>
 							</tfoot>

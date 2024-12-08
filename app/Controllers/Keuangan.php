@@ -31,14 +31,14 @@ class Keuangan extends BaseController
     {
         $model = new DanaKeluarModel();
 
-        $query = $model->select('jumlah_keluar as dana_keluar, MONTH(tanggal_keluar) as periode, keterangan')
+        $query = $model->select('jumlah_keluar as dana_keluar, MONTH(tanggal_keluar) as periode, keterangan, tanggal_keluar as tanggal')
                     ->orderBy('tanggal_keluar', 'asc')
                     ->get()->getResultArray();
 
         $totalKeluar = 0;
         $arr = [];
         foreach ($query as $value) {
-            $arr[$value['periode']][] = ['dana_keluar' => $value['dana_keluar'], 'keterangan' => $value['keterangan']];
+            $arr[$value['periode']][] = ['dana_keluar' => $value['dana_keluar'], 'keterangan' => $value['keterangan'], 'tanggal' => $value['tanggal']];
             $totalKeluar += $value['dana_keluar'];
         }
 
