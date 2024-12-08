@@ -18,9 +18,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-end">
-                        <a href="<?= base_url() ?>data-user/tambah">
+                        <a href="<?= base_url() ?>data-user/tambah_user">
                             <button type="button" class="btn btn-primary btn-sm mb-3">
                                 <i class="bi bi-plus-circle"></i> Tambah User 
+                            </button>
+                        </a>
+                        <a href="<?= base_url() ?>data-user/tambah_pelanggan">
+                            <button type="button" class="btn btn-primary btn-sm mb-3">
+                                <i class="bi bi-plus-circle"></i> Tambah Pelanggan 
                             </button>
                         </a>
                     </div>
