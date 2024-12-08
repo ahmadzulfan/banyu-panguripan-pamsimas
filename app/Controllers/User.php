@@ -23,16 +23,16 @@ class User extends BaseController
         return view('user/index', $data);
     }
 
-    public function tambah()
+    public function tambah_pelanggan()
     {
         $model = model(Pelanggan::class);
         $pelanggans = $model->where('id_user', NULL)->findAll();
         $data['title'] = 'Tambah User';
         $data['pelanggan'] = $pelanggans;
-        return view('user/tambah_user', $data);
+        return view('user/tambah_pelanggan', $data);
     }
 
-    public function create()
+    public function create_pelanggan()
     {
         $model = new UserModel();
 
@@ -84,7 +84,67 @@ class User extends BaseController
 
         return redirect()->to('data-user')->with('success_message', 'berhasil menambahkan '.$pelanggan->nama.' sebagai user');
     }
+    // TAMBAH USER 
+    public function tambah_user()
+    {
+        $data['title'] = 'Form Tambah Pengguna Baru';
+        return view('user/tambah_user', $data);
+    }
 
+    public function create_user()
+    {
+        $userModel = new UserModel();
+        $groupModel = new GroupModel();
+
+        $post = $this->request->getPost();
+
+        // Validasi input
+        $rules = [
+            'username'   => 'required|min_length[5]|max_length[20]',
+            'alamat'     => 'required',
+            'no_telepon' => 'required|numeric|min_length[10]|max_length[15]',
+            'email'      => 'permit_empty|valid_email',
+            'role'       => 'required|in_list[Bendahara,Petugas]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
+        }
+
+        // Persiapkan data user
+        $dataUser = [
+            'username'      => $post['username'],
+            'password_hash' => Password::hash('12345678'), // Default password
+            'active'        => 1,
+            'alamat'        => $post['alamat'],
+            'no_telepon'    => $post['no_telepon'],
+        ];
+
+        if (!empty($post['email'])) {
+            $dataUser['email'] = $post['email'];
+        }
+
+        // Simpan user baru
+        if (!$userModel->save($dataUser)) {
+            return redirect()->back()->withInput()->with('error_message', 'Terjadi kesalahan saat menyimpan data pengguna.');
+        }
+
+        $userId = $userModel->getInsertID();
+
+        // Tambahkan ke grup sesuai dengan role
+        $group = $groupModel->where('name', $post['role'])->first();
+        if ($group) {
+            $db = \Config\Database::connect();
+            $db->table('auth_groups_users')->insert([
+                'group_id' => $group->id,
+                'user_id'  => $userId,
+            ]);
+        }
+
+        return redirect()->to('/data-user')->with('success_message', 'Pengguna berhasil ditambahkan.');
+    }
+
+    
     public function edit($id)
     {
         $userModel = model(UserModel::class);

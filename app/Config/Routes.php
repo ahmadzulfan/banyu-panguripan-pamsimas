@@ -27,8 +27,10 @@ $routes->group('data-pelanggan', ['filter' => 'login'], function($routes) {
 
 $routes->group('data-user', ['filter' => 'login'], function($routes) {
     $routes->get('', 'User::index');
-    $routes->get('tambah', 'User::tambah');
-    $routes->post('tambah', 'User::create');
+    $routes->get('tambah_pelanggan', 'User::tambah_pelanggan');
+    $routes->post('tambah_pelanggan', 'User::create_pelanggan');
+    $routes->get('tambah_user', 'User::tambah_user');
+    $routes->post('tambah_user', 'User::create_user');
     $routes->get('edit/(:segment)', 'User::edit/$1');
     $routes->post('edit/(:segment)', 'User::update/$1');
     $routes->post('delete/(:segment)', 'User::delete/$1');
