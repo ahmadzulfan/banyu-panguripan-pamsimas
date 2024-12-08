@@ -45,7 +45,7 @@ class User extends BaseController
         $pelanggan = $pelangganModel->asObject()->find($post['pelanggan_id']);
 
         if (!$this->validate($rules))
-            return redirect()->to('data-user/tambah')->withInput()->with('validation', $this->validator->getErrors());
+            return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
 
         if ($pelanggan->id_user)
             return redirect()->back()->withInput()->with('error_message', 'Tidak dapat menambahkan, pelanggan ini telah terdaftar');
@@ -99,13 +99,7 @@ class User extends BaseController
         $post = $this->request->getPost();
 
         // Validasi input
-        $rules = [
-            'username'   => 'required|min_length[5]|max_length[20]',
-            'alamat'     => 'required',
-            'no_telepon' => 'required|numeric|min_length[10]|max_length[15]',
-            'email'      => 'permit_empty|valid_email',
-            'role'       => 'required|in_list[Bendahara,Petugas]',
-        ];
+        $rules = $this->validationRules($post);
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
@@ -115,9 +109,7 @@ class User extends BaseController
         $dataUser = [
             'username'      => $post['username'],
             'password_hash' => Password::hash('12345678'), // Default password
-            'active'        => 1,
-            'alamat'        => $post['alamat'],
-            'no_telepon'    => $post['no_telepon'],
+            'active'        => 1
         ];
 
         if (!empty($post['email'])) {
@@ -251,6 +243,12 @@ class User extends BaseController
                     'min_length' => 'Username harus lebih dari 3 karakter.',
                     'max_length' => 'Username tidak boleh lebih dari 30 karakter.',
                     'is_unique'  => 'Username ini sudah terdaftar'
+                ]
+            ],
+            'role' => [
+                'rules'  => 'required|in_list[Bendahara,Petugas]',
+                'errors' => [
+                    'required'   => 'Role harus diisi.',
                 ]
             ],
         ];

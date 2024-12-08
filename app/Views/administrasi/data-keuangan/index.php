@@ -100,6 +100,7 @@
 
 							<thead>
 								<tr>
+									<th> No </th>
 									<th> Tanggal Transaksi </th>
 									<th> Periode </th>
 									<th> Keterangan </th>
@@ -108,7 +109,7 @@
 									<th> Dana KAS</th>
 								</tr>
 							</thead>
-							<?php $danaKas=0; $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
+							<?php $no=1; $danaKas=0; $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
 								<?php 
 									$d_keluar = 0;
 									$totDanaMasuk += $dana['dana_masuk'];
@@ -117,6 +118,7 @@
 
 							<tbody>
 								<tr>
+									<td><?= $no ?></td>
 									<td><?= tgl_indo($dana['tanggal']) ?></td>
 									<td><?= month_indo($dana['periode']) ?></td>
 									<td>Pendapatan PAM bulan <?= month_indo($dana['periode']) ?></td>
@@ -126,8 +128,9 @@
 								</tr>
 								<?php if (!empty($danaKeluar[$dana['periode']])) : ?>
 									<?php foreach ($danaKeluar[$dana['periode']] as $key => $dk) : ?>
-										<?php $d_keluar += $dk['dana_keluar']; $danaKas -= $dk['dana_keluar']; ?>
+										<?php $d_keluar += $dk['dana_keluar']; $danaKas -= $dk['dana_keluar']; $no++;?>
 										<tr>
+											<td><?= $no ?></td>
 											<td><?= tgl_indo($dk['tanggal']) ?></td>
 											<td><?= month_indo($dana['periode']) ?></td>
 											<td><?= $dk['keterangan'] ?></td>
@@ -143,7 +146,7 @@
 									$totDanaKeluar += $d_keluar; 
 								?>
 							</tbody>
-							<?php endforeach; ?>
+							<?php $no++; endforeach; ?>
 							<tfoot>
 								<tr>
 									<th colspan="2"></th>

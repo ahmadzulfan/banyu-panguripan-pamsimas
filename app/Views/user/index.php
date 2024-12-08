@@ -1,5 +1,9 @@
 <?= $this->extend('template/dashboard-admin2.php') ?>
 <?= $this->section('app') ?>
+<?php 
+    $this->authorize = service('authorization');
+    $this->auth      = service('authentication');
+ ?>
     <div class="content-wrapper">
     <div class="row">
         <div class="col-12 col-lg-12">
@@ -17,15 +21,15 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end gap-2">
+                    <?php if ($this->authorize->inGroup('Pimpinan', $this->auth->user()->id)) : ?>
                         <a href="<?= base_url() ?>data-user/tambah_user">
+                    <?php endif; ?>
+                    <?php if ($this->authorize->inGroup('Petugas', $this->auth->user()->id)) : ?>
+                        <a href="<?= base_url() ?>data-user/tambah_pelanggan">
+                    <?php endif; ?>
                             <button type="button" class="btn btn-primary btn-sm mb-3">
                                 <i class="bi bi-plus-circle"></i> Tambah User 
-                            </button>
-                        </a>
-                        <a href="<?= base_url() ?>data-user/tambah_pelanggan">
-                            <button type="button" class="btn btn-primary btn-sm mb-3">
-                                <i class="bi bi-plus-circle"></i> Tambah Pelanggan 
                             </button>
                         </a>
                     </div>
