@@ -246,7 +246,7 @@ class User extends BaseController
                 ]
             ],
             'role' => [
-                'rules'  => 'required|in_list[Bendahara,Petugas]',
+                'rules'  => 'required|in_list[Bendahara,Petugas,Pelanggan]',
                 'errors' => [
                     'required'   => 'Role harus diisi.',
                 ]

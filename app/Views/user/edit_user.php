@@ -10,15 +10,15 @@
                             <?= csrf_field() ?>
                             <div class="form-group">
                                 <label for="pelanggan_id">Pelanggan</label>
-                                <input type="text" class="form-control" name="nama" placeholder="nama" value="<?= $pelanggan->nama ?>" disabled>
+                                <input type="text" class="form-control" name="nama" placeholder="nama" value="<?= ($pelanggan->nama) ?? '' ?>" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <input type="alamat" class="form-control" name="alamat" placeholder="alamat" value="<?= old('alamat', $pelanggan->alamat) ?>" disabled>
+                                <input type="alamat" class="form-control" name="alamat" placeholder="alamat" value="<?= old('alamat', ($pelanggan->alamat) ?? '') ?>" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="no_telepon">No Telepon</label>
-                                <input type="no_telepon" class="form-control" name="no_telepon" placeholder="no_telepon" value="<?= old('no_telepon', $pelanggan->no_telepon) ?>" disabled>
+                                <input type="no_telepon" class="form-control" name="no_telepon" placeholder="no_telepon" value="<?= old('no_telepon', ($pelanggan->no_telepon) ?? '') ?>" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
@@ -27,7 +27,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="email">Email (Optional)</label>
-                                <input type="email" class="form-control" name="email" placeholder="email" value="<?= old('email', $pelanggan->email) ?>">
+                                <input type="email" class="form-control" name="email" placeholder="email" value="<?= old('email', ($pelanggan->email) ?? $user->email) ?>">
                                 <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['email']) ? session()->getFlashdata('validation')['email'] : '' ?></small>
                             </div>
                             <div class="form-group">
@@ -81,8 +81,9 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="save" class="btn btn-primary me-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                            
+                            <a href="<?= base_url()?>data-user" class="btn btn-light">Cancel</a>
                             </form>
                     </div>
                 </div>
