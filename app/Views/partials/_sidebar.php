@@ -86,7 +86,7 @@
                             echo 'submenu-open'; }?>">
                             <li class="submenu-item <?php if ($title == 'Data Keuangan') {
                             echo 'active'; }?>">
-                                <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Keuangan</a>
+                                <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Dana Kas</a>
                             </li>
                             <li class="submenu-item <?php if ($title == 'Dana Keluar') {
                             echo 'active'; }?>">
@@ -103,7 +103,7 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item  ">
-                                <a href="<?= base_url() ?>data-laporan" class="submenu-link">Tagihan</a>
+                                <a href="<?= base_url() ?>data-laporan" class="submenu-link">Data Pembayaran</a>
                             </li>
                             
                         </ul>

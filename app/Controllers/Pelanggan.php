@@ -159,10 +159,10 @@ class Pelanggan extends BaseController
     {
         $rules = [
             'nama' => [
-                'rules'  => 'required|min_length[6]|max_length[25]',
+                'rules'  => 'required|min_length[3]|max_length[25]',
                 'errors' => [
                     'required'   => 'Nama harus diisi.',
-                    'min_length' => 'Nama harus lebih dari 5 karakter.',
+                    'min_length' => 'Nama harus lebih dari 3 karakter.',
                     'max_length' => 'Nama tidak boleh lebih dari 25 karakter.',
                 ]
             ],

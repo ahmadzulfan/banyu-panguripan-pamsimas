@@ -144,7 +144,7 @@
 										<label for="year">Tahun:</label>
 										<div class="position-relative">
 											<select name="year" id="year" class="form-control">
-												<?php for ($i=2024; $i<=date('Y'); $i++) : ?>
+												<?php for ($i=2023; $i<=date('Y'); $i++) : ?>
 													<option value="<?= $i ?>" <?php if ($i == $lbyears) {
 														echo 'selected';
 													} ?>><?= $i ?></option>
