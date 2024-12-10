@@ -151,7 +151,7 @@ class User extends BaseController
         $data['title'] = 'Edit User';
         return view('user/edit_user', $data);
     }
-
+    
     public function update($id)
     {
         $userModel = model(UserModel::class);

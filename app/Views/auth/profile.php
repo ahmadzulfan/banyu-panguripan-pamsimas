@@ -2,6 +2,8 @@
 <?= $this->section('app') ?>
 <?php
     helper('form');
+    $this->authorize = service('authorization');
+    $this->auth      = service('authentication');
 ?>
     <div class="row">
         <div class="col-12 col-lg-12">
@@ -22,20 +24,30 @@
                                 <h5 class="card-title">Detail Akun Saya</h5>
                             </div>
                     <div class="card-body">
+                        
                         <form method="post" class="forms-sample" action="<?= base_url() ?>profile/update/<?= $user->id ?>"> 
+                            <?php if ($this->authorize->inGroup('Pelanggan', $this->auth->user()->id)) : ?>
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="<?= $user->nama ?>">
+                                </div>
+                            <?php endif; ?>
                             <div class="form-group">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="<?= $user->nama ?>">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" name="username" id="username" class="form-control" placeholder="Your username" value="<?= $user->username ?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['username']) ? session()->getFlashdata('validation')['username'] : '' ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" value="<?= $user->email ?>">
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['email']) ? session()->getFlashdata('validation')['email'] : '' ?></small>
                             </div>
+                            <?php if ($this->authorize->inGroup('Pelanggan', $this->auth->user()->id)) : ?>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
                                 <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone" value="<?= $user->no_telepon ?>">
                             </div>
-                           
+                            <?php endif; ?>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
