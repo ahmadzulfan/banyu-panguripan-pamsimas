@@ -29,7 +29,8 @@ class AccountController extends BaseController
         $pelanggan = $model->where('id_user', $user->id)->asObject()->first();
 
         $data['title'] = 'Manajemen Akun';
-        $data['user'] = $pelanggan ?? $user;
+        $data['pelanggan'] = $pelanggan;
+        $data['user'] = $user;
         return view('auth/profile', $data);
     }
 

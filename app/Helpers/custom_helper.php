@@ -28,3 +28,12 @@ function month_indo($month)
 	$months = array (1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mai',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
 	return $months[$month];
 }
+
+function hari_export($filterTanggal)
+{
+    date_default_timezone_set('Asia/Jakarta');
+	$tahun = $filterTanggal['tahun'];
+	$bulan = $filterTanggal['bulan'];
+	$tanggalAkhir = date("Y-m-d", strtotime("last day of $tahun-$bulan"));
+	return tgl_indo($tanggalAkhir);
+}

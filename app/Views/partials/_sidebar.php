@@ -88,6 +88,10 @@
                             echo 'active'; }?>">
                                 <a href="<?= base_url() ?>data-keuangan" class="submenu-link">Laporan Dana Kas</a>
                             </li>
+                            <li class="submenu-item <?php if ($title == 'Dana Masuk') {
+                            echo 'active'; }?>">
+                                <a href="<?= base_url() ?>data-keuangan/dana-masuk" class="submenu-link">Dana Masuk</a>
+                            </li>
                             <li class="submenu-item <?php if ($title == 'Dana Keluar') {
                             echo 'active'; }?>">
                                 <a href="<?= base_url() ?>data-keuangan/dana-keluar" class="submenu-link">Dana Keluar</a>

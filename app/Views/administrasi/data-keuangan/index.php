@@ -89,7 +89,7 @@
 									<i class="bi bi-file-earmark-spreadsheet" style="font-size: 18px;"></i> Excel
 								</button>
 							</a>
-							<a href="<?= base_url() ?>data-keuangan/pdf/export" target="_blank">
+							<a href="<?= base_url() ?>data-keuangan/pdf/export?month=<?= date('m') ?>&year=<?= date('Y') ?>" target="_blank">
 								<button type="button" class="btn btn-danger btn-sm mb-3" z>
 									<i class="bi bi-filetype-pdf" style="font-size: 18px;"></i> PDF
 								</button>
@@ -106,7 +106,7 @@
 									<th> Keterangan </th>
 									<th> Uang Masuk </th>
 									<th> Uang Keluar </th>
-									<th> Dana KAS</th>
+									<th> Sisa KAS</th>
 								</tr>
 							</thead>
 							<?php $no=1; $danaKas=0; $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>

@@ -51,6 +51,9 @@ $routes->group('data-keuangan', ['filter' => 'login'], function($routes) {
     $routes->get('dana-keluar', 'UangKeluar::index');
     $routes->post('dana-keluar', 'UangKeluar::store');
     $routes->post('dana-keluar/delete/(:segment)', 'UangKeluar::delete/$1');
+    $routes->get('dana-masuk', 'UangMasuk::index');
+    $routes->post('dana-masuk', 'UangMasuk::store');
+    $routes->post('dana-masuk/delete/(:segment)', 'UangMasuk::delete/$1');
     $routes->get('pdf/export', 'PdfController::export');
     $routes->get('excel/export', 'ExcelController::export');
 });

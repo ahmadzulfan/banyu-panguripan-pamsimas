@@ -80,12 +80,18 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-end">
+                        
+                        <div class="d-flex justify-content-end gap-2">
                             <a href="<?= base_url() ?>data-tagihan/tambah">
                                 <button type="button" class="btn btn-primary btn-sm mb-3" z>
                                     <i class="bi bi-plus-circle"></i> Tambah Tagihan 
                                 </button>
                             </a>
+                            <a href="<?= base_url() ?>data-laporan/pdf/generate?month=<?=$lblmonths?>&year=<?=$lbyears?>" target="_blank">
+							<button type="button" class="btn btn-danger btn-sm mb-3" z>
+								<i class="bi bi-filetype-pdf" style="font-size: 18px;"></i> PDF
+							</button>
+						</a>
                         </div>
                         <div class="table-responsive">
                             <table id="dataTable" class="table">

@@ -1,5 +1,13 @@
 <?php 
     $months = array (1=>'JAN',2=>'FEB',3=>'MAR',4=>'APR',5=>'MEI',6=>'JUN',7=>'JUL',8=>'AGUS',9=>'SEP',10=>'OKT',11=>'NOV',12=>'DES');
+
+    function imageToBase64($path) {
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        return 'data:image/' . $type . ';base64,' . base64_encode($data);
+    }
+
+    $imageBase64 = imageToBase64('assets/images/pamsimas.png');
 ?>
 
 <!DOCTYPE html>  
@@ -16,115 +24,130 @@
             font-size: 12px;
         }
 
-        table,tr,td{
+        table, tr, td {
             border-color: #000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .title-text {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .year-text {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        table {
+            margin-top: 0.5rem;
+            text-align: left;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        tfoot th, tfoot td {
+            text-align: right;
         }
     </style>
 </head>  
 
 <body>
-    <x-header style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:292pt;">
-            <span style="font-size: large; font-weight:bold;">LAPORAN DATA DANA KAS</span><br>
-            <span style="font-size: large; font-weight:bold;">PAMSIMAS - BANYU PANGURIPAN</span>
+    <!-- Header Section -->
+    <header style="display: table; width: 100%">
+        <div class="logo-container" style="height:70px; display: table-cell; vertical-align: middle;">
+            <div style="width: 70px; float: left;">
+                <img src="<?=$imageBase64?>" alt="Logo" style="width:70px; height:auto;">
+            </div>
+            <div style="margin-right: 0;">
+                <div class="title-text">LAPORAN DATA DANA KAS</div>
+                <div class="title-text">PAMSIMAS - BANYU PANGURIPAN</div>
+            </div>
         </div>
-        <div align=right style="font-size: large; font-weight:bold;">
+        <div class="year-text">
             TAHUN 2024
         </div>
-    </x-header>
-    <table border=1 width=100% cellpadding=2 cellspacing=0 style="margin-top: 2.5rem; text-align:left;">  
+    </header>
+
+    <!-- Table Section -->
+    <table border="1" cellpadding="2" cellspacing="0">  
         <thead>    
-            <tr align=center>  
+            <tr>  
                 <th width="3%">No</th>
                 <th width="10%">Tanggal</th>
                 <th width="25%">Keterangan</th>  
-                <th width="15%">Pemasukan</th> 
-                <th width="15%">Pengeluaran</th> 
+                <th width="15%">Dana Masuk</th> 
+                <th width="15%">Dana Keluar</th> 
                 <th width="15%">Dana Kas</th>
             </tr>    
         </thead> 
-        
-        <?php $no=1; $danaKas=0; $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
-								<?php 
-									$d_keluar = 0;
-									$totDanaMasuk += $dana['dana_masuk'];
-									$danaKas += $dana['dana_masuk'];
-								?>
         <tbody>
+            <?php 
+                $no = 1; 
+                $danaKas = 0; 
+                $totDanaMasuk = 0; 
+                $totDanaKeluar = 0; 
+                $pendapatan = 0; 
+                foreach ($danaMasuk as $key => $dana) : 
+            ?>
             <tr>
-                <td style="text-align: center;"><?= $no ?></td>
+                <td><?= $no ?></td>
                 <td><?= tgl_indo($dana['tanggal']) ?></td>
                 <td>Pendapatan PAM bulan <?= month_indo($dana['periode']) ?></td>
-                <td style="text-align: right;">Rp<?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
+                <td>Rp<?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
                 <td></td>
-                <td style="text-align: right;">Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
+                <td>Rp<?= number_format($danaKas += $dana['dana_masuk'], 0, '.', '.') ?></td>
             </tr>
-            <?php if (!empty($danaKeluar[$dana['periode']])) : ?>
-                <?php foreach ($danaKeluar[$dana['periode']] as $dk) : ?>
-                    <?php $d_keluar += $dk['dana_keluar']; $no++ ?>
-                    <tr>
-                        <td style="text-align: center;"><?= $no ?></td>
-                        <td><?= tgl_indo($dk['tanggal']) ?></td>
-                        <td><?= $dk['keterangan'] ?></td>
-                        <td></td>
-                        <td style="text-align: right;">Rp<?= number_format($dk['dana_keluar'], 0, '.', '.') ?></td>
-                        <td></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
             <?php 
-                $pendapatanPerBulan = $dana['dana_masuk'] - $d_keluar;
-                $pendapatan += $pendapatanPerBulan;
-                $totDanaKeluar += $d_keluar; 
+                $no++; 
+                endforeach; 
             ?>
         </tbody>
-        <?php $no++; endforeach; ?>
-        <tfoot style="text-align: left;">
+        <tfoot>
             <tr>
-                <td style="height: 10;"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <th colspan="3">Total</th>
+                <td>Rp<?= number_format($totDanaMasuk, 0, '.', '.') ?></td>
+                <td>Rp<?= number_format($totDanaKeluar, 0, '.', '.') ?></td>
+                <td>Rp<?= number_format($pendapatan, 0, '.', '.') ?></td>
             </tr>
-			<tr>
-                <th></th>
-                <th></th>
-                <th>Total</th>
-                <td id="total_pendapatan" style="text-align: right;">Rp<?= number_format($totDanaMasuk, 0, '.', '.') ?></td>
-                <td id="total_pengeluaran" style="text-align: right;">Rp<?= number_format($totDanaKeluar, 0, '.', '.') ?></td>
-                <th></th>
-			</tr>
-			<tr>
-                <th></th>
-                <th></th>
-                <th>Saldo Akhir</th>
-                <td></td>
-                <td></td>
-                <th id="saldo_akhir" style="text-align: right;">Rp<?= number_format($pendapatan, 0, '.', '.') ?></th>
-			</tr>
-		</tfoot>
+        </tfoot>
     </table>  
-    <div style="width: 100%; text-align: center; font-size: 14px;">
-            <table style="width: 100%; margin-top: 50px;">
-                <tr>
-                    <td style="text-align: left; width: 50%; font-size: 14px;">
-                        <p style="margin-left: 30px;">Mengetahui,</p>
-                        <p><strong>Pimpinan PAMSIMAS</strong></p>
-                        <br><br>
-                        <p>________________________</p>
-                    </td>
-                    <td style="text-align: right; width: 50%; font-size: 14px;">
-                        <p style="margin-right: 40px;">Mengetahui,</p>
-                        <p style="margin-right: 44px;"><strong>Bendahara</strong></p>
-                        <br><br>
-                        <p>________________________</p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-</body>  
 
+    <!-- Footer Section -->
+    <div style="width: 100%; text-align: center; font-size: 14px;">
+        <table style="width: 100%; margin-top: 50px;">
+            <tr>
+                <td style="text-align: left; width: 50%; font-size: 14px;">
+                    <p style="margin-left: 30px;">Mengetahui,</p>
+                    <p><strong>Pimpinan PAMSIMAS</strong></p>
+                    <br><br>
+                    <p>________________________</p>
+                </td>
+                <td style="text-align: right; width: 50%; font-size: 14px;">
+                    <p style="margin-right: 40px;">Mengetahui, <?= hari_export($dateExport) ?></p>
+                    <p><strong>Bendahara</strong></p>
+                    <br><br>
+                    <p>________________________</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>  
 
 </html>

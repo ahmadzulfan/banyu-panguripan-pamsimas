@@ -37,7 +37,7 @@ class PdfController extends BaseController
 
         return $filteredData;
     }
-
+    // EXPORT DATA LAPORAN
     public function generate()
     {
 
@@ -53,8 +53,7 @@ class PdfController extends BaseController
 
         $filename = 'Laporan Tagihan PAM - '. date('y-m-d-H-i-s');
 
-
-        
+       
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();
 
@@ -73,8 +72,17 @@ class PdfController extends BaseController
         exit();
     }
 
+    // EXPORT DATA KAS
     public function export()
     {
+        $filterMonth = $this->request->getVar('month');
+        $filterYear = $this->request->getVar('year');
+
+        if (!$filterMonth && !$filterYear) {
+            $filterMonth = date('m');
+            $filterYear = date('Y');
+        }
+        
         // Ambil data dana masuk dan dana keluar dari model
         $danaMasuk = $this->getDanaMasuk();
         $danaKeluar = $this->getDanaKeluar();
@@ -94,9 +102,10 @@ class PdfController extends BaseController
 
         // Data untuk dikirim ke view
         $data = [
-            'danaMasuk' => $danaMasuk,
-            'danaKeluar' => $danaKeluar,
-            'pendapatan' => $pendapatan,
+            'danaMasuk'     => $danaMasuk,
+            'danaKeluar'    => $danaKeluar,
+            'pendapatan'    => $pendapatan,
+            'dateExport'    => ['bulan' => $filterMonth, 'tahun' => $filterYear]
         ];
 
         $filename = 'Laporan Keuangan PAM - ' . date('Y-m-d-H-i-s');
@@ -104,8 +113,12 @@ class PdfController extends BaseController
         // Inisialisasi Dompdf
         $options = new Options();
         $options->set('defaultFont', 'Arial');
+        $options->set('chroot', realpath(''));
+        
+
         $dompdf = new Dompdf($options);
 
+        $dompdf->loadHtml('<img src="/assets/images/pamsimas.png"');
         // Load HTML view
         $dompdf->loadHtml(view('administrasi/data-keuangan/laporan-pdf', $data));
 

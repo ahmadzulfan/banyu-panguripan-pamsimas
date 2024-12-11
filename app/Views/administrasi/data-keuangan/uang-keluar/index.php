@@ -42,7 +42,7 @@
                                         <td><?= $data['keterangan'] ?></td>
                                         <td> 
                                             
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteDanaMasuk(<?= $data['id'] ?>)">  
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteDanaKeluar(<?= $data['id'] ?>)">  
                                                 <i class="bi bi-trash-fill"></i>
                                             </button> 
                                         </td>
@@ -87,7 +87,7 @@
     </div>
 
     <script>
-        function deleteDanaMasuk(id)
+        function deleteDanaKeluar(id)
         {
             Swal.fire({
                 title: "Apakah anda yakin ingin menghapus?",

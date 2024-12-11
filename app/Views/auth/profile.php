@@ -29,7 +29,7 @@
                             <?php if ($this->authorize->inGroup('Pelanggan', $this->auth->user()->id)) : ?>
                                 <div class="form-group">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="<?= $user->nama ?>">
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="<?= $pelanggan->nama ?>">
                                 </div>
                             <?php endif; ?>
                             <div class="form-group">
@@ -45,7 +45,7 @@
                             <?php if ($this->authorize->inGroup('Pelanggan', $this->auth->user()->id)) : ?>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone" value="<?= $user->no_telepon ?>">
+                                <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone" value="<?= $pelanggan->no_telepon ?>">
                             </div>
                             <?php endif; ?>
                             <div class="form-group">
