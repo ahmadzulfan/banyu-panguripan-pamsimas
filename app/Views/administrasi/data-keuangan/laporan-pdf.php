@@ -25,7 +25,7 @@
 <body>
     <x-header style="clear:both; position:relative;">
         <div style="position:absolute; left:0pt; width:292pt;">
-            <span style="font-size: large; font-weight:bold;">LAPORAN DATA KEUANGAN</span><br>
+            <span style="font-size: large; font-weight:bold;">LAPORAN DATA DANA KAS</span><br>
             <span style="font-size: large; font-weight:bold;">PAMSIMAS - BANYU PANGURIPAN</span>
         </div>
         <div align=right style="font-size: large; font-weight:bold;">
@@ -106,6 +106,25 @@
 			</tr>
 		</tfoot>
     </table>  
+    <div style="width: 100%; text-align: center; font-size: 14px;">
+            <table style="width: 100%; margin-top: 50px;">
+                <tr>
+                    <td style="text-align: left; width: 50%; font-size: 14px;">
+                        <p style="margin-left: 30px;">Mengetahui,</p>
+                        <p><strong>Pimpinan PAMSIMAS</strong></p>
+                        <br><br>
+                        <p>________________________</p>
+                    </td>
+                    <td style="text-align: right; width: 50%; font-size: 14px;">
+                        <p style="margin-right: 40px;">Mengetahui,</p>
+                        <p style="margin-right: 44px;"><strong>Bendahara</strong></p>
+                        <br><br>
+                        <p>________________________</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
 </body>  
+
 
 </html>
