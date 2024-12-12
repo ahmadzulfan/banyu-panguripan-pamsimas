@@ -189,7 +189,6 @@
 									<th> No </th>
 									<th> Tanggal Pembayaran </th>
 									<th> Nama Pelanggan</th>
-									
 									<th> Jumlah Pembayaran </th>
 									<th> Action </th>
 								</tr>
