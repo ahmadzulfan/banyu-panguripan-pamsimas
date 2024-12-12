@@ -99,8 +99,7 @@
                             <thead>
                                 <tr>
                                     <th> No </th>
-                                    <th> Nama </th>
-                                    <th> bulan </th>
+                                    <th> Pelanggan </th>
                                     <th> Jumlah Pemakaian </th>
                                     <th> Total Tagihan </th>
                                     <th> Status</th>
@@ -112,7 +111,6 @@
                                     <tr>
                                         <td> <?= $key+1 ?> </td>
                                         <td> <?= $value['nama'] ?> </td>
-                                        <td> <?= $months[(int)$value['bulan']] ?> </td>
                                         <td> <?= $value['jumlah_pemakaian'] ?> m³ </td>
                                         <td> Rp <?= number_format($value['total_tagihan'], 0, '.', '.') ?> </td>
                                         <td>

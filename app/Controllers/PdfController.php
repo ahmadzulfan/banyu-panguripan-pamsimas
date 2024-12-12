@@ -126,7 +126,7 @@ class PdfController extends BaseController
         $dompdf->loadHtml(view('administrasi/data-tagihan/laporan-pdf', $datas));
 
         // Set ukuran kertas dan orientasi (A4, landscape)
-        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('A4', 'potrait');
 
         // Render HTML menjadi PDF
         $dompdf->render();

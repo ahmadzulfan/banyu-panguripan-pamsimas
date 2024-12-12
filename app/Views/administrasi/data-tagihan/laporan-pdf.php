@@ -71,22 +71,21 @@
                 <img src="<?=$imageBase64?>" alt="Logo" style="width:70px; height:auto;">
             </div>
             <div style="margin-right: 0;">
-                <div class="title-text">LAPORAN DATA Tagihan</div>
+                <div class="title-text">LAPORAN DATA TAGIHAN</div>
                 <div class="title-text">PAMSIMAS - BANYU PANGURIPAN</div>
             </div>
         </div>
-        <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo($_REQUEST['month'] )?>  <?=($_REQUEST['year'] )?></div>
+        <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo(ltrim($_REQUEST['month'], '0'))?>  <?=($_REQUEST['year'] )?></div>
     </header>
     
     <table border=1 width=100% cellpadding=2 cellspacing=0 style=" text-align:center;">  
         <thead>    
             <tr align=center style="font-weight: bold;">  
                 <td width="2%">No</td>  
-                <td width="5%">Nama</td>  
-                <td width="15%">Bulan</td>  
-                <td width="15%">Jumlah Pemakaian</td>  
-                <td width="15%">Total Tagihan</td>
-                <td width="15%">Status</td>
+                <td width="22%">Pelanggan</td>  
+                <td width="22%">Jumlah Pemakaian</td>  
+                <td width="22%">Total Tagihan</td>
+                <td width="22%">Status</td>
             </tr>    
         </thead>    
         <tbody> 
@@ -97,7 +96,6 @@
                 <tr>
                     <td> <?= $key+1 ?> </td>
                     <td> <?= $value['nama'] ?> </td>
-                    <td> <?= month_indo($value['bulan']) ?> </td>
                     <td> <?= $value['jumlah_pemakaian'] ?> m³ </td>
                     <td> Rp<?= number_format($value['total_tagihan'], 0, '.', '.') ?> </td>
                     <td>
