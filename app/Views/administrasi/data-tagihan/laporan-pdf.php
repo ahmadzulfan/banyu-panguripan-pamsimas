@@ -116,7 +116,7 @@
                     </td>
                     <td style="text-align: right; width: 50%; font-size: 14px;">
                         <p style="margin-right: ;">Pekalongan, <?= hari_export($dateExport) ?></p>
-                        <p style="margin-right: 30px;"><strong>Petugas Lapangan</strong></p>
+                        <p style="margin-right: 50px;"><strong>Petugas Lapangan</strong></p>
                         <br><br>
                         <p>________________________</p>
                     </td>

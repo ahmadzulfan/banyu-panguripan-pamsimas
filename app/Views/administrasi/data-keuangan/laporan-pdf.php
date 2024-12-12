@@ -109,9 +109,10 @@
                 <td><?= tgl_indo($dana['tanggal']) ?></td>
                 <td>Pendapatan PAM bulan <?= month_indo($dana['periode']) ?></td>
                 <td>Rp<?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
-                <td></td>
+                <td>Rp<?= number_format($danaKeluar[$dana['periode']]['dana_keluar'] ?? 0, 0, '.', '.') ?></td>
                 <td>Rp<?= number_format($danaKas += $dana['dana_masuk'], 0, '.', '.') ?></td>
             </tr>
+            
             <?php 
                 $no++; 
                 endforeach; 

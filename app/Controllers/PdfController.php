@@ -77,7 +77,7 @@ class PdfController extends BaseController
         exit();
     }
 
-    // EXPORT DATA LAPORAN
+    // EXPORT DATA TAGIHAN
     public function generate_tagihan()
     {
         $filterMonth = $this->request->getVar('month');
@@ -92,6 +92,11 @@ class PdfController extends BaseController
         // Ambil data tagihan berdasarkan filter bulan dan tahun
         $datas['tagihan'] = $this->filter($filterMonth, $filterYear);
         
+        $datas['dateExport'] = [
+            'bulan' => $filterMonth,
+            'tahun' => $filterYear
+        ];
+
         // Tambahkan nama file untuk laporan
         $filename = 'Laporan Tagihan PAM - ' . date('y-m-d-H-i-s');
 
@@ -101,11 +106,7 @@ class PdfController extends BaseController
             return redirect()->back()->with('error', 'Data tagihan tidak ditemukan untuk periode ini.');
         }
 
-        $datas['dateExport'] = [
-            'bulan' => $filterMonth,
-            'tahun' => $filterYear
-        ];
-
+        
         // Inisialisasi dan gunakan Dompdf
         $dompdf = new Dompdf();
 

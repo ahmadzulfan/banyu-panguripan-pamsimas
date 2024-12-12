@@ -4,32 +4,17 @@ namespace App\Controllers;
 
 use App\Models\DanaKeluarModel;
 use App\Models\Pembayaran;
-use App\Models\DanaMasukModel;
+
 class Keuangan extends BaseController
 {
     public function index()
     {
         date_default_timezone_set('Asia/Jakarta');
-        $model = new Pembayaran();
-        $modelDanaMasuk = new DanaMasukModel();
 
-        $month = date('m');
-        $year = date('Y');
-
-        if (!empty($this->request->getGet('month')) && !empty($this->request->getGet('year'))) {
-            $month = $this->request->getGet('month');
-            $year = $this->request->getGet('year');
-        }
-
-        $data['pembayaran'] = $model->pelanggan(['month' => $month, 'year' => $year]);
-        $data['pendapatanByMonth'] = $model->pendapatanByMonth($month);
-        $data['pendapatanByYear'] = $model->pendapatanByYear($year);
-        $data['danaMasuk'] = $this->getDanaMasuk(['month' => $month, 'year' => $year]);
-        $data['danaKeluar'] = $this->getDanaKeluar(['month' => $month, 'year' => $year]);
         $data['title'] = 'Data Keuangan';
         $data['submenu'] = 'keuangan';
-        
-        
+        $data['danaMasuk'] = $this->getDanaMasuk();
+        $data['danaKeluar'] = $this->getDanaKeluar();
 
         return view('administrasi/data-keuangan/index', $data);
 
