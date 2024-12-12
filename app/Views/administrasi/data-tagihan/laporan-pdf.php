@@ -1,5 +1,13 @@
 <?php 
     $months = array (1=>'JAN',2=>'FEB',3=>'MAR',4=>'APR',5=>'MEI',6=>'JUN',7=>'JUL',8=>'AGUS',9=>'SEP',10=>'OKT',11=>'NOV',12=>'DES');
+
+    function imageToBase64($path) {
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        return 'data:image/' . $type . ';base64,' . base64_encode($data);
+    }
+
+    $imageBase64 = imageToBase64('assets/images/pamsimas.png');
 ?>
 
 <!DOCTYPE html>  
@@ -16,58 +24,87 @@
             font-size: 12px;
         }
 
-        table,tr,td{
+        table, tr, td {
             border-color: #000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .title-text {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .bulan {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        table {
+            margin-top: 0.5rem;
+            text-align: left;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        tfoot th, tfoot td {
+            text-align: right;
         }
     </style>
 </head>  
 
 <body>
-    <x-header style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:292pt;">
-            <span style="font-size: large; font-weight:bold;">LAPORAN PEMBAYARAN TAGIHAN</span>
-            <img src="public/assets/images/logo-pamsimas.png" alt="Logo" style="height: 50px; vertical-align: middle; margin-left: 10px;">
-            <br>
-            <span style="font-size: large; font-weight:bold;">PAMSIMAS - BANYU PANGURIPAN</span>
+    <!-- Header Section -->
+    <header style="display: table; width: 100%">
+        <div class="logo-container" style="height:70px; display: table-cell; vertical-align: middle;">
+            <div style="width: 70px; float: left;">
+                <img src="<?=$imageBase64?>" alt="Logo" style="width:70px; height:auto;">
+            </div>
+            <div style="margin-right: 0;">
+                <div class="title-text">LAPORAN DATA DANA KAS</div>
+                <div class="title-text">PAMSIMAS - BANYU PANGURIPAN</div>
+            </div>
         </div>
-        <div align=right style="font-size: large; font-weight:bold;">
         <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo($_REQUEST['month'] )?>  <?=($_REQUEST['year'] )?></div>
-        </div>
-    </x-header>
-    <table border=1 width=100% cellpadding=2 cellspacing=0 style="margin-top: 2.5rem; text-align:center;">  
+    </header>
+    
+    <table border=1 width=100% cellpadding=2 cellspacing=0 style=" text-align:center;">  
         <thead>    
-            <tr align=center>  
+            <tr align=center style="font-weight: bold;">  
                 <td width="2%">No</td>  
-                <td width="5%">Tanggal Pembayaran</td>  
-                <td width="15%">Nama Pelanggan</td>  
-                <td width="15%">Bulan Tagihan</td>  
-                <td width="15%">Jumlah Pembayaran</td>
+                <td width="5%">Nama</td>  
+                <td width="15%">Bulan</td>  
+                <td width="15%">Jumlah Pemakaian</td>  
+                <td width="15%">Total Tagihan</td>
+                <td width="15%">Status</td>
             </tr>    
         </thead>    
         <tbody> 
             <?php $total=0; ?>
 
-            <?php foreach ($datas as $key => $data) : ?>
-                <?php $total+=$data['total_tagihan'] ?>
+            <?php foreach ($tagihan as $key => $value) : ?>
                 <tr>
-                <td><?= $key+1 ?></td>
-                <td><?= tgl_indo($data['tanggal_pembayaran']) ?></td>
-                <td><?= $data['nama'] ?></td>
-                <td><?= month_indo($data['bulan']) ?></td>
-                <td>Rp<?= number_format($data['total_tagihan'], 0, '', '.') ?></td>
-                
-                </tr>
-            <?php endforeach; ?>
-            <tr>
-                <td colspan="4"> total penghasilan</td>
-                <td>Rp<?=number_format($total, 0, '', '.')?></td>
+                    <td> <?= $key+1 ?> </td>
+                    <td> <?= $value['nama'] ?> </td>
+                    <td> <?= month_indo($value['bulan']) ?> </td>
+                    <td> <?= $value['jumlah_pemakaian'] ?> m³ </td>
+                    <td> Rp <?= number_format($value['total_tagihan'], 0, '.', '.') ?> </td>
+                    <td><?= $value['status'] ?> </td>
+
             </tr>
-            
+            <?php endforeach; ?>
         </tbody>
     </table>  
-    
-    
-        
         <div style="width: 100%; text-align: center; font-size: 14px;">
             <table style="width: 100%; margin-top: 50px;">
                 <tr>
@@ -78,12 +115,11 @@
                         <p>________________________</p>
                     </td>
                     <td style="text-align: right; width: 50%; font-size: 14px;">
-                        <p style="margin-right: 40px;">Mengetahui,</p>
-                        <p style="margin-right: 20px;"><strong>Petugas Lapangan</strong></p>
+                        <p style="margin-right: ;">Pekalongan, <?= hari_export($dateExport) ?></p>
+                        <p style="margin-right: 30px;"><strong>Petugas Lapangan</strong></p>
                         <br><br>
                         <p>________________________</p>
                     </td>
                 </tr>
             </table>
-
 </html>

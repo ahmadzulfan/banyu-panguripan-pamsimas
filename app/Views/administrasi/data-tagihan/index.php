@@ -87,7 +87,7 @@
                                     <i class="bi bi-plus-circle"></i> Tambah Tagihan 
                                 </button>
                             </a>
-                            <a href="<?= base_url() ?>data-laporan/pdf/generate?month=<?=$lblmonths?>&year=<?=$lbyears?>" target="_blank">
+                            <a href="<?= base_url() ?>data-tagihan/pdf/generate_tagihan?month=<?=$lblmonths?>&year=<?=$lbyears?>" target="_blank">
 							<button type="button" class="btn btn-danger btn-sm mb-3" z>
 								<i class="bi bi-filetype-pdf" style="font-size: 18px;"></i> PDF
 							</button>
@@ -116,11 +116,12 @@
                                         <td> Rp <?= number_format($value['total_tagihan'], 0, '.', '.') ?> </td>
                                         <td>
                                             <?php if ($value['status'] == 'belum_dibayar') : ?>
-                                                <span class="badge rounded-pill text-bg-danger text-white"><?= $value['status'] ?></span>
+                                                <span class="badge rounded-pill text-bg-danger text-white">Belum Dibayar</span>
                                             <?php else: ?>
-                                                <span class="badge rounded-pill text-bg-success text-white"><?= $value['status'] ?></span>
+                                                <span class="badge rounded-pill text-bg-success text-white">Sudah Dibayar</span>
                                             <?php endif; ?>
                                         </td>
+
                                         <td> 
                                             <button id="btn-detail" type="button" class="btn btn-primary btn-sm" 
                                                     data-id="<?= $value['id_tagihan'] ?>" 

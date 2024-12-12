@@ -51,7 +51,12 @@ class PdfController extends BaseController
         
         $datas['datas'] = $this->filter($filterMonth, $filterYear);
 
-        $filename = 'Laporan Tagihan PAM - '. date('y-m-d-H-i-s');
+        $datas['dateExport'] = [
+            'bulan' => $filterMonth,
+            'tahun' => $filterYear
+        ];
+
+        $filename = 'Laporan Pembayaran PAM - '. date('y-m-d-H-i-s');
 
        
         // instantiate and use the dompdf class
@@ -71,6 +76,55 @@ class PdfController extends BaseController
 
         exit();
     }
+
+    // EXPORT DATA LAPORAN
+    public function generate_tagihan()
+    {
+        $filterMonth = $this->request->getVar('month');
+        $filterYear = $this->request->getVar('year');
+
+        // Jika tidak ada input bulan dan tahun, gunakan bulan dan tahun saat ini
+        if (!$filterMonth && !$filterYear) {
+            $filterMonth = date('m');
+            $filterYear = date('Y');
+        }
+
+        // Ambil data tagihan berdasarkan filter bulan dan tahun
+        $datas['tagihan'] = $this->filter($filterMonth, $filterYear);
+        
+        // Tambahkan nama file untuk laporan
+        $filename = 'Laporan Tagihan PAM - ' . date('y-m-d-H-i-s');
+
+        // Pastikan ada data yang dikirim
+        if (empty($datas['tagihan'])) {
+            // Tampilkan pesan error atau alihkan ke halaman tertentu jika data kosong
+            return redirect()->back()->with('error', 'Data tagihan tidak ditemukan untuk periode ini.');
+        }
+
+        $datas['dateExport'] = [
+            'bulan' => $filterMonth,
+            'tahun' => $filterYear
+        ];
+
+        // Inisialisasi dan gunakan Dompdf
+        $dompdf = new Dompdf();
+
+        // Muat konten HTML ke dalam Dompdf
+        $dompdf->loadHtml(view('administrasi/data-tagihan/laporan-pdf', $datas));
+
+        // Set ukuran kertas dan orientasi (A4, landscape)
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render HTML menjadi PDF
+        $dompdf->render();
+
+        // Kirim output PDF ke browser
+        $dompdf->stream($filename, array("Attachment" => 0));
+
+        // Pastikan aplikasi berhenti setelah mengirim file
+        exit();
+    }
+
 
     // EXPORT DATA KAS
     public function export()

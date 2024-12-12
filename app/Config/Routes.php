@@ -44,6 +44,7 @@ $routes->group('data-tagihan', ['filter' => 'login'], function($routes) {
     $routes->post('delete/(:segment)', 'Tagihan::delete/$1');
     $routes->post('bayar/(:segment)', 'PembayaranController::bayar/$1');
     $routes->post('bayar-debt', 'PembayaranController::bayarDept');
+    $routes->get('pdf/generate_tagihan', 'PdfController::generate_tagihan');
 });
 
 $routes->group('data-keuangan', ['filter' => 'login'], function($routes) {

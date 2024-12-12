@@ -44,7 +44,7 @@
             font-weight: bold;
         }
 
-        .year-text {
+        .bulan {
             font-size: 16px;
             font-weight: bold;
             text-align: right;
@@ -80,9 +80,7 @@
                 <div class="title-text">PAMSIMAS - BANYU PANGURIPAN</div>
             </div>
         </div>
-        <div class="year-text">
-            TAHUN 2024
-        </div>
+        <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo($_REQUEST['month'] )?>  <?=($_REQUEST['year'] )?></div>
     </header>
 
     <!-- Table Section -->
@@ -140,8 +138,8 @@
                     <p>________________________</p>
                 </td>
                 <td style="text-align: right; width: 50%; font-size: 14px;">
-                    <p style="margin-right: 40px;">Mengetahui, <?= hari_export($dateExport) ?></p>
-                    <p><strong>Bendahara</strong></p>
+                    <p style="margin-right: ;">Pekalongan, <?= hari_export($dateExport) ?></p>
+                    <p style="margin-right: 50px;"><strong>Bendahara</strong></p>
                     <br><br>
                     <p>________________________</p>
                 </td>
