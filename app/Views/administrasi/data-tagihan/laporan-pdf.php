@@ -71,7 +71,7 @@
                 <img src="<?=$imageBase64?>" alt="Logo" style="width:70px; height:auto;">
             </div>
             <div style="margin-right: 0;">
-                <div class="title-text">LAPORAN DATA DANA KAS</div>
+                <div class="title-text">LAPORAN DATA Tagihan</div>
                 <div class="title-text">PAMSIMAS - BANYU PANGURIPAN</div>
             </div>
         </div>
@@ -90,36 +90,66 @@
             </tr>    
         </thead>    
         <tbody> 
-            <?php $total=0; ?>
+            <?php $total=0; $tpemakaian=0; $ttotal = 0; $tlunas = 0; $tbelumlunas = 0; ?>
 
             <?php foreach ($tagihan as $key => $value) : ?>
+                <?php $tpemakaian += $value['jumlah_pemakaian']; $ttotal += $value['total_tagihan']; ?>
                 <tr>
                     <td> <?= $key+1 ?> </td>
                     <td> <?= $value['nama'] ?> </td>
                     <td> <?= month_indo($value['bulan']) ?> </td>
                     <td> <?= $value['jumlah_pemakaian'] ?> m³ </td>
-                    <td> Rp <?= number_format($value['total_tagihan'], 0, '.', '.') ?> </td>
-                    <td><?= $value['status'] ?> </td>
+                    <td> Rp<?= number_format($value['total_tagihan'], 0, '.', '.') ?> </td>
+                    <td>
+                        <?php if ($value['status'] == 'dibayar') : ?>
+                            Lunas
+                        <?php $tlunas += $value['total_tagihan']; else: ?>
+                            Belum Lunas
+                        <?php $tbelumlunas += $value['total_tagihan']; endif; ?>
+                    </td>
 
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>  
-        <div style="width: 100%; text-align: center; font-size: 14px;">
-            <table style="width: 100%; margin-top: 50px;">
-                <tr>
-                    <td style="text-align: left; width: 50%; font-size: 14px;">
-                        <p style="margin-left: 30px;">Mengetahui,</p>
-                        <p><strong>Pimpinan PAMSIMAS</strong></p>
-                        <br><br>
-                        <p>________________________</p>
-                    </td>
-                    <td style="text-align: right; width: 50%; font-size: 14px;">
-                        <p style="margin-right: ;">Pekalongan, <?= hari_export($dateExport) ?></p>
-                        <p style="margin-right: 50px;"><strong>Petugas Lapangan</strong></p>
-                        <br><br>
-                        <p>________________________</p>
-                    </td>
                 </tr>
-            </table>
+                <?php endforeach; ?>
+        </tbody>
+    </table> 
+    <!-- Header Section -->
+    <div style="margin-top: 1rem;">
+        <div class="title-text">DETAIL RINCIAN</div>
+        <table border=1 width=100% cellpadding=2 cellspacing=0 style=" text-align:center;">  
+            <thead>    
+                <tr align=center style="font-weight: bold;">  
+                    <td width="25%">Total Pemaikaian</td>  
+                    <td width="25%">Total Tagihan</td>  
+                    <td width="25%">Tagihan Lunas</td>  
+                    <td width="25%">Tagihan Belum Lunas</td>
+                </tr>    
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?= $tpemakaian ?>m³</td>
+                    <td>Rp<?= number_format($ttotal, 0, '.', '.') ?></td>
+                    <td>Rp<?= number_format($tlunas, 0, '.', '.') ?></td>
+                    <td>Rp<?= number_format($tbelumlunas, 0, '.', '.') ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 100%; text-align: center; font-size: 14px;">
+        <table style="width: 100%; margin-top: 1rem;">
+            <tr>
+                <td style="text-align: left; width: 50%; font-size: 14px;">
+                    <p style="margin-left: 30px;">Mengetahui,</p>
+                    <p><strong>Pimpinan PAMSIMAS</strong></p>
+                    <br><br>
+                    <p>________________________</p>
+                </td>
+                <td style="text-align: right; width: 50%; font-size: 14px;">
+                    <p style="margin-right: ;">Pekalongan, <?= hari_export($dateExport) ?></p>
+                    <p style="margin-right: 50px;"><strong>Petugas Lapangan</strong></p>
+                    <br><br>
+                    <p>________________________</p>
+                </td>
+            </tr>
+        </table>
+    </div>
 </html>

@@ -25,7 +25,7 @@ class PdfController extends BaseController
         return view('struk/struk', $data);
     }
 
-    public function filter($filterMonth, $filterYear)
+    public function getDataKeuangan($filterMonth, $filterYear)
     {
 
         $filter = [
@@ -34,6 +34,18 @@ class PdfController extends BaseController
         ];
 
         $filteredData = $this->tagihanModel->filterDataPDF($filter);
+
+        return $filteredData;
+    }
+    public function getDataTagihan($filterMonth, $filterYear)
+    {
+
+        $filter = [
+            "month" => $filterMonth,
+            "year"  => $filterYear
+        ];
+
+        $filteredData = $this->tagihanModel->filterData($filter);
 
         return $filteredData;
     }
@@ -49,7 +61,7 @@ class PdfController extends BaseController
             $filterYear = date('Y');
         }
         
-        $datas['datas'] = $this->filter($filterMonth, $filterYear);
+        $datas['datas'] = $this->getDataKeuangan($filterMonth, $filterYear);
 
         $datas['dateExport'] = [
             'bulan' => $filterMonth,
@@ -90,7 +102,7 @@ class PdfController extends BaseController
         }
 
         // Ambil data tagihan berdasarkan filter bulan dan tahun
-        $datas['tagihan'] = $this->filter($filterMonth, $filterYear);
+        $datas['tagihan'] = $this->getDataTagihan($filterMonth, $filterYear);
         
         $datas['dateExport'] = [
             'bulan' => $filterMonth,
@@ -103,7 +115,7 @@ class PdfController extends BaseController
         // Pastikan ada data yang dikirim
         if (empty($datas['tagihan'])) {
             // Tampilkan pesan error atau alihkan ke halaman tertentu jika data kosong
-            return redirect()->back()->with('error', 'Data tagihan tidak ditemukan untuk periode ini.');
+            return redirect()->back()->with('error_message', 'Maaf, Data tagihan untuk periode ini tidak ditemukan.');
         }
 
         
