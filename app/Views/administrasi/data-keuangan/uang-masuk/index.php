@@ -27,26 +27,47 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Tanggal</th>
-                                            <th>Jumlah Masuk</th>
                                             <th>Keterangan</th>
+                                            <th>Jumlah Masuk</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($danaMasuk as $key => $dana) : ?>
+                                        <?php $total = 0; foreach ($danaMasuk as $key => $dana) : ?>
                                             <tr>
                                                 <td><?= $key+1 ?></td>
                                                 <td><?= tgl_indo($dana->tanggal_masuk) ?></td>
-                                                <td><?= number_format($dana->jumlah_masuk, 0, '.', '.') ?></td>
                                                 <td><?= $dana->keterangan ?></td>
+                                                <td>Rp<?= number_format($dana->jumlah_masuk, 0, '.', '.') ?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-danger btn-sm" onclick="deleteDanaMasuk(<?= $dana->id ?>)">  
                                                         <i class="bi bi-trash-fill"></i>
                                                     </button> 
                                                 </td>
                                             </tr>
-                                        <?php endforeach; ?>
+                                        <?php $total += $dana->jumlah_masuk; endforeach; ?>
                                     </tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <th>Total Dana Masuk</th>
+                                        <td>Rp<?= number_format($total, 0, '.', '.') ?></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <th>Dana Kas Periode <?= month_indo(date('m', strtotime($dana->tanggal_masuk)) - 1) ?></th>
+                                        <td>Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <th>Saldo Akhir</th>
+                                        <th>Rp<?= number_format($total + $danaKas, 0, '.', '.') ?></th>
+                                        <td></td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>

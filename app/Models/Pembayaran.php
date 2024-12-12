@@ -42,4 +42,15 @@ class Pembayaran extends Model
                     ->groupBy('MONTH(tanggal_pembayaran)')
                     ->get()->getResultArray();
     }
+
+    public function getDataSinceMonth($tahun, $bulan)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $startDate = date("Y-m-d", strtotime("last day of $tahun-$bulan"));
+
+        return $this->select('SUM(jumlah_dibayar) as dana_masuk')
+                    ->where('tanggal_pembayaran <=', $startDate)
+                    ->asObject()
+                    ->first();
+    }
 }

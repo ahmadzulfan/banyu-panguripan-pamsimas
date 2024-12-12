@@ -4,21 +4,25 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\DanaMasukModel;
+use App\Models\Pembayaran;
 
 class UangMasuk extends BaseController
 {
-    public $model;
+    public $model, $PembayaranModel;
     public function __construct()
     {
         $this->model = new DanaMasukModel();
+        $this->PembayaranModel = new Pembayaran();
     }
     public function index()
     {
-        // Dummy data
+        $danaKas = $this->PembayaranModel->danaMasuk();
+
         $datas = [
             'title'     => 'Dana Masuk',
             'submenu'   => 'keuangan',
-            'danaMasuk' => $this->model->asObject()->findAll()
+            'danaMasuk' => $this->model->asObject()->findAll(),
+            'danaKas'   => $danaKas
         ];
 
         return view('administrasi/data-keuangan/uang-masuk/index', $datas);
