@@ -37,7 +37,7 @@
                                 <?php foreach ($datas as $key => $data) : ?>
                                     <tr>
                                         <td><?= $key+1 ?></td>
-                                        <td><?= $data['tanggal_keluar'] ?></td>
+                                        <td><?= tgl_indo($data['tanggal_keluar']) ?></td>
                                         <td><?= number_format($data['jumlah_keluar'], 0, '.', '.') ?></td>
                                         <td><?= $data['keterangan'] ?></td>
                                         <td> 

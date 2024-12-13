@@ -40,14 +40,16 @@
                 <th width="25%">Keterangan</th>  
                 <th width="15%">Pemasukan</th> 
                 <th width="15%">Pengeluaran</th> 
-                
+                <th width="15%">Dana Kas</th>
             </tr>    
         </thead> 
-        <?php $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; $no=1; foreach ($danaMasuk as $dana) : ?>
-        <?php 
-            $d_keluar = 0;
-            $totDanaMasuk += $dana['dana_masuk'];
-        ?>
+        
+        <?php $no=1; $danaKas=0; $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
+								<?php 
+									$d_keluar = 0;
+									$totDanaMasuk += $dana['dana_masuk'];
+									$danaKas += $dana['dana_masuk'];
+								?>
         <tbody>
             <tr>
                 <td style="text-align: center;"><?= $no ?></td>
@@ -55,6 +57,7 @@
                 <td>Pendapatan PAM bulan <?= month_indo($dana['periode']) ?></td>
                 <td style="text-align: right;">Rp<?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
                 <td></td>
+                <td style="text-align: right;">Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
             </tr>
             <?php if (!empty($danaKeluar[$dana['periode']])) : ?>
                 <?php foreach ($danaKeluar[$dana['periode']] as $dk) : ?>
@@ -65,6 +68,7 @@
                         <td><?= $dk['keterangan'] ?></td>
                         <td></td>
                         <td style="text-align: right;">Rp<?= number_format($dk['dana_keluar'], 0, '.', '.') ?></td>
+                        <td></td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -82,6 +86,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
             </tr>
 			<tr>
                 <th></th>
@@ -89,11 +94,13 @@
                 <th>Total</th>
                 <td id="total_pendapatan" style="text-align: right;">Rp<?= number_format($totDanaMasuk, 0, '.', '.') ?></td>
                 <td id="total_pengeluaran" style="text-align: right;">Rp<?= number_format($totDanaKeluar, 0, '.', '.') ?></td>
+                <th></th>
 			</tr>
 			<tr>
                 <th></th>
                 <th></th>
                 <th>Saldo Akhir</th>
+                <td></td>
                 <td></td>
                 <th id="saldo_akhir" style="text-align: right;">Rp<?= number_format($pendapatan, 0, '.', '.') ?></th>
 			</tr>
