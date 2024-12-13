@@ -55,9 +55,8 @@ class Pembayaran extends Model
         date_default_timezone_set('Asia/Jakarta');
         $startDate = date("Y-m-d", strtotime("last day of $tahun-$bulan"));
 
-        return $this->select('SUM(jumlah_dibayar) as dana_masuk')
+        return $this->select('MONTH(tanggal_pembayaran) as bulan, SUM(jumlah_dibayar) as pendapatan')
                     ->where('tanggal_pembayaran <=', $startDate)
-                    ->asObject()
-                    ->first();
+                    ->findAll();
     }
 }

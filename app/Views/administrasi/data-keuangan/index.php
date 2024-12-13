@@ -186,7 +186,7 @@
 										</td>
 										<td>
 											<?php if (!empty($dana['pendapatan'])) : ?>
-												Rp<?= number_format($dana['pendapatan'], 0, '.', '.') ?>
+												Rp<?= number_format(($dana['pendapatan']), 0, '.', '.') ?>
 											<?php else: ?>
 											<?php endif; ?>
 										</td>
