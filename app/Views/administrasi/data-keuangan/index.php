@@ -94,7 +94,12 @@
 										<div class="position-relative">
 											<select name="month" id="month" class="form-control">
 												<?php foreach ($months as $key => $month) : ?>
-													<option value="<?= $key ?>" <?php if ($key == $lblmonths) {
+													<option value="<?php
+                                                    if (strlen((string)$key) < 2) {
+                                                        echo "0".$key;
+                                                    }else{
+                                                        echo $key;
+                                                    }?>" <?php if ($key == $lblmonths) {
 														echo 'selected';
 													} ?>><?= $month ?></option>
 												<?php endforeach; ?>
@@ -154,57 +159,57 @@
 								<tr>
 									<th> No </th>
 									<th> Tanggal Transaksi </th>
-									<th> Periode </th>
 									<th> Keterangan </th>
 									<th> Uang Masuk </th>
 									<th> Uang Keluar </th>
 									<th> Sisa KAS</th>
 								</tr>
 							</thead>
-							<?php $no=1; $danaKas=0; $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; foreach ($danaMasuk as $key => $dana) : ?>
-								<?php 
-									$d_keluar = 0;
-									$totDanaMasuk += $dana['dana_masuk'];
-									$danaKas += $dana['dana_masuk'];
-								?>
-
 							<tbody>
-								
-								<tr>
-									<td><?= $no ?></td>
-									<td><?= tgl_indo($dana['tanggal']) ?></td>
-									<td><?= month_indo($dana['periode']) ?></td>
-									<td>Pendapatan PAM bulan <?= month_indo($dana['periode']) ?></td>
-									<td>Rp<?= number_format($dana['dana_masuk'], 0, '.', '.') ?></td>
-									<td></td>
-									<td>Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
-								</tr>
-								<?php if (!empty($danaKeluar[$dana['periode']])) : ?>
-									<?php foreach ($danaKeluar[$dana['periode']] as $key => $dk) : ?>
-										<?php $d_keluar += $dk['dana_keluar']; $danaKas -= $dk['dana_keluar']; $no++;?>
-										<tr>
-											<td><?= $no ?></td>
-											<td><?= tgl_indo($dk['tanggal']) ?></td>
-											<td><?= month_indo($dana['periode']) ?></td>
-											<td><?= $dk['keterangan'] ?></td>
-											<td></td>
-											<td>Rp<?= number_format($dk['dana_keluar'], 0, '.', '.') ?></td>
-											<td>Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
-										</tr>
-									<?php endforeach; ?>
-								<?php endif; ?>
-								<?php 
-									$pendapatanPerBulan = $dana['dana_masuk'] - $d_keluar;
-									$pendapatan += $pendapatanPerBulan;
-									$totDanaKeluar += $d_keluar; 
-								?>
+								<?php $no=1; $danaKas=0; $totDanaMasuk = 0; $totDanaKeluar=0; $pendapatan = 0; $total_pendapatan = 0; foreach ($dataKeuangan as $key => $dana) : ?>
+									<?php 
+										$d_keluar = 0;
+										$pendapatan = $dana['pendapatan'] ?? 0;
+										$totDanaMasuk += $pendapatan;
+										$danaKas += $pendapatan;
+									?>
+									
+									<tr>
+										<td><?= $no ?></td>
+										<td><?= tgl_indo($dana['tanggal']) ?></td>
+										<td>
+											<?php if (!empty($dana['keterangan'])) : ?>
+												<?= $dana['keterangan'] ?>
+											<?php else: ?>
+												Pendapatan PAM bulan <?= month_indo($dana['bulan']) ?>
+											<?php endif; ?>
+										</td>
+										<td>
+											<?php if (!empty($dana['pendapatan'])) : ?>
+												Rp<?= number_format($dana['pendapatan'], 0, '.', '.') ?>
+											<?php else: ?>
+											<?php endif; ?>
+										</td>
+										<td>
+											<?php if (!empty($dana['dana_keluar'])) : ?>
+												Rp<?= number_format($dana['dana_keluar'], 0, '.', '.') ?>
+											<?php else: ?>
+											<?php endif; ?>
+										</td>
+										<td>Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
+									</tr>
+									<?php 
+										$pendapatanPerBulan = $pendapatan - $d_keluar;
+										$total_pendapatan += $pendapatanPerBulan;
+										$totDanaKeluar += $d_keluar; 
+									?>
+								<?php $no++; endforeach; ?>
 							</tbody>
-							<?php $no++; endforeach; ?>
 							<tfoot>
 								<tr>
-									<th colspan="2"></th>
-									<th colspan="3">Dana KAS</th>
-									<th id="total_pendapatan">Rp <?= number_format($pendapatan, 0, '.', '.') ?></th>
+									<th colspan="3"></th>
+									<th colspan="2">Saldo Akhir</th>
+									<th id="total_pendapatan">Rp <?= number_format($total_pendapatan, 0, '.', '.') ?></th>
 								</tr>
 							</tfoot>
 							</table>

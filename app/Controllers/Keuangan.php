@@ -3,48 +3,40 @@
 namespace App\Controllers;
 
 use App\Models\DanaKeluarModel;
+use App\Models\DanaMasukModel;
 use App\Models\Pembayaran;
 
 class Keuangan extends BaseController
 {
+    private $pembayaranModel, $danaMasukModel, $danaKeluarModel;
+    function __construct()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $this->pembayaranModel = new Pembayaran();
+        $this->danaMasukModel  = new DanaMasukModel();
+        $this->danaKeluarModel  = new DanaKeluarModel();
+    } 
     public function index()
     {
         date_default_timezone_set('Asia/Jakarta');
 
+        $filterMonth = $this->request->getVar('month') ?? date('m');
+        $filterYear = $this->request->getVar('year') ?? date('Y');
+
+        $filteredData = $this->pembayaranModel->getDataSinceMonth($filterYear, $filterMonth);
+
+        $pendapatanPam = $this->pembayaranModel->getDataByMonth($filterMonth);
+
+        if ($pendapatanPam) $pendapatanPam[0]['tanggal'] = first_date_by_month(['bulan' => $filterMonth, 'tahun' => $filterYear]);
+        $danaMasuk = $this->danaMasukModel->getDataByMonth($filterMonth);
+        $danaKeluar = $this->danaKeluarModel->getDataByMonth($filterMonth);
+
         $data['title'] = 'Data Keuangan';
         $data['submenu'] = 'keuangan';
-        $data['danaMasuk'] = $this->getDanaMasuk();
-        $data['danaKeluar'] = $this->getDanaKeluar();
+        $data['dataKeuangan'] = array_merge($pendapatanPam ?? [], $danaMasuk, $danaKeluar);
 
         return view('administrasi/data-keuangan/index', $data);
 
-    }
-
-    public function getDanaMasuk()
-    {
-        $model = new Pembayaran();
-
-        return $model->danaMasukPerPeriode();
-    }
-
-    public function getDanaKeluar()
-    {
-        $model = new DanaKeluarModel();
-
-        $query = $model->select('jumlah_keluar as dana_keluar, MONTH(tanggal_keluar) as periode, keterangan, tanggal_keluar as tanggal')
-                    ->orderBy('tanggal_keluar', 'asc')
-                    ->get()->getResultArray();
-
-        $totalKeluar = 0;
-        $arr = [];
-        foreach ($query as $value) {
-            $arr[$value['periode']][] = ['dana_keluar' => $value['dana_keluar'], 'keterangan' => $value['keterangan'], 'tanggal' => $value['tanggal']];
-            $totalKeluar += $value['dana_keluar'];
-        }
-
-        $arr['total_pengeluaran'] = $totalKeluar;
-
-        return $arr;
     }
 
 }

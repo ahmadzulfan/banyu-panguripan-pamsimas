@@ -43,6 +43,13 @@ class Pembayaran extends Model
                     ->get()->getResultArray();
     }
 
+    public function getDataByMonth($month)
+    {
+        $cekExists =  $this->where('MONTH(tanggal_pembayaran)', $month)->findAll();
+        if (!$cekExists) return null;
+        return $this->select('MONTH(tanggal_pembayaran) as bulan, SUM(jumlah_dibayar) as pendapatan')->where('MONTH(tanggal_pembayaran)', $month)->findAll();
+    }
+
     public function getDataSinceMonth($tahun, $bulan)
     {
         date_default_timezone_set('Asia/Jakarta');

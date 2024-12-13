@@ -42,3 +42,12 @@ function hari_export($filterTanggal)
 	$tanggalAkhir = date("Y-m-d", strtotime("last day of $tahun-$bulan"));
 	return tgl_indo($tanggalAkhir);
 }
+
+function first_date_by_month($filterTanggal)
+{
+    date_default_timezone_set('Asia/Jakarta');
+	$tahun = $filterTanggal['tahun'];
+	$bulan = $filterTanggal['bulan'];
+	$tanggalAkhir = date("Y-m-d", strtotime("first day of $tahun-$bulan"));
+	return $tanggalAkhir;
+}
