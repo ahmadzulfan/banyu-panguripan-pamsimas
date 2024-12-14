@@ -82,7 +82,7 @@
                 <td width="2%">No</td>  
                 <td width="5%">Tanggal Pembayaran</td>  
                 <td width="15%">Nama Pelanggan</td>  
-                <td width="15%">Bulan Tagihan</td>  
+                <td width="15%">Tagihan Bulan</td>  
                 <td width="15%">Jumlah Pembayaran</td>
             </tr>    
         </thead>    
