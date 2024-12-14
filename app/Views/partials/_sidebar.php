@@ -117,7 +117,7 @@
                     <li class="sidebar-item ">
                         <a href="<?= base_url() ?>data-tagihan/riwayat" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
-                            <span>Riwayat Pembayaran</span>
+                            <span>Riwayat Tagihan</span>
                         </a>
                     </li>
                 <?php endif; ?>

@@ -76,7 +76,7 @@
                 <img src="<?=$imageBase64?>" alt="Logo" style="width:70px; height:auto;">
             </div>
             <div style="margin-right: 0;">
-                <div class="title-text">LAPORAN DATA DANA KAS</div>
+                <div class="title-text">LAPORAN SALDO KAS</div>
                 <div class="title-text">PAMSIMAS - BANYU PANGURIPAN</div>
             </div>
         </div>
@@ -92,7 +92,7 @@
                 <th width="25%">Keterangan</th>  
                 <th width="15%">Dana Masuk</th> 
                 <th width="15%">Dana Keluar</th> 
-                <th width="15%">Dana Kas</th>
+                <th width="15%">Saldo Kas</th>
             </tr>    
         </thead> 
         <tbody>

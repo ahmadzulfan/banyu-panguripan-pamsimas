@@ -3,9 +3,6 @@
         <div class="float-start">
             <p>2024 &copy; PAMSIMAS - BANYU PANGURIPAN</p>
         </div>
-        <div class="float-end">
-            <p>Develop with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                by <a href="">DnA Web Works</a></p>
-        </div>
+      
     </div>
 </footer>

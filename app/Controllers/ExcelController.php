@@ -31,21 +31,38 @@ class ExcelController extends BaseController
         
         $datas = $this->filter($filterMonth, $filterYear);
 
+        
         $spreadsheet = new Spreadsheet();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $title = 'Laporan Pembayaran - Pamsimas Banyu Panguripan';
+
+        $sheet->mergeCells('A1:E1');
+        $sheet->setCellValue('A1', $title);
+
+        $sheet->getStyle('A1')
+              ->getFont()
+              ->setBold(true)
+              ->setSize(16);
+
+        $sheet->getStyle('A1')
+              ->getAlignment()
+              ->setHorizontal(Alignment::HORIZONTAL_CENTER)
+              ->setVertical(Alignment::VERTICAL_CENTER);
 
         $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('A1', 'No')
-            ->setCellValue('B1', 'Tanggal Pembayaran')
-            ->setCellValue('C1', 'Nama Pelanggan')
-            ->setCellValue('D1', 'Tagihan Bulan')
-            ->setCellValue('E1', 'Jumlah Pembayaran');
+            ->setCellValue('A2', 'No')
+            ->setCellValue('B2', 'Tanggal Pembayaran')
+            ->setCellValue('C2', 'Nama Pelanggan')
+            ->setCellValue('D2', 'Tagihan Bulan')
+            ->setCellValue('E2', 'Jumlah Pembayaran');
         $column = 2;
         foreach ($datas as $key => $data){
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $column, $key+1)
                 ->setCellValue('B' . $column, $data['tanggal_pembayaran'])
                 ->setCellValue('C' . $column, $data['nama'])
-                ->setCellValue('D' . $column, $data['bulan'])
+                ->setCellValue('D' . $column, month_indo($data['bulan']))
                 ->setCellValue('E' . $column, $data['jumlah_dibayar']);
         $column++;
         }
