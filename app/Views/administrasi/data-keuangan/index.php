@@ -160,9 +160,9 @@
 									<th> No </th>
 									<th> Tanggal Transaksi </th>
 									<th> Keterangan </th>
-									<th> Uang Masuk </th>
-									<th> Uang Keluar </th>
-									<th> Sisa KAS</th>
+									<th> Dana Masuk </th>
+									<th> Dana Keluar </th>
+									<th> Saldo KAS</th>
 								</tr>
 							</thead>
 							<tbody>

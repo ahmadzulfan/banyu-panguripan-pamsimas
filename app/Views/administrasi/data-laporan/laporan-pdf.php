@@ -70,7 +70,7 @@
                 <img src="<?=$imageBase64?>" alt="Logo" style="width:70px; height:auto;">
             </div>
             <div style="margin-right: 0;">
-                <div class="title-text">LAPORAN DATA DANA KAS</div>
+                <div class="title-text">LAPORAN DATA PEMBAYARAN</div>
                 <div class="title-text">PAMSIMAS - BANYU PANGURIPAN</div>
             </div>
         </div>
