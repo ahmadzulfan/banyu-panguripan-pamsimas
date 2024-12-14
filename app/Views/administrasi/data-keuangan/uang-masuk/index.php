@@ -57,7 +57,7 @@
                                     <tr>
                                         <td></td>
                                         <td></td>
-                                        <th>Dana Kas Periode <?= month_indo(date('m', strtotime($dana->tanggal_masuk)) - 1) ?></th>
+                                        <th>Dana Kas Periode <?= month_indo($_REQUEST['month'] ?? date('m') - 1) ?></th>
                                         <td>Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
                                         <td></td>
                                     </tr>
