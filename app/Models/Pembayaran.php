@@ -43,9 +43,9 @@ class Pembayaran extends Model
                     ->get()->getResultArray();
     }
 
-    public function getDataByMonth($month)
+    public function getDataByMonth($year, $month)
     {
-        $cekExists =  $this->where('MONTH(tanggal_pembayaran)', $month)->findAll();
+        $cekExists =  $this->where('MONTH(tanggal_pembayaran)', $month)->where('YEAR(tanggal_pembayaran)', $year)->findAll();
         if (!$cekExists) return null;
         return $this->select('MONTH(tanggal_pembayaran) as bulan, SUM(jumlah_dibayar) as pendapatan')->where('MONTH(tanggal_pembayaran)', $month)->findAll();
     }
