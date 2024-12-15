@@ -53,7 +53,7 @@ class Pembayaran extends Model
     public function getDataSinceMonth($tahun, $bulan)
     {
         date_default_timezone_set('Asia/Jakarta');
-        $startDate = date("Y-m-d", strtotime("last day of $tahun-$bulan"));
+        $startDate = date("Y-m-d", strtotime("last day of $tahun-$bulan -1 month"));
 
         return $this->select('MONTH(tanggal_pembayaran) as bulan, SUM(jumlah_dibayar) as pendapatan')
                     ->where('tanggal_pembayaran <=', $startDate)

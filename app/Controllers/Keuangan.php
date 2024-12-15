@@ -23,21 +23,27 @@ class Keuangan extends BaseController
         $filterMonth = $this->request->getVar('month') ?? date('m');
         $filterYear = $this->request->getVar('year') ?? date('Y');
 
-        $danaKas = $this->pembayaranModel->getDataSinceMonth($filterYear, $filterMonth - 1);
-        $danaKas[0]['tanggal'] = first_date_by_month(['bulan' => $filterMonth - 1, 'tahun' => $filterYear]);
-        $danaKas[0]['keterangan'] = 'Saldo Kas Periode '. month_indo($filterMonth - 1);
+        $danaKas = $this->pembayaranModel->getDataSinceMonth($filterYear, $filterMonth);
+        $danaKas[0]['tanggal'] = first_date_by_prev_month(['bulan' => $filterMonth, 'tahun' => $filterYear]);
+        $danaKas[0]['keterangan'] = 'Saldo Kas Periode '. month_indo(ltrim(date('m', strtotime($danaKas[0]['tanggal'])), '0'));
 
         if (!$danaKas[0]['pendapatan']) $danaKas[0]['pendapatan'] = '0.00';
 
         $pendapatanPam = $this->pembayaranModel->getDataByMonth($filterMonth);
-        if ($pendapatanPam) $pendapatanPam[0]['tanggal'] = first_date_by_month(['bulan' => $filterMonth, 'tahun' => $filterYear]);
+        if ($pendapatanPam) $pendapatanPam[0]['tanggal'] = last_date_by_month(['bulan' => $filterMonth, 'tahun' => $filterYear]);
 
         $danaMasuk = $this->danaMasukModel->getDataByMonth($filterMonth);
         $danaKeluar = $this->danaKeluarModel->getDataByMonth($filterMonth);
 
+        $dataKeuangan = array_merge($danaKas, $pendapatanPam ?? [], $danaMasuk, $danaKeluar);
+
+        usort($dataKeuangan, function($a, $b) {
+            return strtotime($a['tanggal']) - strtotime($b['tanggal']);
+        });
+
         $data['title'] = 'Data Keuangan';
         $data['submenu'] = 'keuangan';
-        $data['dataKeuangan'] = array_merge($danaKas, $pendapatanPam ?? [], $danaMasuk, $danaKeluar);
+        $data['dataKeuangan'] = $dataKeuangan;
 
         return view('administrasi/data-keuangan/index', $data);
 
