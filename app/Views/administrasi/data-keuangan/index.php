@@ -154,7 +154,7 @@ has-icon-left">
                                     </button>
                                 </a>
                                 <!-- Tombol untuk mengekspor data ke PDF -->
-                                <a href="<?= base_url() ?>data-keuangan/pdf/export?month=<?= date('m') ?>&year=<?= date('Y') ?>" target="_blank">
+                                <a href="<?= base_url() ?>data-keuangan/pdf/export?month=<?=$lblmonths?>&year=<?=$lbyears?>" target="_blank">
                                     <button type="button" class="btn btn-danger btn-sm mb-3">
                                         <i class="bi bi-filetype-pdf" style="font-size: 18px;"></i> PDF
                                     </button>

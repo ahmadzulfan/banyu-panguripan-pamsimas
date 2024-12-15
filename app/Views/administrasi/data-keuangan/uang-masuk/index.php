@@ -57,13 +57,6 @@
                                     <tr>
                                         <td></td>
                                         <td></td>
-                                        <th>Dana Kas Periode <?= month_indo($_REQUEST['month'] ?? date('m') - 1) ?></th>
-                                        <td>Rp<?= number_format($danaKas, 0, '.', '.') ?></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
                                         <th>Saldo Akhir</th>
                                         <th>Rp<?= number_format($total + $danaKas, 0, '.', '.') ?></th>
                                         <td></td>

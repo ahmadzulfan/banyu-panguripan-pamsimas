@@ -8,14 +8,19 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\DanaKeluarModel;
 use App\Models\Pembayaran;
+use App\Models\Tagihan;
+use App\Models\DanaMasukModel;
 
 class PdfController extends BaseController
 {
-    private $tagihanModel;
+    private $tagihanModel,$pembayaranModel, $danaMasukModel, $danaKeluarModel;
     function __construct()
     {
         date_default_timezone_set('Asia/Jakarta');
         $this->tagihanModel = new TagihanModel();
+        $this->pembayaranModel = new Pembayaran();
+        $this->danaMasukModel  = new DanaMasukModel();
+        $this->danaKeluarModel  = new DanaKeluarModel();
     } 
 
     public function struk($id)
@@ -49,7 +54,7 @@ class PdfController extends BaseController
 
         return $filteredData;
     }
-    // EXPORT DATA LAPORAN
+    // EXPORT DATA LAPORAN PEMBAYARAN
     public function generate()
     {
 
@@ -142,36 +147,44 @@ class PdfController extends BaseController
     // EXPORT DATA KAS
     public function export()
     {
-        $filterMonth = $this->request->getVar('month');
-        $filterYear = $this->request->getVar('year');
+        $filterMonth = $this->request->getVar('month') ?? date('m');
+        $filterYear = $this->request->getVar('year') ?? date('Y');
 
-        if (!$filterMonth && !$filterYear) {
-            $filterMonth = date('m');
-            $filterYear = date('Y');
-        }
-        
-        // Ambil data dana masuk dan dana keluar dari model
-        $danaMasuk = $this->getDanaMasuk();
-        $danaKeluar = $this->getDanaKeluar();
+        $pendapatanPeriodeLalu = $this->pembayaranModel->getDataSinceMonth($filterYear, $filterMonth);
+        $danaMasukPeriodeLalu = $this->danaMasukModel->getDataSinceMonth($filterYear, $filterMonth);
+        $danaKeluarPeriodeLalu = $this->danaKeluarModel->getDataSinceMonth($filterYear, $filterMonth);
 
-        // Hitung total pendapatan
-        $pendapatan = 0;
-        foreach ($danaMasuk as $dana) {
-            $danaKeluarBulanan = 0;
-            if (!empty($danaKeluar[$dana['periode']])) {
-                foreach ($danaKeluar[$dana['periode']] as $dk) {
-                    $danaKeluarBulanan += $dk['dana_keluar'];
-                }
-            }
-            $pendapatanPerBulan = (int)$dana['dana_masuk'] - ((int)$danaKeluarBulanan);
-            $pendapatan += $pendapatanPerBulan;
+        $dataKasPeriodeLalu = array_merge($pendapatanPeriodeLalu, $danaMasukPeriodeLalu, $danaKeluarPeriodeLalu);
+
+        $kas = 0;
+        foreach ($dataKasPeriodeLalu as $key => $k) {
+            $kas += $k['pendapatan'] ?? 0;
+            $kas -= $k['pengeluaran'] ?? 0;
         }
 
+        $danaKas = [['pendapatan' => $kas]];
+        $danaKas[0]['tanggal'] = first_date_by_prev_month(['bulan' => $filterMonth, 'tahun' => $filterYear]);
+        $danaKas[0]['keterangan'] = 'Saldo Kas Periode '. month_indo(ltrim(date('m', strtotime($danaKas[0]['tanggal'])), '0'));
+
+        if (!$danaKas[0]['pendapatan']) $danaKas[0]['pendapatan'] = '0.00';
+
+        $pendapatanPam = $this->pembayaranModel->getDataByMonth($filterYear, $filterMonth);
+        if ($pendapatanPam) $pendapatanPam[0]['tanggal'] = last_date_by_month(['bulan' => $filterMonth, 'tahun' => $filterYear]);
+
+        $danaMasuk = $this->danaMasukModel->getDataByMonth($filterYear, $filterMonth);
+        $danaKeluar = $this->danaKeluarModel->getDataByMonth($filterYear, $filterMonth);
+
+        $dataKeuangan = array_merge($danaKas, $pendapatanPam ?? [], $danaMasuk, $danaKeluar);
+
+        usort($dataKeuangan, function($a, $b) {
+            return strtotime($a['tanggal']) - strtotime($b['tanggal']);
+        });
         // Data untuk dikirim ke view
         $data = [
             'danaMasuk'     => $danaMasuk,
             'danaKeluar'    => $danaKeluar,
-            'pendapatan'    => $pendapatan,
+            'dataKeuangan'  => $dataKeuangan,
+            'danaKas'       => $danaKas,
             'dateExport'    => ['bulan' => $filterMonth, 'tahun' => $filterYear]
         ];
 
