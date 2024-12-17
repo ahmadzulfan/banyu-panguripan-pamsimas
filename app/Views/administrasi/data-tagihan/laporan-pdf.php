@@ -76,10 +76,14 @@
             </div>
         </div>
         <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo(ltrim($_REQUEST['month'], '0'))?>  <?=($_REQUEST['year'] )?></div>
+        
     </header>
-    
+    <div style="margin-top: 1rem;">
+    <div class="title-text" style="text-align: left;">DETAIL RINCIAN</div>
+    <div>
     <table border=1 width=100% cellpadding=2 cellspacing=0 style=" text-align:center;">  
         <thead>    
+            
             <tr align=center style="font-weight: bold;">  
                 <td width="2%">No</td>  
                 <td width="22%">Pelanggan</td>  
@@ -112,7 +116,7 @@
     </table> 
     <!-- Header Section -->
     <div style="margin-top: 1rem;">
-        <div class="title-text">DETAIL RINCIAN</div>
+        <div class="title-text">Informasi Pemakaian dan Status Tagihan</div>
         <table border=1 width=100% cellpadding=2 cellspacing=0 style=" text-align:center;">  
             <thead>    
                 <tr align=center style="font-weight: bold;">  
