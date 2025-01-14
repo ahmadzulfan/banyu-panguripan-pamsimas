@@ -80,7 +80,7 @@
                 <div class="title-text">PAMSIMAS - BANYU PANGURIPAN</div>
             </div>
         </div>
-        <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo($_REQUEST['month'] )?>  <?=($_REQUEST['year'] )?></div>
+        <div class="bulan" style="text-transform: uppercase;">Periode Bulan <?=month_indo(ltrim($_REQUEST['month'], '0'))?>  <?=($_REQUEST['year'] )?></div>
     </header>
 
     <!-- Table Section -->
