@@ -120,7 +120,7 @@
         <table border=1 width=100% cellpadding=2 cellspacing=0 style=" text-align:center;">  
             <thead>    
                 <tr align=center style="font-weight: bold;">  
-                    <td width="25%">Total Pemaikaian</td>  
+                    <td width="25%">Total Pemakaian</td>  
                     <td width="25%">Total Tagihan</td>  
                     <td width="25%">Tagihan Lunas</td>  
                     <td width="25%">Tagihan Belum Lunas</td>

@@ -58,14 +58,7 @@
                     </div>
                 </div>
 
-                <?php if ($config->allowRemembering): ?>
-                    <div class="form-check form-check-lg d-flex align-items-end">
-                        <input class="form-check-input me-2" type="checkbox" name="remember" <?php if (old('remember')) : ?> checked <?php endif ?>>
-                        <label class="form-check-label text-gray-600" for="flexCheckDefault">
-                            <?=lang('Auth.rememberMe')?>
-                        </label>
-                    </div>
-                <?php endif; ?>
+                
                 <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5"><?=lang('Auth.loginAction')?></button>
             </form>
         </div>

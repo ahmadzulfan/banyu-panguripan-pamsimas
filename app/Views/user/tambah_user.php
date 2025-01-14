@@ -36,7 +36,7 @@
                                 <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['role']) ? session()->getFlashdata('validation')['role'] : '' ?></small>
                             </div>
                             <button type="save" class="btn btn-primary me-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <a href="<?= base_url()?>data-user" class="btn btn-light">Cancel</a>
                             </form>
                     </div>
                 </div>

@@ -31,7 +31,7 @@
                                 <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['email']) ? session()->getFlashdata('validation')['email'] : '' ?></small>
                             </div>
                             <button type="save" class="btn btn-primary me-2">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <a href="<?= base_url()?>data-pelanggan" class="btn btn-light">Cancel</a>
                             </form>
                     </div>
                 </div>

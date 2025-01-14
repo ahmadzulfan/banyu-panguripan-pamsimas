@@ -16,7 +16,7 @@ border: 1px solid black;
 </style>
 </head>
 <body style='font-family: monospace;'>
-    <?php $biaya_perm = 2000; $biaya_admin = 2000; ?>
+    <?php $biaya_perm = 1000; $biaya_admin = 2000; ?>
 <center>
 
     <div style="width: 58mm; height:100mm;">
@@ -26,7 +26,7 @@ border: 1px solid black;
         <td align='CENTER' vertical-align:top'><span style='color:black;'>
         <b>PAMSIMAS BANYU PANGURIPAN</b></br><span style='font-size:9pt'>Desa Sembung Jambu Rt 09/02</span></span></br>
         
-        <span style='font-size:9pt'>(62) 893 7362 5121</span>
+        <span style='font-size:9pt'>(62) 896 5379 7645</span>
         <!-- <span style='font-size:8pt'>No. : 11, 11 Oktober 2024 (user:saya), 11:57:50</span> -->
         </br>
         </td>
@@ -68,7 +68,7 @@ hr {
 <td colspan="1" style="text-align: right;"><?= $transaction['pemakaian'] ?> m³ x <?= number_format($biaya_perm, 0, '', '.') ?></td>
 <?php $subtotal =  $transaction['pemakaian'] * $biaya_perm ?>
 <?php $total =  $subtotal + $biaya_admin ?>
-<?php $kembali =  $total - $transaction['dibayar'] ?>
+
 <td colspan="4" style="text-align: right;"><?= number_format($subtotal, 0, '', '.') ?></td>
 </tr>
 <tr>
@@ -90,10 +90,7 @@ hr {
 <td style="font-size: 10pt;">Dibayar</td>
 <td style="text-align: right;"><?= number_format($transaction['dibayar'], 0, '', '.') ?></td>
 </tr>
-<tr style="font-weight: bold;">
-<td style="font-size: 10pt;">Kembali</td>
-<td style="text-align: right;"><?= number_format($kembali, 0, '', '.') ?></td>
-</tr>
+
 </table>
 <table style='font-size:9pt;' cellspacing='2'><tr></br><td align='center'>****** TERIMAKASIH ******</br></td></tr></table></center>
         </div>
