@@ -13,7 +13,7 @@ class Pembayaran extends Model
 
     public function pelanggan($filter)
     {
-        return $this->select('pembayaran.tanggal_pembayaran, pelanggan.nama, pembayaran.jumlah_dibayar, tagihan.id as id_tagihan, pelanggan.id as pelanggan_id')
+        return $this->select('pembayaran.tanggal_pembayaran, pelanggan.nama, pembayaran.jumlah_dibayar, tagihan.id as id_tagihan, pelanggan.id as pelanggan_id, tagihan.bulan')
                     ->join('tagihan', 'pembayaran.tagihan_id = tagihan.id')
                     ->join('pelanggan', 'tagihan.pelanggan_id = pelanggan.id')
                     ->where('MONTH(tanggal_pembayaran)', $filter['month'])

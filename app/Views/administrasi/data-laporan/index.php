@@ -189,6 +189,7 @@
 									<th> No </th>
 									<th> Tanggal Pembayaran </th>
 									<th> Nama Pelanggan</th>
+									<th> Tagihan Bulan</th>
 									<th> Jumlah Pembayaran </th>
 									<th> Action </th>
 								</tr>
@@ -199,6 +200,7 @@
 									<td> <?= $key+1 ?> </td>
 									<td> <?= tgl_indo($value['tanggal_pembayaran']) ?> </td>
 									<td> <?= $value['nama'] ?> </td>
+									<td> <?= month_indo(ltrim($value['bulan'], '0')) ?> </td>
 									<td> Rp <?= number_format($value['jumlah_dibayar'], 0, '.', '.') ?> </td>
 									<td> 
 										<a href="<?= base_url() ?>data-laporan/struk/<?=$value['id_tagihan']?>" target="_blank" class="btn btn-primary">

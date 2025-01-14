@@ -95,7 +95,7 @@
                 <td><?= $key+1 ?></td>
                 <td><?= tgl_indo($data['tanggal_pembayaran']) ?></td>
                 <td><?= $data['nama'] ?></td>
-                <td><?= month_indo($data['bulan']) ?></td>
+                <td><?=month_indo(ltrim($data['bulan'], '0'))?><</td>
                 <td>Rp<?= number_format($data['total_tagihan'], 0, '', '.') ?></td>
                 
                 </tr>

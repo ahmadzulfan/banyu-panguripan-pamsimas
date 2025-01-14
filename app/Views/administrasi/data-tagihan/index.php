@@ -186,9 +186,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="btn-cicil" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cicilBayar">
-                    Cicil Bayar
-                </button>
+                
                 <form id="form-bayar" method="post">
                     <button type="submit" class="btn btn-primary">Lunasi</button>
                 </form>
@@ -197,27 +195,7 @@
         </div>
     </div>
 
-    <!-- Cicil Bayar Modal -->
-    <div class="modal fade" id="cicilBayar" tabindex="-1" aria-labelledby="cicilBayarLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-body">
-            <!-- <form action="<?= base_url() ?>data-tagihan/bayar-debt" id="form-cicil" method="post">
-                <input type="number" name="tagihan_id" class="form-control" required>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Rp</span>
-                    <input type="number" name="jumlah_bayar" class="form-control" placeholder="Jumlah bayar..." required>
-                </div>
-                <div class="d-flex gap-2 justify-content-end">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Bayar</button>
-                </div>
-            </form> -->
-            <div class="text-center">Segera hadir..^_^</div>
-        </div>
-        </div>
-    </div>
-    </div>
+   
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>

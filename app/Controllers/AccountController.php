@@ -44,49 +44,62 @@ class AccountController extends BaseController
 
         $post = $this->request->getPost();
 
-        $PelangganModel = model(Pelanggan::class);
-
         $filter['username'] = ($post['username'] !== $user->username) ? true : false;
         $filter['email'] = ($post['email'] !== $user->email) ? true : false;
+        $filter['phone'] = (!empty($post['phone']) !== !empty($post['old_phone'])) ? true : false;
 
-        if ($filter['username'] || $filter['email']) {
-            $rules = $this->validationRules($post, $filter);
-            if (!$this->validate($rules)) return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
-        }
+        $userModel = model(UserModel::class);
 
-        if ($filter['email']) {
+        $userValidationRules = $userModel->getValidationRules();
+
+        unset($userValidationRules['username']);
+
+        if ($filter['username'])
+            $userValidationRules['username'] = 'required|alpha_numeric_punct|min_length[3]|max_length[30]|is_unique[users.username,id,{id}]';
+
+        $userModel->setValidationRules($userValidationRules);
+
+        $rules = $this->validationRules($post, $filter);
+        if (!$this->validate($rules)) return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
+
+        $pelangganModel = model(Pelanggan::class);
+
+        $pelangganID = $pelangganModel->asObject()->where('id_user', $id)->first();
+
+        if ($pelangganID) {
+            $pelanggan = array();
+            $pelanggan['nama'] = $post['name'];
+            $pelanggan['email'] = $post['email'];
 
             if( $this->authorize->inGroup('Pelanggan', $this->auth->user()->id)){
-                $PelangganModel->update($id, [
-                    'nama' => $post['name'],
-                    'email' => ($post['email']) ? $post['email'] : NULL,
-                    'no_telepon' => $post['phone'],
-                ]);
-            }
 
-            $UserModel = model(UserModel::class);
-            $user = $UserModel->find($user->id);
-            $user->email = ($post['email']) ? $post['email'] : NULL;
-            $user->username = ($post['username']) ? $post['username'] : NULL;
-            $UserModel->save($user);
+                if ($filter['phone']) $pelanggan['no_telepon'] = $post['phone'];
+
+                $pelangganModel->update($pelangganID->id, $pelanggan);
+            }
         }
+
+        $user = [
+            'username' => $post['username'],
+            'email' => $post['email'],
+        ];
+        $userModel->update($id, $user);
 
         return redirect()->back()->with('success_message', 'perubahan berhasil tersimpan');
     }
 
     private function validationRules($post, $filter = ['username' => false, 'email' => false])
     {
+        $rules = array();
         if ($filter['username']) {
-            $rules = [
-                'username' => [
-                    'rules'  => 'required|alpha_numeric_punct|min_length[3]|max_length[30]|is_unique[users.username,id,{id}]',
-                    'errors' => [
-                        'required'   => 'Username harus diisi.',
-                        'min_length' => 'Username harus lebih dari 3 karakter.',
-                        'max_length' => 'Username tidak boleh lebih dari 30 karakter.',
-                        'is_unique'  => 'Username ini sudah terdaftar'
-                    ]
-                ],
+            $rules['username'] = [
+                'rules'  => 'required|alpha_numeric_punct|min_length[3]|max_length[30]|is_unique[users.username,id,{id}]',
+                'errors' => [
+                    'required'   => 'Username harus diisi.',
+                    'min_length' => 'Username harus lebih dari 3 karakter.',
+                    'max_length' => 'Username tidak boleh lebih dari 30 karakter.',
+                    'is_unique'  => 'Username ini sudah terdaftar'
+                ]
             ];
         }
 

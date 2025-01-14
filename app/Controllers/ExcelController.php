@@ -62,7 +62,7 @@ class ExcelController extends BaseController
                 ->setCellValue('A' . $column, $key+1)
                 ->setCellValue('B' . $column, $data['tanggal_pembayaran'])
                 ->setCellValue('C' . $column, $data['nama'])
-                ->setCellValue('D' . $column, month_indo($data['bulan']))
+                ->setCellValue('D' . $column, month_indo(ltrim($data['bulan'], '0')))
                 ->setCellValue('E' . $column, $data['jumlah_dibayar']);
         $column++;
         }

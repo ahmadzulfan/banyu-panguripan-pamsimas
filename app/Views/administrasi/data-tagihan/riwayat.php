@@ -70,6 +70,7 @@
                                     <th> Jumlah Pemakaian </th>
                                     <th> Total Tagihan </th>
                                     <th> Status</th>
+                                    <th> Cetak Struk</th>
                                    
                                 </tr>
                             </thead>
@@ -88,7 +89,15 @@
                                                 <span class="badge rounded-pill text-bg-success text-white"><?= $value['status'] ?></span>
                                             <?php endif; ?>
                                         </td>
-                                        
+                                        <td> 
+                                        <?php if ($value['status'] == 'dibayar') : ?>
+                                            <a href="<?= base_url() ?>data-laporan/struk/<?=$value['id_tagihan']?>" target="_blank" class="btn btn-primary">
+											<i class="bi bi-printer"></i> Cetak Struk
+										    </a> 
+                                            
+                                            <?php endif; ?>
+										
+									</td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>

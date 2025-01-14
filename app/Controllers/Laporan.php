@@ -20,7 +20,7 @@ class Laporan extends BaseController
             $month = $this->request->getGet('month');
             $year = $this->request->getGet('year');
         }
-
+        
         $data['pembayaran'] = $model->pelanggan(['month' => $month, 'year' => $year]);
         $data['pendapatanByMonth'] = $model->pendapatanByMonth($month);
         $data['pendapatanByYear'] = $model->pendapatanByYear($year);

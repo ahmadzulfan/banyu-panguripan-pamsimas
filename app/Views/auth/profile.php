@@ -45,6 +45,7 @@
                             <?php if ($this->authorize->inGroup('Pelanggan', $this->auth->user()->id)) : ?>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
+                                <input type="hidden" name="old_phone" value="<?= $pelanggan->no_telepon ?>">
                                 <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone" value="<?= $pelanggan->no_telepon ?>">
                             </div>
                             <?php endif; ?>
