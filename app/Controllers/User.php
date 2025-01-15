@@ -10,16 +10,37 @@ use Myth\Auth\Password;
 
 class User extends BaseController
 {
+    private $auth, $config, $authorize, $session;
     function __construct()
     {
-    } 
+        $this->session      = service('session');
+        $this->config       = config('Auth');
+        $this->auth         = service('authentication');
+        $this->authorize    = service('authorization');
+    }
 
     public function index()
     {
+        if (!$this->auth->check()) return view('errors/html/error_404');
+
+        $user = $this->auth->user();
+
+        $groupModel = model(GroupModel::class);
+
+        $role = $groupModel->getGroupsForUser($user->id)[0]['name'];
+
         $model = new UserModel();
         
         $data['title'] = 'Manajemen User';
-        $data['users'] = $model->findAll();
+
+        $query = $model->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
+                                    ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
+                                    ->asObject();
+
+        if ($role != 'Pimpinan') $query = $query->where('auth_groups_users.group_id', 4 );
+
+        $data['users'] = $query->findAll();
+
         return view('user/index', $data);
     }
 
@@ -169,24 +190,25 @@ class User extends BaseController
         $user = $userModel->asObject()->find($id);
 
         $pelanggan = $pelangganModel->asObject()->where('id_user', $user->id)->first();
-
+        
         $rules = $this->validationRules(post: $post, mode: 'update', user: $user);
 
         if (!$this->validate($rules))
             return redirect()->back()->withInput()->with('validation', $this->validator->getErrors());
         
+        
         $user->username = $post['username'];
 
         $user->active = $post['status'];
 
-        $user->email = NULL;
-
-        $pelanggan->email = NULL;
+        $user->email = $post['email'];
+        
+        if ($pelanggan != null) $pelanggan->email = NULL;
 
         if ($post['email']) {
             $user->email = $post['email'];
 
-            $pelanggan->email = $post['email'];
+            if ($pelanggan != null) $pelanggan->email = $post['email'];
         }
 
         $pelangganModel->save($pelanggan);

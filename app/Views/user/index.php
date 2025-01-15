@@ -48,9 +48,6 @@
                         <tbody>
                             <?php
 
-                            use Myth\Auth\Models\GroupModel;
-                            $groupModel = model(GroupModel::class);
-
                             foreach ($users as $key => $user) : ?>
                                 <tr>
                                     <td> <?= $key+1 ?> </td>
@@ -63,7 +60,7 @@
                                             <span class="badge rounded-pill text-bg-success text-white">aktif</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td><?= $groupModel->getGroupsForUser($user->id)[0]['name'] ?></td>
+                                    <td><?= $user->name ?></td>
                                     <td>
                                         <a href="<?= base_url() ?>data-user/edit/<?= $user->id ?>" type="button" class="btn btn-primary btn-sm" >
                                             <i class="bi bi-pencil-square"></i>
