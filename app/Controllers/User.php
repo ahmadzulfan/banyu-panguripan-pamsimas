@@ -33,9 +33,10 @@ class User extends BaseController
         
         $data['title'] = 'Manajemen User';
 
-        $query = $model->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
-                                    ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
-                                    ->asObject();
+        $query = $model->select('*, users.id as id')
+                        ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
+                        ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
+                        ->asObject();
 
         if ($role != 'Pimpinan') $query = $query->where('auth_groups_users.group_id', 4 );
 
