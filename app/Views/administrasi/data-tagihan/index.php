@@ -127,7 +127,8 @@
                                                     data-pelanggan_id="<?= $value['pelanggan_id'] ?>" 
                                                     data-status="<?= $value['status'] ?>" 
                                                     data-nama="<?= $value['nama'] ?>"
-                                                    data-tagihan="Rp <?= number_format($value['total_tagihan'], 0, '.', '.') ?>" 
+                                                    data-tagihan="Rp <?= number_format($value['total_tagihan'], 0, '.', '.') ?>"
+                                                    data-tagihan2="<?= $value['total_tagihan'] ?>"
                                                     data-pemakaian="<?= $value['jumlah_pemakaian'] ?> m³"
                                                     data-admin="Rp <?= number_format(2000, 0, '.', '.') ?>"
                                                     data-biayaperm="Rp <?= number_format(1000, 0, '.', '.') ?>/m³">
@@ -219,7 +220,9 @@
         $('#form-bayar').attr('action', '<?= base_url() ?>data-tagihan/bayar/'+tagihanId);
         $('input[name="pelanggan_id"]').val(tagihanId);
 
+        let tTagihan =0;
         if (data.status == 'belum_dibayar') {
+            tTagihan = data.tagihan2;
             $('#form-bayar').removeClass('d-none');
             $('#btn-cicil').removeClass('d-none');
         }else{
@@ -227,7 +230,7 @@
             $('#btn-cicil').addClass('d-none');
         }
 
-        getAllTagihanByPelangganId(pelangganId, tagihanId);
+        getAllTagihanByPelangganId(pelangganId, tagihanId, tTagihan);
 
         $('#detailTagihan').modal('show');
     });
@@ -316,7 +319,7 @@
         });
     }
 
-    function getAllTagihanByPelangganId(pelanggan_id, tagihan_id)
+    function getAllTagihanByPelangganId(pelanggan_id, tagihan_id, tagihan)
     {
         let html = `<h4>Daftar Tagihan Sebelumnya</h2>
                     <table class="table">
@@ -339,25 +342,41 @@
             },
             success: function(result){
                 datas = JSON.parse(result);
+                let totalSemuaTagihan = 0; // Variabel untuk menyimpan total tagihan
+
                 if (datas.length > 0) {
                     datas.forEach((data, i) => {
-                        html += `<tr>
-                                    <th scope="row">${i+1}</th>
-                                    <td>${months[parseInt(data.bulan) - 1]}</td>
-                                    <td>Rp${numberFormat(parseInt(data.total_tagihan))}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="bayarPelunasan(${data.id})">  
-                                            <i class="bi bi-credit-card"></i>
-                                        </button> 
-                                    </td>
-                                </tr>`;
-                    });
-                    html += `</tbody></table>`;
-                }else{
-                    html += `<tr class="text-center">
-                                <td colspan="4">tidak ada data tagihan.</td>
+                        totalSemuaTagihan += parseInt(data.total_tagihan); // Tambahkan total tagihan setiap data
+                        html += `
+                            <tr>
+                                <th scope="row">${i + 1}</th>
+                                <td>${months[parseInt(data.bulan) - 1]}</td>
+                                <td>Rp${numberFormat(parseInt(data.total_tagihan))}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="bayarPelunasan(${data.id})">  
+                                        <i class="bi bi-credit-card"></i>
+                                    </button> 
+                                </td>
                             </tr>`;
+                    });
+
+                    totalSemuaTagihan += parseInt(tagihan);
+                    html += `
+                        </tbody>
+                        </table>`;
+                } else {
+                    html += `
+                        <tr class="text-center">
+                            <td colspan="4">tidak ada data tagihan.</td>
+                        </tr>`;
                 }
+
+                // Tambahkan total semua tagihan ke dalam HTML
+                html += `<h5>Total Semua Tagihan: Rp${numberFormat(totalSemuaTagihan)}</h5>`;
+
+                    
+
+
 
                 $('#detail-tagihan').html(html);
             },

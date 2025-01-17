@@ -25,35 +25,52 @@ class Pelanggan extends BaseController
     }
     public function tambah()
     {
+        $model = new ModelsPelanggan();
+    
+        // Ambil data pelanggan terakhir berdasarkan ID
+        $lastPelanggan = $model->orderBy('id', 'DESC')->first();
+    
+        // Ambil nomor terakhir, jika tidak ada default ke 0
+        $last_id = $lastPelanggan ? intval(substr($lastPelanggan['nomor_pelanggan'], 4)) : 0;
+    
+        // Kirim data ke view
+        $data['last_id'] = $last_id; // Kirim nilai $last_id ke view
         $data['title'] = 'Tambah Data Pelanggan';
+    
         return view('pelanggan/tambah_pelanggan', $data);
     }
+    
 
     public function create()
     {
         $model = new ModelsPelanggan();
-
+    
         $post = $this->request->getPost();
-
+    
         $rules = $this->validationRules($post);
-
-        if (!$this->validate($rules)){
+    
+        if (!$this->validate($rules)) {
             return redirect()->to('data-pelanggan/tambah')->withInput()->with('validation', $this->validator->getErrors());
         }
-
+    
+        // Siapkan data yang akan disimpan
         $data = [
-            'nama'          => $post['nama'],
-            'alamat'        => $post['alamat'],
-            'no_telepon'    => $post['no_telepon'],
+            'nomor_pelanggan' => $post['nomor_pelanggan'], // Nomor pelanggan dari form
+            'nama'            => $post['nama'],
+            'alamat'          => $post['alamat'],
+            'no_telepon'      => $post['no_telepon'],
         ];
-
-        if ($this->request->getPost('email')) $data['email'] = $this->request->getPost('email');
-
+    
+        if (!empty($post['email'])) {
+            $data['email'] = $post['email'];
+        }
+    
+        // Simpan data
         $model->save($data);
-        
-        return redirect()->to('data-pelanggan')->with('success_message', 'berhasil menambahkan data');
+    
+        return redirect()->to('data-pelanggan')->with('success_message', 'Berhasil menambahkan data pelanggan.');
     }
-
+    
     public function edit($id)
     {
         $model = new ModelsPelanggan();
@@ -159,11 +176,12 @@ class Pelanggan extends BaseController
     {
         $rules = [
             'nama' => [
-                'rules'  => 'required|min_length[3]|max_length[25]',
+                'rules'  => 'required|min_length[3]|max_length[25]|is_unique[pelanggan.nama]',
                 'errors' => [
                     'required'   => 'Nama harus diisi.',
                     'min_length' => 'Nama harus lebih dari 3 karakter.',
                     'max_length' => 'Nama tidak boleh lebih dari 25 karakter.',
+                    'is_unique'  => 'Nama ini sudah terdaftar.'
                 ]
             ],
             'alamat' => [
@@ -173,49 +191,46 @@ class Pelanggan extends BaseController
                 ]
             ],
             'no_telepon' => [
-                'rules'  => 'required|min_length[11]|numeric|max_length[15]|is_unique[pelanggan.no_telepon]',
+                'rules'  => 'required|min_length[11]|numeric|max_length[15]',
                 'errors' => [
                     'required'   => 'No Telepon harus diisi.',
                     'min_length' => 'No Telepon harus lebih dari 10 karakter.',
                     'max_length' => 'No Telepon tidak boleh lebih dari 15 karakter.',
-                    'numeric'    => 'No Telepon harus berupa angka',
-                    'is_unique'  => 'No Telepon ini sudah terdaftar'
+                    'numeric'    => 'No Telepon harus berupa angka'
                 ]
             ],
         ];
 
         if ($post['email']) {
             $rules['email'] = [
-                    'rules'  => 'required|valid_email|is_unique[pelanggan.email]',
-                    'errors' => [
-                        'required'      => 'Email harus diisi.',
-                        'valid_email'   => 'Format email tidak valid',
-                        'is_unique'     => 'Email ini sudah terdaftar'
-                    ]
-                ];
+                'rules'  => 'required|valid_email|is_unique[pelanggan.email]',
+                'errors' => [
+                    'required'      => 'Email harus diisi.',
+                    'valid_email'   => 'Format email tidak valid',
+                    'is_unique'     => 'Email ini sudah terdaftar'
+                ]
+            ];
         }
 
         if ($mode == 'update') {
-            if ($pelanggan->no_telepon == $post['no_telepon']) {
-                $rules['no_telepon'] = [
-                    'rules'  => 'required|min_length[11]|numeric|max_length[15]',
+            if ($pelanggan->nama == $post['nama']) {
+                $rules['nama'] = [
+                    'rules'  => 'required|min_length[3]|max_length[25]',
                     'errors' => [
-                        'required'   => 'No Telepon harus diisi.',
-                        'min_length' => 'No Telepon harus lebih dari 10 karakter.',
-                        'max_length' => 'No Telepon tidak boleh lebih dari 15 karakter.',
-                        'numeric'    => 'No Telepon harus berupa angka',
-                        'is_unique'  => 'No Telepon ini sudah terdaftar'
+                        'required'   => 'Nama harus diisi.',
+                        'min_length' => 'Nama harus lebih dari 3 karakter.',
+                        'max_length' => 'Nama tidak boleh lebih dari 25 karakter.',
                     ]
                 ];
             }
+
             if ($post['email']) {
                 if ($pelanggan->email == $post['email']) {
                     $rules['email'] = [
                         'rules'  => 'required|valid_email',
                         'errors' => [
                             'required'      => 'Email harus diisi.',
-                            'valid_email'   => 'Format email tidak valid',
-                            'is_unique'     => 'Email ini sudah terdaftar'
+                            'valid_email'   => 'Format email tidak valid'
                         ]
                     ];
                 }
@@ -224,4 +239,5 @@ class Pelanggan extends BaseController
 
         return $rules;
     }
+
 }

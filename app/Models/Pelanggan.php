@@ -11,7 +11,7 @@ class Pelanggan extends Model
 
     protected $useAutoIncrement = true;
     protected $useSoftDeletes = true;
-    protected $allowedFields = ['id_user', 'nama', 'alamat', 'no_telepon', 'email'];
+    protected $allowedFields = ['nomor_pelanggan', 'nama', 'alamat', 'no_telepon', 'email'];
     protected $deletedField  = 'deleted_at';
 
    

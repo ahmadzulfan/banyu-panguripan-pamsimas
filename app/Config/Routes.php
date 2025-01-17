@@ -14,6 +14,8 @@ $routes->get('/', 'Home::index', ['filter' => 'login']);
 $routes->get('/login', 'Auth::index');
 $routes->post('/resetpassword', 'Auth::resetPassword', ['filter' => 'login']);
 //$routes->get('/', 'Home::index');
+$routes->get('check', 'Tagihan::formCekTagihan');
+$routes->get('cek-tagihan', 'Tagihan::cekTagihan');
 
 $routes->group('data-pelanggan', ['filter' => 'login'], function($routes) {
     $routes->get('', 'Pelanggan::index');
@@ -38,6 +40,7 @@ $routes->group('data-user', ['filter' => 'login'], function($routes) {
 
 $routes->group('data-tagihan', ['filter' => 'login'], function($routes) {
     $routes->get('', 'Tagihan::index');
+
     $routes->get('riwayat', 'Tagihan::riwayat');
     $routes->get('tambah', 'Tagihan::tambah');
     $routes->post('tambah', 'Tagihan::create');

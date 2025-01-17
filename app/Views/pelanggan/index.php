@@ -27,34 +27,36 @@
                     <div class="table-responsive">
                         <table id="dataTable" class="table">
                         <thead>
-                            <tr>
-                                <th> No </th>
-                                <th> Nama </th>
-                                <th> Alamat </th>
-                                <th> No Telepon </th>
-                                <th> Email </th>
-                                <th> Action </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($pelanggan as $key => $value) : ?>
                                 <tr>
-                                    <td> <?= $key+1 ?> </td>
-                                    <td> <?= $value['nama'] ?> </td>
-                                    <td> <?= $value['alamat'] ?> </td>
-                                    <td> <?= $value['no_telepon'] ?> </td>
-                                    <td> <?= $value['email'] ?> </td>
-                                    <td> 
-                                        <a href="<?= base_url() ?>data-pelanggan/edit/<?= $value['id'] ?>" type="button" class="btn btn-primary btn-sm" >
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="deletePelanggan(<?= $value['id'] ?>)"> 
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button> 
-                                    </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
+                                    <th> No </th>
+                                    <th> Nomor Pelanggan </th>
+                                    <th> Nama </th>
+                                    <th> Alamat </th>
+                                    <th> No Telepon </th>
+                                    <th> Email </th>
+                                    <th> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($pelanggan as $key => $value) : ?>
+                                    <tr>
+                                        <td> <?= $key + 1 ?> </td>
+                                        <td> <?= $value['nomor_pelanggan'] ?> </td> <!-- Tambahan kolom Nomor Pelanggan -->
+                                        <td> <?= $value['nama'] ?> </td>
+                                        <td> <?= $value['alamat'] ?> </td>
+                                        <td> <?= $value['no_telepon'] ?> </td>
+                                        <td> <?= $value['email'] ?> </td>
+                                        <td> 
+                                            <a href="<?= base_url() ?>data-pelanggan/edit/<?= $value['id'] ?>" type="button" class="btn btn-primary btn-sm">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="deletePelanggan(<?= $value['id'] ?>)"> 
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button> 
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>

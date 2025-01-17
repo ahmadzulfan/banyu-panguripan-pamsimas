@@ -9,6 +9,12 @@
                         <p class="card-description"> Harap Mengisikan data sesuai format </p>
                             <form method="post" class="forms-sample">
                             <?= csrf_field() ?>
+                             <!-- Nomor Pelanggan -->
+                             <div class="form-group">
+                                <label for="nomor_pelanggan">Nomor Pelanggan</label>
+                                <input type="text" class="form-control" name="nomor_pelanggan" value="<?= 'PLG-' . str_pad($last_id + 1, 5, '0', STR_PAD_LEFT) ?>" readonly>
+                            </div>
+                            <!-- Nama -->
                             <div class="form-group">
                                 <label for="nama">Nama</label>
                                 <input type="nama" class="form-control" name="nama" placeholder="nama" value="<?= old('nama') ?>" required>

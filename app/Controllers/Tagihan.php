@@ -126,4 +126,42 @@ class Tagihan extends BaseController
         
     }
 
+    public function formCekTagihan()
+    {
+        $data['title'] = 'Form Cek Tagihan Pelanggan';
+        return view('administrasi/data-tagihan/form_cek_tagihan');
+    }
+
+    public function cekTagihan()
+    {
+        $nomorPelanggan = $this->request->getVar('nomor_pelanggan'); // Mendapatkan input nomor pelanggan
+         
+        if (!$nomorPelanggan) {
+            return redirect()->back()->withInput()->with('error_message', 'Nomor pelanggan harus diisi');
+        }
+
+        // Mencari pelanggan berdasarkan nomor pelanggan
+        $pelanggan = $this->pelangganModel->where('nomor_pelanggan', $nomorPelanggan)->first();
+
+        if (!$pelanggan) {
+            return redirect()->back()->withInput()->with('error_message', 'Pelanggan dengan nomor tersebut tidak ditemukan');
+        }
+
+        // Mencari tagihan pelanggan
+        $tagihan = $this->tagihanModel->where('pelanggan_id', $pelanggan['id'])->findAll();
+
+        if (!$tagihan) {
+            return redirect()->back()->withInput()->with('error_message', 'Tidak ada tagihan untuk pelanggan ini');
+        }
+
+        // Menyiapkan data untuk ditampilkan di view
+        $data = [
+            'title' => 'Cek Tagihan Pelanggan',
+            'pelanggan' => $pelanggan,
+            'tagihan' => $tagihan,
+        ];
+
+        return view('administrasi/data-tagihan/cek_tagihan', $data);
+    }
+
 }
