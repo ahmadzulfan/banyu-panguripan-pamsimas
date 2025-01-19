@@ -53,14 +53,7 @@
                                         Petugas
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="role" id="role3" value="Pelanggan" <?php if ($role['name'] == 'Pelanggan') {
-                                        echo 'checked';
-                                    } ?>>
-                                    <label class="form-check-label" for="role3">
-                                        Pelanggan
-                                    </label>
-                                </div>
+                               
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
