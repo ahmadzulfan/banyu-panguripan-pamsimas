@@ -96,9 +96,10 @@ class Pelanggan extends BaseController
         }
 
         $data = [
-            'nama'          => $post['nama'],
-            'alamat'        => $post['alamat'],
-            'no_telepon'    => $post['no_telepon'],
+            'nomor_pelanggan'   => $post['nomor_pelanggan'],
+            'nama'              => $post['nama'],
+            'alamat'            => $post['alamat'],
+            'no_telepon'        => $post['no_telepon'],
         ];
 
         if ($this->request->getPost('email')) $data['email'] = $this->request->getPost('email');

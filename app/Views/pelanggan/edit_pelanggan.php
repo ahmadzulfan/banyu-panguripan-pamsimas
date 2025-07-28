@@ -11,6 +11,12 @@
                         <p class="card-description"> form ini digunakan untuk mengedit data Pelanggan </p>
                             <form method="post" class="forms-sample" action="<?= base_url() ?>data-pelanggan/update/<?=$pelanggan['id']?>">
                             <div class="form-group">
+                                <div class="form-group">
+                                <label for="nomor_pelanggan">Nomor Pelanggan</label>
+                                <input type="text" class="form-control" name="nomor_pelanggan" placeholder="Nomor Pelanggan" value="<?= old('nomor_pelanggan', $pelanggan['nomor_pelanggan']) ?>" readonly>
+                                <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['nomor_pelanggan']) ? session()->getFlashdata('validation')['nomor_pelanggan'] : '' ?></small>
+                            </div>
+
                                 <label for="nama">Nama</label>
                                 <input type="nama" class="form-control" name="nama" placeholder="nama" value="<?= old('nama', $pelanggan['nama']) ?>">
                                 <small class="text-danger"><?= !empty(session()->getFlashdata('validation')['nama']) ? session()->getFlashdata('validation')['nama'] : '' ?></small>
